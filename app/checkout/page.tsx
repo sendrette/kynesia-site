@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const validPlans = new Set(["start", "flow", "elite"]);
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const requestedPlan = searchParams.get("plan")?.toLowerCase() ?? "flow";
   const plan = validPlans.has(requestedPlan) ? requestedPlan : "flow";
@@ -36,5 +36,24 @@ export default function CheckoutPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+function CheckoutFallback() {
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-white via-teal-50 to-blue-50 px-6 text-center">
+      <div className="max-w-lg rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+        <h1 className="text-2xl font-semibold text-gray-900">Preparando checkout seguro</h1>
+        <p className="mt-3 text-gray-600">Estamos carregando os detalhes do seu plano.</p>
+      </div>
+    </main>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<CheckoutFallback />}>
+      <CheckoutContent />
+    </Suspense>
   );
 }
