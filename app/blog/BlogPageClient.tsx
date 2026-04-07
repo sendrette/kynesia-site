@@ -118,6 +118,7 @@ export default function BlogPageClient() {
             <Link href="/#ia" className="transition hover:text-slate-900">IA</Link>
             <Link href="/#planos" className="transition hover:text-slate-900">Planos</Link>
             <Link href="/#faq" className="transition hover:text-slate-900">FAQ</Link>
+            <Link href="/blog" className="transition hover:text-slate-900">Blog</Link>
             <Link href="/#contato" className="transition hover:text-slate-900">Contato</Link>
           </nav>
 

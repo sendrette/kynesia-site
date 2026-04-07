@@ -218,6 +218,7 @@ export default function Home() {
             <a href="#ia" className="transition hover:text-slate-900">IA</a>
             <a href="#planos" className="transition hover:text-slate-900">Planos</a>
             <a href="#faq" className="transition hover:text-slate-900">FAQ</a>
+            <Link href="/blog" className="transition hover:text-slate-900">Blog</Link>
             <a href="#contato" className="transition hover:text-slate-900">Contato</a>
           </nav>
 
