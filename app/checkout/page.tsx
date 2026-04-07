@@ -3,38 +3,7 @@
 import { Suspense, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-
-type PlanKey = "start" | "flow" | "elite";
-
-const plans: Record<PlanKey, { name: string; price: string; benefits: string[] }> = {
-  start: {
-    name: "Start",
-    price: "Gratuito",
-    benefits: [
-      "Gestão de pacientes",
-      "Prontuário básico",
-      "Agenda simples",
-    ],
-  },
-  flow: {
-    name: "Flow",
-    price: "R$ 99/mês",
-    benefits: [
-      "IA completa para evolução clínica",
-      "Gestão financeira",
-      "Relatórios avançados",
-    ],
-  },
-  elite: {
-    name: "Elite",
-    price: "R$ 149/mês",
-    benefits: [
-      "Tudo do Flow + recursos avançados",
-      "Suporte prioritário",
-      "Prioridade em novidades",
-    ],
-  },
-};
+import { formatCurrencyBRL, getPlanPricing, planCatalog, type BillingCycle, type PlanKey, onlyDigits } from "../lib/pricing";
 
 type PaymentMethod = "card" | "pix";
 
@@ -73,10 +42,6 @@ const initialForm: CheckoutForm = {
   cardExpiry: "",
   cardCvv: "",
 };
-
-function onlyDigits(value: string) {
-  return value.replace(/\D/g, "");
-}
 
 function formatCpf(value: string) {
   const digits = onlyDigits(value).slice(0, 11);
@@ -118,6 +83,7 @@ function formatCardExpiry(value: string) {
 function CheckoutContent() {
   const searchParams = useSearchParams();
   const requestedPlan = searchParams.get("plan")?.toLowerCase();
+  const requestedCycle = searchParams.get("cycle")?.toLowerCase();
 
   const selectedPlan = useMemo(() => {
     if (requestedPlan === "start" || requestedPlan === "flow" || requestedPlan === "elite") {
@@ -127,7 +93,12 @@ function CheckoutContent() {
     return "flow";
   }, [requestedPlan]);
 
+  const selectedCycle = useMemo<BillingCycle>(() => {
+    return requestedCycle === "annual" ? "annual" : "monthly";
+  }, [requestedCycle]);
+
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
+  const [billingCycle, setBillingCycle] = useState<BillingCycle>(selectedCycle);
   const [form, setForm] = useState<CheckoutForm>(initialForm);
   const [loadingCep, setLoadingCep] = useState(false);
   const [cepError, setCepError] = useState("");
@@ -136,7 +107,9 @@ function CheckoutContent() {
   const [pixPayload, setPixPayload] = useState<{ qrCodeImage?: string; payload?: string } | null>(null);
   const lastFetchedCep = useRef("");
 
-  const plan = plans[selectedPlan as PlanKey];
+  const plan = planCatalog[selectedPlan as PlanKey];
+  const pricing = getPlanPricing(selectedPlan as PlanKey, billingCycle);
+  const isAnnual = billingCycle === "annual";
 
   async function fetchAddressByCep(rawCep: string) {
     const cep = onlyDigits(rawCep);
@@ -193,6 +166,7 @@ function CheckoutContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           plan: selectedPlan,
+          billingCycle,
           paymentMethod,
           customer: {
             name: form.name,
@@ -253,7 +227,58 @@ function CheckoutContent() {
               Resumo do plano
             </p>
             <h1 className="mt-4 text-2xl font-bold text-gray-900">{plan.name}</h1>
-            <p className="mt-1 text-xl font-semibold text-teal-700">{plan.price}</p>
+            <div className="mt-3 inline-flex rounded-xl border border-gray-200 bg-gray-50 p-1 text-sm">
+              <button
+                type="button"
+                onClick={() => setBillingCycle("monthly")}
+                className={`rounded-lg px-4 py-2 font-medium transition ${
+                  !isAnnual ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
+                }`}
+              >
+                Mensal
+              </button>
+              <button
+                type="button"
+                onClick={() => setBillingCycle("annual")}
+                className={`rounded-lg px-4 py-2 font-medium transition ${
+                  isAnnual ? "bg-white text-gray-900 shadow-sm" : "text-gray-500"
+                }`}
+              >
+                Anual -15%
+              </button>
+            </div>
+
+            {plan.monthlyPrice > 0 ? (
+              <div className="mt-4 space-y-1">
+                {isAnnual ? (
+                  <>
+                    <p className="text-sm font-medium uppercase tracking-wide text-teal-700">
+                      Cobrança anual em 12x
+                    </p>
+                    <p className="text-xl font-semibold text-teal-700">
+                      12x de {formatCurrencyBRL(pricing.installmentValue)}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Total de {formatCurrencyBRL(pricing.totalPrice)} por ano
+                    </p>
+                    <p className="text-sm font-medium text-emerald-600">
+                      Você economiza {formatCurrencyBRL(pricing.savings)}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-xl font-semibold text-teal-700">
+                      {formatCurrencyBRL(plan.monthlyPrice)}/mês
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Total de {formatCurrencyBRL(plan.monthlyPrice)} por mês
+                    </p>
+                  </>
+                )}
+              </div>
+            ) : (
+              <p className="mt-1 text-xl font-semibold text-teal-700">Gratuito</p>
+            )}
 
             <ul className="mt-5 space-y-3 text-sm text-gray-700">
               {plan.benefits.map((benefit) => (
@@ -263,6 +288,13 @@ function CheckoutContent() {
                 </li>
               ))}
             </ul>
+
+            {isAnnual && plan.monthlyPrice > 0 ? (
+              <div className="mt-5 rounded-xl bg-teal-50 p-4 text-sm text-teal-900">
+                Assinatura anual com 15% de desconto. No cartão, o Asaas fará o parcelamento em 12x.
+                No Pix, a cobrança será única com o valor anual total.
+              </div>
+            ) : null}
           </aside>
 
           <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
@@ -428,10 +460,41 @@ function CheckoutContent() {
                   </div>
                 ) : (
                   <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm text-teal-900">
-                    Ao confirmar, geraremos um QR Code Pix para pagamento da assinatura do plano {plan.name}.
+                    Ao confirmar, geraremos um QR Code Pix para pagamento da assinatura do plano {plan.name}
+                    {isAnnual ? ` no valor anual de ${formatCurrencyBRL(pricing.totalPrice)}` : ""}.
                   </div>
                 )}
               </div>
+
+              {plan.monthlyPrice > 0 ? (
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="font-medium text-gray-900">Resumo da cobrança</span>
+                    <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-700">
+                      {isAnnual ? "Anual -15%" : "Mensal"}
+                    </span>
+                  </div>
+                  <div className="mt-3 space-y-1">
+                    {isAnnual ? (
+                      <>
+                        <p>
+                          Total anual: <strong>{formatCurrencyBRL(pricing.totalPrice)}</strong>
+                        </p>
+                        <p>
+                          Parcelamento no cartão: <strong>12x de {formatCurrencyBRL(pricing.installmentValue)}</strong>
+                        </p>
+                        <p>
+                          Economia de <strong>{formatCurrencyBRL(pricing.savings)}</strong> no ano.
+                        </p>
+                      </>
+                    ) : (
+                      <p>
+                        Cobrança mensal de <strong>{formatCurrencyBRL(pricing.totalPrice)}</strong>.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ) : null}
 
               <button
                 type="submit"

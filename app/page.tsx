@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "./components/reveal";
+import HomePricingSection from "./components/home-pricing-section";
 
 export const metadata: Metadata = {
   title: "kynesia - Gestão Clínica para Fisioterapeutas",
@@ -135,24 +136,6 @@ const categorias = [
       "Prescrição de exercícios",
       "Feedback de evolução",
     ],
-  },
-];
-
-const plans = [
-  {
-    name: "Start",
-    price: "Gratuito",
-    summary: "Base essencial para iniciar com organização.",
-  },
-  {
-    name: "Flow",
-    price: "R$ 99/mês",
-    summary: "Plano recomendado para evolução consistente.",
-  },
-  {
-    name: "Elite",
-    price: "R$ 149/mês",
-    summary: "Escala com recursos avançados e suporte prioritário.",
   },
 ];
 
@@ -505,39 +488,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24" id="planos">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center">
-            <h2 className="text-2xl font-semibold md:text-3xl">Planos Kynesia</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-gray-600">
-              Compare os planos Start, Flow e Elite e escolha a melhor evolução para sua clínica.
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {plans.map((plan, index) => (
-              <Reveal key={plan.name} delay={index * 90}>
-                <article className={`rounded-2xl border p-6 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md ${plan.name === "Flow" ? "border-teal-500 bg-teal-50/60" : "border-gray-200 bg-white"}`}>
-                  {plan.name === "Flow" && (
-                    <p className="mb-3 inline-flex rounded-full bg-teal-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-                      Recomendado
-                    </p>
-                  )}
-                  <h3 className="text-base font-semibold">{plan.name}</h3>
-                  <p className="mt-2 text-2xl font-bold text-gray-900">{plan.price}</p>
-                  <p className="mt-3 text-sm text-gray-600">{plan.summary}</p>
-                  <Link
-                    href="/planos"
-                    className="mt-6 inline-flex rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-800 transition hover:bg-gray-50"
-                  >
-                    Ver detalhes
-                  </Link>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomePricingSection />
 
       <section className="px-6 py-20 md:py-24" id="faq">
         <div className="mx-auto max-w-6xl">

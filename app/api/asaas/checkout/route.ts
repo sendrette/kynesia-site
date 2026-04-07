@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
+import { getPlanPricing, onlyDigits, planCatalog, type BillingCycle, type PlanKey } from "../../../lib/pricing";
 
 export const runtime = "nodejs";
 
-type PlanKey = "start" | "flow" | "elite";
 type BillingType = "PIX" | "CREDIT_CARD";
 
 type CheckoutPayload = {
   plan: PlanKey;
+  billingCycle?: BillingCycle;
   paymentMethod: "pix" | "card";
   customer: {
     name: string;
@@ -34,16 +35,6 @@ type AsaasPayment = {
 type AsaasError = {
   errors?: Array<{ code?: string; description?: string }>;
 };
-
-const planValues: Record<PlanKey, number> = {
-  start: 0,
-  flow: 99,
-  elite: 149,
-};
-
-function onlyDigits(value: string) {
-  return value.replace(/\D/g, "");
-}
 
 function getAsaasBaseUrl() {
   const mode = process.env.ASAAS_ENVIRONMENT?.toLowerCase();
@@ -135,9 +126,11 @@ export async function POST(req: Request) {
   try {
     const body = (await req.json()) as CheckoutPayload;
 
-    if (!body.plan || !(body.plan in planValues)) {
+    if (!body.plan || !(body.plan in planCatalog)) {
       return NextResponse.json({ ok: false, error: "Plano inválido." }, { status: 400 });
     }
+
+    const billingCycle: BillingCycle = body.billingCycle === "annual" ? "annual" : "monthly";
 
     if (!body.customer?.name || !body.customer?.email || !body.customer?.cpfCnpj) {
       return NextResponse.json(
@@ -146,7 +139,8 @@ export async function POST(req: Request) {
       );
     }
 
-    const amount = planValues[body.plan];
+    const pricing = getPlanPricing(body.plan, billingCycle);
+    const amount = pricing.totalPrice;
 
     if (amount <= 0) {
       return NextResponse.json(
@@ -156,6 +150,7 @@ export async function POST(req: Request) {
     }
 
     const billingType: BillingType = body.paymentMethod === "pix" ? "PIX" : "CREDIT_CARD";
+    const isAnnualCardInstallment = billingType === "CREDIT_CARD" && billingCycle === "annual";
 
     const customerResult = await findOrCreateCustomer(body.customer);
     if (!customerResult.ok) {
@@ -172,7 +167,9 @@ export async function POST(req: Request) {
         billingType,
         value: amount,
         dueDate: getNextDueDate(),
-        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()}`,
+        installmentCount: isAnnualCardInstallment ? pricing.installmentCount : undefined,
+        installmentValue: isAnnualCardInstallment ? pricing.installmentValue : undefined,
+        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})`,
         externalReference: `kynesia-${body.plan}-${Date.now()}`,
       }),
     });
@@ -214,6 +211,8 @@ export async function POST(req: Request) {
       ok: true,
       paymentId: paymentResult.data.id,
       billingType,
+      billingCycle,
+      totalValue: amount,
       checkoutUrl: paymentResult.data.invoiceUrl ?? paymentResult.data.bankSlipUrl ?? null,
       pix: pixPayload,
     });
