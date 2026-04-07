@@ -123,7 +123,7 @@ export default function BlogPageClient() {
           </nav>
 
           <Link
-            href="/checkout?plan=start"
+            href="/start-free"
             className="rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600"
           >
             Começar grátis

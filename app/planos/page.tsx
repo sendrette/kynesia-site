@@ -126,7 +126,7 @@ export default function PricingPage() {
                 </ul>
 
                 <Link
-                  href={`/checkout?plan=${plan.plan}`}
+                  href={plan.plan === "start" ? "/start-free" : `/checkout?plan=${plan.plan}`}
                   className={`mt-8 inline-flex w-full items-center justify-center rounded-xl px-5 py-3 font-medium transition ${
                     plan.highlighted
                       ? "bg-teal-600 text-white hover:bg-teal-700"

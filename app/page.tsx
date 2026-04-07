@@ -3,7 +3,7 @@ import Link from "next/link";
 import Reveal from "./components/reveal";
 
 export const metadata: Metadata = {
-  title: "Kynesia | Sistema para Fisioterapeutas com IA",
+  title: "kynesia - Gestão Clínica para Fisioterapeutas",
   description:
     "Kynesia é o sistema para fisioterapeutas que integra prontuário eletrônico fisioterapia, software para clínica de fisioterapia e gestão clínica fisioterapia com mais organização e produtividade.",
 };
@@ -223,7 +223,7 @@ export default function Home() {
           </nav>
 
           <Link
-            href="/checkout?plan=start"
+            href="/start-free"
             className="rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600"
           >
             Começar grátis
@@ -249,7 +249,7 @@ export default function Home() {
 
           <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/checkout?plan=start"
+              href="/start-free"
               className="rounded-2xl bg-teal-500 px-10 py-3 text-base font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-teal-600"
             >
               Começar grátis
