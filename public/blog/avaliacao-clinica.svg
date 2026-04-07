@@ -1,0 +1,11 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#ECFEFF"/>
+  <circle cx="170" cy="130" r="120" fill="#99F6E4"/>
+  <circle cx="1060" cy="520" r="180" fill="#BAE6FD"/>
+  <rect x="180" y="170" width="840" height="290" rx="26" fill="#ffffff" stroke="#CFFAFE" stroke-width="4"/>
+  <rect x="230" y="230" width="300" height="22" rx="11" fill="#0F766E" opacity="0.2"/>
+  <rect x="230" y="274" width="740" height="16" rx="8" fill="#475569" opacity="0.2"/>
+  <rect x="230" y="305" width="680" height="16" rx="8" fill="#475569" opacity="0.2"/>
+  <rect x="230" y="336" width="520" height="16" rx="8" fill="#475569" opacity="0.2"/>
+  <text x="230" y="205" fill="#0F766E" font-size="40" font-family="Arial, sans-serif" font-weight="700">Avaliação Clínica</text>
+</svg>
