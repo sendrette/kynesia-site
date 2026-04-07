@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   },
   description:
     "Sistema para fisioterapeutas com prontuário eletrônico fisioterapia, gestão clínica fisioterapia e organização de atendimentos com IA.",
+  icons: {
+    icon: "/kynesia-icon.svg",
+    shortcut: "/kynesia-icon.svg",
+    apple: "/kynesia-icon.svg",
+  },
 };
 
 export default function RootLayout({
