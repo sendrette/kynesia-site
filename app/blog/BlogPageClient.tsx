@@ -108,12 +108,21 @@ export default function BlogPageClient() {
   return (
     <main className="bg-white text-gray-900">
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex h-21 w-full max-w-7xl items-center justify-between px-5 md:px-8">
-          <Link href="/" className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-            Kynesia
-          </Link>
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:px-8 md:py-0">
+          <div className="flex items-center justify-between gap-4 md:contents">
+            <Link href="/" className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+              Kynesia
+            </Link>
 
-          <nav className="hidden items-center gap-8 text-base font-medium text-slate-600 lg:flex">
+            <Link
+              href="/start-free"
+              className="inline-flex rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
+            >
+              Começar grátis
+            </Link>
+          </div>
+
+          <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-1 text-sm font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">
             <Link href="/#funcionalidades" className="transition hover:text-slate-900">Funcionalidades</Link>
             <Link href="/#ia" className="transition hover:text-slate-900">IA</Link>
             <Link href="/#planos" className="transition hover:text-slate-900">Planos</Link>
@@ -124,7 +133,7 @@ export default function BlogPageClient() {
 
           <Link
             href="/start-free"
-            className="rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600"
+            className="hidden rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:inline-flex"
           >
             Começar grátis
           </Link>
