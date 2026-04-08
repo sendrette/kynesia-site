@@ -116,19 +116,19 @@ export default function BlogPageClient() {
 
             <Link
               href="/start-free"
-              className="inline-flex rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
+              className="inline-flex rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
             >
               Começar grátis
             </Link>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-1 text-sm font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">
-            <Link href="/#funcionalidades" className="transition hover:text-slate-900">Funcionalidades</Link>
-            <Link href="/#ia" className="transition hover:text-slate-900">IA</Link>
-            <Link href="/#planos" className="transition hover:text-slate-900">Planos</Link>
-            <Link href="/#faq" className="transition hover:text-slate-900">FAQ</Link>
-            <Link href="/blog" className="transition hover:text-slate-900">Blog</Link>
-            <Link href="/#contato" className="transition hover:text-slate-900">Contato</Link>
+          <nav className="flex w-full flex-nowrap items-center justify-between gap-2 px-1 text-[12px] font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">
+            <Link href="/#funcionalidades" className="whitespace-nowrap transition hover:text-slate-900">Funcionalidades</Link>
+            <Link href="/#ia" className="whitespace-nowrap transition hover:text-slate-900">IA</Link>
+            <Link href="/#planos" className="whitespace-nowrap transition hover:text-slate-900">Planos</Link>
+            <Link href="/#faq" className="whitespace-nowrap transition hover:text-slate-900">FAQ</Link>
+            <Link href="/blog" className="whitespace-nowrap transition hover:text-slate-900">Blog</Link>
+            <Link href="/#contato" className="whitespace-nowrap transition hover:text-slate-900">Contato</Link>
           </nav>
 
           <Link

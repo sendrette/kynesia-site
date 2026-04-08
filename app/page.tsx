@@ -199,19 +199,19 @@ export default function Home() {
 
             <Link
               href="/start-free"
-              className="inline-flex rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
+              className="inline-flex rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
             >
               Começar grátis
             </Link>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 px-1 text-sm font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">
-            <a href="#funcionalidades" className="transition hover:text-slate-900">Funcionalidades</a>
-            <a href="#ia" className="transition hover:text-slate-900">IA</a>
-            <a href="#planos" className="transition hover:text-slate-900">Planos</a>
-            <a href="#faq" className="transition hover:text-slate-900">FAQ</a>
-            <Link href="/blog" className="transition hover:text-slate-900">Blog</Link>
-            <a href="#contato" className="transition hover:text-slate-900">Contato</a>
+          <nav className="flex w-full flex-nowrap items-center justify-between gap-2 px-1 text-[12px] font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">
+            <a href="#funcionalidades" className="whitespace-nowrap transition hover:text-slate-900">Funcionalidades</a>
+            <a href="#ia" className="whitespace-nowrap transition hover:text-slate-900">IA</a>
+            <a href="#planos" className="whitespace-nowrap transition hover:text-slate-900">Planos</a>
+            <a href="#faq" className="whitespace-nowrap transition hover:text-slate-900">FAQ</a>
+            <Link href="/blog" className="whitespace-nowrap transition hover:text-slate-900">Blog</Link>
+            <a href="#contato" className="whitespace-nowrap transition hover:text-slate-900">Contato</a>
           </nav>
 
           <Link
