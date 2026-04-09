@@ -110,6 +110,8 @@ function CheckoutContent() {
   const plan = planCatalog[selectedPlan as PlanKey];
   const pricing = getPlanPricing(selectedPlan as PlanKey, billingCycle);
   const isAnnual = billingCycle === "annual";
+  const paymentSecurityMessage =
+    "Pagamento 100% seguro. Todas as transações são processadas em ambiente criptografado e protegido. As cobranças em sua fatura ou extrato bancário aparecerão sob a razão social: 66.073.513 PEDRO PAULO SENDRETE JUNIOR, CNPJ 66.073.513/0001-30. Ao prosseguir, você concorda com os termos de cobrança da empresa responsável.";
 
   async function fetchAddressByCep(rawCep: string) {
     const cep = onlyDigits(rawCep);
@@ -428,35 +430,43 @@ function CheckoutContent() {
                 </div>
 
                 {paymentMethod === "card" ? (
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <input
-                      required
-                      value={form.cardNumber}
-                      onChange={(e) => updateField("cardNumber", formatCardNumber(e.target.value))}
-                      placeholder="Número do cartão"
-                      className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500 md:col-span-2"
-                    />
-                    <input
-                      required
-                      value={form.cardName}
-                      onChange={(e) => updateField("cardName", e.target.value)}
-                      placeholder="Nome impresso no cartão"
-                      className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500 md:col-span-2"
-                    />
-                    <input
-                      required
-                      value={form.cardExpiry}
-                      onChange={(e) => updateField("cardExpiry", formatCardExpiry(e.target.value))}
-                      placeholder="Validade (MM/AA)"
-                      className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
-                    />
-                    <input
-                      required
-                      value={form.cardCvv}
-                      onChange={(e) => updateField("cardCvv", onlyDigits(e.target.value).slice(0, 4))}
-                      placeholder="CVV"
-                      className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
-                    />
+                  <div className="space-y-3">
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <input
+                        required
+                        value={form.cardNumber}
+                        onChange={(e) => updateField("cardNumber", formatCardNumber(e.target.value))}
+                        placeholder="Número do cartão"
+                        className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500 md:col-span-2"
+                      />
+                      <input
+                        required
+                        value={form.cardName}
+                        onChange={(e) => updateField("cardName", e.target.value)}
+                        placeholder="Nome impresso no cartão"
+                        className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500 md:col-span-2"
+                      />
+                      <input
+                        required
+                        value={form.cardExpiry}
+                        onChange={(e) => updateField("cardExpiry", formatCardExpiry(e.target.value))}
+                        placeholder="Validade (MM/AA)"
+                        className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
+                      />
+                      <input
+                        required
+                        value={form.cardCvv}
+                        onChange={(e) => updateField("cardCvv", onlyDigits(e.target.value).slice(0, 4))}
+                        placeholder="CVV"
+                        className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
+                      />
+                    </div>
+                    <p className="mt-2 flex items-start gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-xs leading-relaxed text-gray-700">
+                      <span aria-hidden="true" className="mt-0.5 text-gray-600">
+                        🔒
+                      </span>
+                      <span>{paymentSecurityMessage}</span>
+                    </p>
                   </div>
                 ) : (
                   <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm text-teal-900">
@@ -503,6 +513,13 @@ function CheckoutContent() {
               >
                 {submitting ? "Processando..." : "Confirmar Assinatura"}
               </button>
+
+              <p className="mt-2 flex items-start gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-xs leading-relaxed text-gray-700">
+                <span aria-hidden="true" className="mt-0.5 text-gray-600">
+                  🔒
+                </span>
+                <span>{paymentSecurityMessage}</span>
+              </p>
 
               {submitError ? <p className="text-sm text-red-600">{submitError}</p> : null}
 
