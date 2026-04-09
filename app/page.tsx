@@ -499,7 +499,8 @@ export default function Home() {
 
       <HomePricingSection />
 
-      <section className="px-6 py-20 md:py-24" id="faq">
+      {/* Seção de depoimentos ocultada - será reativada quando houver dados reais */}
+      {/* <section className="px-6 py-20 md:py-24" id="faq">
         <div className="mx-auto max-w-6xl">
           <Reveal className="text-center">
             <h2 className="mx-auto max-w-4xl text-3xl font-bold leading-tight text-[#122a5a] md:text-5xl">
@@ -545,7 +546,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="px-6 py-20 md:py-24">
         <div className="mx-auto max-w-4xl">

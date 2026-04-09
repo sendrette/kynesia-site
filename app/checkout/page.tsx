@@ -461,12 +461,6 @@ function CheckoutContent() {
                         className="rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
                       />
                     </div>
-                    <p className="mt-2 flex items-start gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-xs leading-relaxed text-gray-700">
-                      <span aria-hidden="true" className="mt-0.5 text-gray-600">
-                        🔒
-                      </span>
-                      <span>{paymentSecurityMessage}</span>
-                    </p>
                   </div>
                 ) : (
                   <div className="rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm text-teal-900">
