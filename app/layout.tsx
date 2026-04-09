@@ -20,9 +20,12 @@ export const metadata: Metadata = {
   description:
     "Sistema para fisioterapeutas com prontuário eletrônico fisioterapia, gestão clínica fisioterapia e organização de atendimentos com IA.",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.svg",
   },
 };
 
