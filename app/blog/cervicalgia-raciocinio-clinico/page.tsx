@@ -59,6 +59,13 @@ export default function CervicalgiaRaciocinioClinicoPage() {
             >
               Começar grátis
             </Link>
+
+            <Link
+              href="/start-free"
+              className="hidden rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:inline-flex"
+            >
+              Começar grátis
+            </Link>
           </div>
 
           <nav className="flex w-full flex-nowrap items-center justify-between gap-2 px-1 text-[12px] font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">

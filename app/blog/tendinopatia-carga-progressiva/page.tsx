@@ -53,9 +53,9 @@ export default function TendinopatiaCargaProgressivaPage() {
               />
             </Link>
             <Link
-              className="inline-flex rounded-lg bg-teal-500 px-3 py-2 text-[11px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
-              className="inline-flex rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
-              className="inline-flex rounded-lg bg-teal-500 px-3.5 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
+              href="/start-free"
+              className="hidden rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:inline-flex"
+            >
               Começar grátis
             </Link>
           </div>
