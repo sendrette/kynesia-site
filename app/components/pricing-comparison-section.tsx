@@ -12,9 +12,14 @@ import {
   type PlanKey,
 } from "../lib/pricing";
 
+type TooltipState = {
+  planKey: PlanKey;
+  featureLabel: string;
+} | null;
+
 function CheckIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-5 w-5 shrink-0 text-emerald-500">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-4 w-4 shrink-0 text-emerald-500">
       <path d="M16.25 5.75 8.5 13.5l-4.25-4.25" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -22,10 +27,20 @@ function CheckIcon() {
 
 function LockIcon() {
   return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-5 w-5 shrink-0 text-gray-400">
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-400">
       <path d="M6.5 8.5V6.75a3.5 3.5 0 1 1 7 0V8.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       <rect x="4" y="8.5" width="12" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
       <path d="M10 11.5v2.25" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function FeatureTooltip({ note }: { note: string | undefined }) {
+  if (!note) return null;
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-slate-400">
+      <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.5" />
+      <text x="10" y="12" textAnchor="middle" className="text-xs font-bold fill-current" fontSize="10">?</text>
     </svg>
   );
 }
@@ -47,6 +62,7 @@ export default function PricingComparisonSection({
 }: PricingComparisonSectionProps) {
   const [uncontrolledBillingCycle, setUncontrolledBillingCycle] = useState<BillingCycle>("monthly");
   const [selectedPlanKey, setSelectedPlanKey] = useState<PlanKey>("flow");
+  const [activeTooltip, setActiveTooltip] = useState<TooltipState>(null);
   const detailsRef = useRef<HTMLDivElement | null>(null);
 
   const billingCycle = controlledBillingCycle ?? uncontrolledBillingCycle;
@@ -115,7 +131,7 @@ export default function PricingComparisonSection({
             return (
               <Reveal key={plan.key} delay={index * 90}>
                 <article
-                  className={`flex h-full flex-col rounded-3xl border bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                  className={`flex h-full flex-col rounded-3xl border bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
                     isFeatured
                       ? "border-teal-400 bg-gradient-to-b from-teal-50/90 to-white shadow-teal-100 ring-1 ring-teal-200"
                       : "border-slate-200"
@@ -123,65 +139,79 @@ export default function PricingComparisonSection({
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{plan.tagline}</p>
-                      <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-900">{meta.name}</h3>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{plan.tagline}</p>
+                      <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">{meta.name}</h3>
                     </div>
 
                     {isFeatured ? (
-                      <span className="inline-flex items-center rounded-full bg-teal-600 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                      <span className="inline-flex items-center rounded-full bg-teal-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white whitespace-nowrap">
                         Mais escolhido
                       </span>
                     ) : null}
                   </div>
 
-                  <div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50/80 p-4">
+                  <div className="mt-4 rounded-2xl border border-slate-100 bg-slate-50/80 p-3">
                     {meta.monthlyPrice > 0 ? (
                       billingCycle === "annual" ? (
                         <>
-                          <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Cobrança anual em 12x</p>
-                          <p className="mt-2 text-4xl font-bold tracking-tight text-slate-900">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Cobrança anual em 12x</p>
+                          <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
                             12x {formatCurrencyBRL(pricing.installmentValue)}
                           </p>
-                          <p className="mt-1 text-sm text-slate-600">Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
-                          <p className="mt-1 text-sm font-medium text-emerald-600">Economia de {formatCurrencyBRL(pricing.savings)}</p>
+                          <p className="mt-0.5 text-xs text-slate-600">Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
+                          <p className="mt-0.5 text-xs font-medium text-emerald-600">Economia de {formatCurrencyBRL(pricing.savings)}</p>
                         </>
                       ) : (
                         <>
-                          <p className="text-4xl font-bold tracking-tight text-slate-900">
+                          <p className="text-3xl font-bold tracking-tight text-slate-900">
                             {formatCurrencyBRL(meta.monthlyPrice)}
-                            <span className="text-base font-medium text-slate-500">/mês</span>
+                            <span className="text-sm font-medium text-slate-500">/mês</span>
                           </p>
-                          <p className="mt-1 text-sm text-slate-600">{plan.summary}</p>
+                          <p className="mt-0.5 text-xs text-slate-600">{plan.summary}</p>
                         </>
                       )
                     ) : (
                       <>
-                        <p className="text-4xl font-bold tracking-tight text-slate-900">Gratuito</p>
-                        <p className="mt-1 text-sm text-slate-600">{plan.summary}</p>
+                        <p className="text-3xl font-bold tracking-tight text-slate-900">Gratuito</p>
+                        <p className="mt-0.5 text-xs text-slate-600">{plan.summary}</p>
                       </>
                     )}
                   </div>
 
                   {billingCycle === "annual" && meta.monthlyPrice > 0 ? (
-                    <p className="mt-4 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                      Desconto anual de 15% aplicado sobre o valor total de 12 meses.
+                    <p className="mt-3 rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+                      Desconto anual de 15% aplicado.
                     </p>
                   ) : null}
 
-                  <ul className="mt-6 space-y-3">
+                  <ul className="mt-4 space-y-2 flex-1">
                     {plan.features.map((feature) => (
                       <li
                         key={feature.label}
-                        className={`flex items-start gap-3 rounded-2xl border px-4 py-3 ${
+                        className={`group relative flex items-start gap-2 rounded-lg border px-3 py-2 text-xs transition ${
                           feature.status === "included"
-                            ? "border-emerald-100 bg-white text-slate-700"
+                            ? "border-emerald-100 bg-white text-slate-700 cursor-pointer hover:border-emerald-200 hover:bg-emerald-50/30"
                             : "border-slate-200 bg-slate-50 text-slate-500"
                         }`}
+                        onClick={() => {
+                          if (feature.note) {
+                            setActiveTooltip(
+                              activeTooltip?.planKey === plan.key && activeTooltip?.featureLabel === feature.label
+                                ? null
+                                : { planKey: plan.key, featureLabel: feature.label }
+                            );
+                          }
+                        }}
                       >
                         {feature.status === "included" ? <CheckIcon /> : <LockIcon />}
-                        <div className="min-w-0">
-                          <p className="text-sm font-medium leading-snug text-slate-900">{feature.label}</p>
-                          {feature.note ? <p className="mt-1 text-xs leading-relaxed text-slate-500">{feature.note}</p> : null}
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium leading-snug text-slate-900">{feature.label}</p>
+                          {feature.note && (
+                            <div className="opacity-0 group-hover:opacity-60 transition text-[10px] text-slate-500">?</div>
+                          )}
+                          {activeTooltip?.planKey === plan.key && activeTooltip?.featureLabel === feature.label && feature.note && (
+                            <p className="mt-1 text-[10px] leading-tight text-slate-600 bg-slate-100 -mx-3 -mb-2 px-3 py-1.5 rounded">{feature.note}</p>
+                          )}
                         </div>
                       </li>
                     ))}
@@ -190,7 +220,7 @@ export default function PricingComparisonSection({
                   <button
                     type="button"
                     onClick={() => handleDetailsClick(plan.key)}
-                    className={`mt-8 inline-flex w-full items-center justify-center rounded-2xl px-5 py-3.5 text-sm font-semibold transition ${
+                    className={`mt-auto inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-xs font-semibold transition ${
                       isFeatured
                         ? "bg-teal-600 text-white shadow-sm shadow-teal-200 hover:bg-teal-700"
                         : "border border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
