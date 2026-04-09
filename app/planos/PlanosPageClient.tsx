@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import Reveal from "../components/reveal";
-import { formatCurrencyBRL, getPlanPricing, planCatalog, type BillingCycle } from "../lib/pricing";
+import PricingComparisonSection from "../components/pricing-comparison-section";
+import type { BillingCycle } from "../lib/pricing";
 
 const quickFaq = [
   {
@@ -27,30 +28,6 @@ const quickFaq = [
 export default function PlanosPageClient() {
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
 
-  const plans = useMemo(
-    () => [
-      {
-        key: "start" as const,
-        subtitle: "Ideal para iniciantes",
-        cta: "Começar grátis",
-        highlighted: false,
-      },
-      {
-        key: "flow" as const,
-        subtitle: "Recomendado para clínicas em crescimento",
-        cta: "Começar agora",
-        highlighted: true,
-      },
-      {
-        key: "elite" as const,
-        subtitle: "Para operação avançada",
-        cta: "Assinar Elite",
-        highlighted: false,
-      },
-    ],
-    [],
-  );
-
   return (
     <main className="bg-white text-gray-900">
       <section className="relative overflow-hidden px-6 py-20 md:py-24">
@@ -65,109 +42,14 @@ export default function PlanosPageClient() {
           <p className="mx-auto mt-5 max-w-3xl text-lg text-gray-600 md:text-xl">
             Comece grátis e evolua conforme sua necessidade. Sem complicações.
           </p>
-
-          <div className="mt-8 inline-flex rounded-2xl border border-gray-200 bg-white p-1 shadow-sm">
-            <button
-              type="button"
-              onClick={() => setBillingCycle("monthly")}
-              className={`rounded-xl px-5 py-3 text-sm font-semibold transition ${
-                billingCycle === "monthly" ? "bg-teal-600 text-white" : "text-gray-600 hover:bg-gray-50"
-              }`}
-            >
-              Mensal
-            </button>
-            <button
-              type="button"
-              onClick={() => setBillingCycle("annual")}
-              className={`rounded-xl px-5 py-3 text-sm font-semibold transition ${
-                billingCycle === "annual" ? "bg-teal-600 text-white" : "text-gray-600 hover:bg-gray-50"
-              }`}
-            >
-              Anual -15%
-            </button>
-          </div>
-
-          <p className="mt-4 text-sm font-medium text-teal-700">
-            Assinatura anual com 15% de desconto. No cartão, a cobrança fica em 12x.
-          </p>
         </Reveal>
       </section>
 
-      <section className="px-6 pb-20 md:pb-24">
-        <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-3">
-          {plans.map((plan, index) => {
-            const pricing = getPlanPricing(plan.key, billingCycle);
-            const meta = planCatalog[plan.key];
-
-            return (
-              <Reveal key={meta.name} delay={index * 90}>
-                <article
-                  className={`h-full rounded-2xl border p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg ${
-                    plan.highlighted
-                      ? "border-teal-500 bg-teal-50/70 ring-1 ring-teal-200"
-                      : "border-gray-200 bg-white"
-                  }`}
-                >
-                  {plan.highlighted && (
-                    <p className="mb-3 inline-flex rounded-full bg-teal-600 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
-                      Mais escolhido
-                    </p>
-                  )}
-                  <h2 className="text-2xl font-semibold">{meta.name}</h2>
-                  <p className="mt-2 text-sm text-gray-600">{plan.subtitle}</p>
-
-                  {meta.monthlyPrice > 0 ? (
-                    <div className="mt-5 space-y-1">
-                      {billingCycle === "annual" ? (
-                        <>
-                          <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">
-                            Cobrança anual em 12x
-                          </p>
-                          <p className="text-4xl font-bold">12x {formatCurrencyBRL(pricing.installmentValue)}</p>
-                          <p className="text-sm text-gray-600">Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
-                          <p className="text-sm font-medium text-emerald-600">
-                            Economia de {formatCurrencyBRL(pricing.savings)}
-                          </p>
-                        </>
-                      ) : (
-                        <p className="text-4xl font-bold">
-                          {formatCurrencyBRL(meta.monthlyPrice)}
-                          <span className="text-base font-medium text-gray-600">/mês</span>
-                        </p>
-                      )}
-                    </div>
-                  ) : (
-                    <p className="mt-5 text-4xl font-bold">Gratuito</p>
-                  )}
-
-                  <ul className="mt-6 space-y-2 text-gray-700">
-                    {meta.benefits.map((feature) => (
-                      <li key={feature}>• {feature}</li>
-                    ))}
-                  </ul>
-
-                  {billingCycle === "annual" && meta.monthlyPrice > 0 ? (
-                    <p className="mt-4 rounded-xl bg-white/70 p-3 text-sm text-gray-600">
-                      Desconto anual de 15% aplicado sobre o valor total de 12 meses.
-                    </p>
-                  ) : null}
-
-                  <Link
-                    href={plan.key === "start" ? "/start-free" : `/checkout?plan=${plan.key}&cycle=${billingCycle}`}
-                    className={`mt-8 inline-flex w-full items-center justify-center rounded-xl px-5 py-3 font-medium transition ${
-                      plan.highlighted
-                        ? "bg-teal-600 text-white hover:bg-teal-700"
-                        : "border border-gray-300 bg-white text-gray-800 hover:bg-gray-50"
-                    }`}
-                  >
-                    {plan.cta}
-                  </Link>
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
+      <PricingComparisonSection
+        showHeader={false}
+        billingCycle={billingCycle}
+        onBillingCycleChange={setBillingCycle}
+      />
 
       <section className="px-6 py-16 md:py-20">
         <div className="mx-auto max-w-6xl rounded-3xl border border-gray-100 bg-gray-50 p-8 md:p-10">
