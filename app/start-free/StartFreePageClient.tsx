@@ -79,10 +79,10 @@ export default function StartFreePageClient() {
             <Image
               src="/kynesia-logo-continuo.svg"
               alt="Kynesia"
-              width={180}
-              height={48}
+              width={240}
+              height={64}
               priority
-              className="h-auto w-[150px] md:w-[180px]"
+              className="h-auto w-[190px] md:w-[240px]"
             />
           </Link>
           <Link href="/" className="text-sm font-medium text-teal-700 underline">Voltar ao site</Link>

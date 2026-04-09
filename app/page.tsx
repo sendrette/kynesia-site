@@ -198,16 +198,16 @@ export default function Home() {
               <Image
                 src="/kynesia-logo-continuo.svg"
                 alt="Kynesia"
-                width={180}
-                height={48}
+                width={240}
+                height={64}
                 priority
-                className="h-auto w-[150px] md:w-[180px]"
+                className="h-auto w-[190px] md:w-[240px]"
               />
             </Link>
 
             <Link
               href="/start-free"
-              className="inline-flex rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
+              className="inline-flex rounded-lg bg-teal-500 px-3 py-2 text-[11px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
             >
               Começar grátis
             </Link>
@@ -224,7 +224,7 @@ export default function Home() {
 
           <Link
             href="/start-free"
-            className="hidden rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:inline-flex"
+            className="hidden rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:inline-flex"
           >
             Começar grátis
           </Link>
