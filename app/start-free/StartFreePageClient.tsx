@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -74,8 +75,15 @@ export default function StartFreePageClient() {
     <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50 px-6 py-10">
       <div className="mx-auto w-full max-w-5xl">
         <header className="mb-8 flex items-center justify-between">
-          <Link href="/" className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-            Kynesia
+          <Link href="/" aria-label="Kynesia" className="inline-flex items-center">
+            <Image
+              src="/kynesia-logo-continuo.svg"
+              alt="Kynesia"
+              width={180}
+              height={48}
+              priority
+              className="h-auto w-[150px] md:w-[180px]"
+            />
           </Link>
           <Link href="/" className="text-sm font-medium text-teal-700 underline">Voltar ao site</Link>
         </header>

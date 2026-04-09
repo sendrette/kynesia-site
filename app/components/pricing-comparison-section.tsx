@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Reveal from "./reveal";
 import {
   formatCurrencyBRL,
@@ -9,6 +9,7 @@ import {
   planCatalog,
   pricingComparisonCards,
   type BillingCycle,
+  type PlanKey,
 } from "../lib/pricing";
 
 function CheckIcon() {
@@ -45,8 +46,27 @@ export default function PricingComparisonSection({
   onBillingCycleChange,
 }: PricingComparisonSectionProps) {
   const [uncontrolledBillingCycle, setUncontrolledBillingCycle] = useState<BillingCycle>("monthly");
+  const [selectedPlanKey, setSelectedPlanKey] = useState<PlanKey>("flow");
+  const detailsRef = useRef<HTMLDivElement | null>(null);
+
   const billingCycle = controlledBillingCycle ?? uncontrolledBillingCycle;
   const setBillingCycle = onBillingCycleChange ?? setUncontrolledBillingCycle;
+
+  const selectedPlan = useMemo(
+    () => pricingComparisonCards.find((plan) => plan.key === selectedPlanKey) ?? pricingComparisonCards[1],
+    [selectedPlanKey],
+  );
+  const selectedMeta = planCatalog[selectedPlan.key];
+  const selectedPricing = getPlanPricing(selectedPlan.key, billingCycle);
+
+  function handleDetailsClick(planKey: PlanKey) {
+    setSelectedPlanKey(planKey);
+    if (typeof window !== "undefined") {
+      window.requestAnimationFrame(() => {
+        detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }
 
   return (
     <section className="px-6 py-20 md:py-24" id="planos">
@@ -90,6 +110,7 @@ export default function PricingComparisonSection({
             const meta = planCatalog[plan.key];
             const pricing = getPlanPricing(plan.key, billingCycle);
             const isFeatured = plan.featured;
+            const isSelected = selectedPlan.key === plan.key;
 
             return (
               <Reveal key={plan.key} delay={index * 90}>
@@ -98,7 +119,7 @@ export default function PricingComparisonSection({
                     isFeatured
                       ? "border-teal-400 bg-gradient-to-b from-teal-50/90 to-white shadow-teal-100 ring-1 ring-teal-200"
                       : "border-slate-200"
-                  }`}
+                  } ${isSelected ? "ring-2 ring-teal-500/40" : ""}`}
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div>
@@ -166,21 +187,98 @@ export default function PricingComparisonSection({
                     ))}
                   </ul>
 
-                  <Link
-                    href={plan.key === "start" ? "/start-free" : `/checkout?plan=${plan.key}&cycle=${billingCycle}`}
+                  <button
+                    type="button"
+                    onClick={() => handleDetailsClick(plan.key)}
                     className={`mt-8 inline-flex w-full items-center justify-center rounded-2xl px-5 py-3.5 text-sm font-semibold transition ${
                       isFeatured
                         ? "bg-teal-600 text-white shadow-sm shadow-teal-200 hover:bg-teal-700"
                         : "border border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
                     }`}
                   >
-                    {plan.ctaLabel}
-                  </Link>
+                    Ver detalhes
+                  </button>
                 </article>
               </Reveal>
             );
           })}
         </div>
+
+        <Reveal>
+          <div ref={detailsRef} className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-teal-700">Detalhes do plano selecionado</p>
+                <h3 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+                  {selectedMeta.name} — {selectedPlan.tagline}
+                </h3>
+                <p className="mt-3 text-base leading-relaxed text-slate-600">{selectedPlan.summary}</p>
+              </div>
+
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-left lg:text-right">
+                {selectedMeta.monthlyPrice > 0 ? (
+                  billingCycle === "annual" ? (
+                    <>
+                      <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
+                      <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                        12x {formatCurrencyBRL(selectedPricing.installmentValue)}
+                      </p>
+                      <p className="mt-1 text-sm text-slate-600">Total de {formatCurrencyBRL(selectedPricing.totalPrice)}/ano</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
+                      <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                        {formatCurrencyBRL(selectedMeta.monthlyPrice)}
+                        <span className="text-base font-medium text-slate-500">/mês</span>
+                      </p>
+                    </>
+                  )
+                ) : (
+                  <>
+                    <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
+                    <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">Gratuito</p>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {selectedPlan.features.map((feature) => (
+                <div
+                  key={`${selectedPlan.key}-${feature.label}`}
+                  className={`rounded-2xl border px-4 py-4 ${
+                    feature.status === "included"
+                      ? "border-emerald-100 bg-emerald-50/40"
+                      : "border-slate-200 bg-slate-50"
+                  }`}
+                >
+                  <div className="flex items-start gap-3">
+                    {feature.status === "included" ? <CheckIcon /> : <LockIcon />}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">{feature.label}</p>
+                      <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                        {feature.note ?? "Recurso disponível neste plano."}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={selectedPlan.key === "start" ? "/start-free" : `/checkout?plan=${selectedPlan.key}&cycle=${billingCycle}`}
+                className="inline-flex items-center justify-center rounded-2xl bg-teal-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm shadow-teal-200 transition hover:bg-teal-700"
+              >
+                {selectedPlan.key === "start" ? "Começar grátis" : `Assinar ${selectedMeta.name}`}
+              </Link>
+              <p className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-600">
+                Clique em outro card para atualizar este painel com os detalhes do plano escolhido.
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

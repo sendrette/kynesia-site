@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -20,8 +21,15 @@ export default function ReabilitacaoPosOperatorioJoelhoPage() {
       <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:px-8 md:py-0">
           <div className="flex items-center justify-between gap-4 md:contents">
-            <Link href="/" className="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
-              Kynesia
+            <Link href="/" aria-label="Kynesia" className="inline-flex items-center">
+              <Image
+                src="/kynesia-logo-continuo.svg"
+                alt="Kynesia"
+                width={180}
+                height={48}
+                priority
+                className="h-auto w-[150px] md:w-[180px]"
+              />
             </Link>
 
             <Link

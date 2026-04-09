@@ -55,34 +55,38 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
     ctaLabel: "Começar grátis",
     features: [
       {
-        label: "Até 5 pacientes ativos",
-        note: "Prontuário Digital",
+        label: "Prontuário Digital",
+        note: "Gestão completa e segura do histórico de até 5 pacientes ativos.",
         status: "included",
       },
       {
         label: "3 Insights PBE/mês",
-        note: "Anamnese e evolução baseada em evidências",
+        note: "Sugestões clínicas baseadas em evidências científicas via IA.",
         status: "included",
       },
       {
-        label: "Agenda Inteligente de atendimentos",
+        label: "Agenda Inteligente",
+        note: "Controle otimizado de horários e sessões.",
         status: "included",
       },
       {
-        label: "Financeiro: visão de faturamento total do mês",
+        label: "Gestão Financeira",
+        note: "Controle completo de faturamento, custos e lucratividade.",
         status: "included",
       },
       {
         label: "Artigos científicos vinculados aos casos clínicos",
-        note: "Sugestões automáticas com base no perfil e nos achados do paciente",
+        note: "Leituras técnicas sugeridas automaticamente conforme o perfil e os casos clínicos do paciente.",
         status: "locked",
       },
       {
         label: "Avaliações funcionais (PROMs)",
+        note: "Questionários validados para medir a evolução funcional real.",
         status: "locked",
       },
       {
         label: "Laudos via IA",
+        note: "Geração instantânea de laudos profissionais e padronizados.",
         status: "locked",
       },
     ],
@@ -96,35 +100,57 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
     features: [
       {
         label: "Tudo do Start e mais",
+        note: "Recursos essenciais ampliados para uma rotina mais produtiva.",
         status: "included",
       },
       {
-        label: "Até 50 pacientes ativos",
+        label: "Prontuário Digital",
+        note: "Gestão completa e segura do histórico de até 50 pacientes ativos.",
         status: "included",
       },
       {
         label: "Insights PBE ilimitados",
+        note: "Sugestões clínicas contínuas, sem limite mensal, para acelerar o raciocínio clínico.",
+        status: "included",
+      },
+      {
+        label: "Agenda Inteligente",
+        note: "Controle otimizado de horários e sessões para maior produtividade.",
+        status: "included",
+      },
+      {
+        label: "Gestão Financeira",
+        note: "Controle completo de faturamento, custos e lucratividade em um só lugar.",
         status: "included",
       },
       {
         label: "Dashboard de Artigos",
-        note: "Leituras técnicas personalizadas sugeridas automaticamente com base no perfil do paciente.",
+        note: "Leituras técnicas sugeridas automaticamente conforme seus casos clínicos e perfil do paciente.",
         status: "included",
       },
       {
-        label: "Avaliações funcionais (PROMs) e Área do Paciente",
+        label: "Avaliações PROMs",
+        note: "Questionários validados para acompanhar a evolução funcional real.",
+        status: "included",
+      },
+      {
+        label: "Área do Paciente",
+        note: "Portal exclusivo para engajamento e acompanhamento do tratamento.",
         status: "included",
       },
       {
         label: "50 Laudos Fisioterapêuticos por IA ao mês",
+        note: "Geração rápida de laudos profissionais e padronizados.",
         status: "included",
       },
       {
         label: "Suporte Prioritário",
+        note: "Atendimento agilizado para garantir sua produtividade.",
         status: "included",
       },
       {
         label: "Portal de Parceiros e Benefícios Elite",
+        note: "Disponível no Elite com clube de benefícios e descontos exclusivos.",
         status: "locked",
       },
     ],
@@ -137,10 +163,52 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
     features: [
       {
         label: "Tudo do Flow e mais",
+        note: "Tudo o que a operação precisa para escalar com profundidade analítica.",
+        status: "included",
+      },
+      {
+        label: "Prontuário Digital",
+        note: "Gestão completa e segura do histórico de pacientes ilimitados.",
         status: "included",
       },
       {
         label: "Pacientes ilimitados",
+        note: "Escala sem restrição para sua base assistencial.",
+        status: "included",
+      },
+      {
+        label: "Insights PBE ilimitados",
+        note: "Sugestões clínicas contínuas para apoiar decisões estratégicas e assistenciais.",
+        status: "included",
+      },
+      {
+        label: "Agenda Inteligente",
+        note: "Controle otimizado de horários, sessões e encaixes.",
+        status: "included",
+      },
+      {
+        label: "Gestão Financeira",
+        note: "Controle completo de faturamento, custos e lucratividade.",
+        status: "included",
+      },
+      {
+        label: "Área do Paciente",
+        note: "Portal exclusivo para engajamento e acompanhamento do tratamento.",
+        status: "included",
+      },
+      {
+        label: "Avaliações PROMs",
+        note: "Questionários validados para medir a evolução funcional real.",
+        status: "included",
+      },
+      {
+        label: "Dashboard de Artigos",
+        note: "Leituras técnicas sugeridas automaticamente conforme os casos clínicos.",
+        status: "included",
+      },
+      {
+        label: "Laudos via IA",
+        note: "Geração instantânea de laudos profissionais e padronizados.",
         status: "included",
       },
       {
@@ -155,10 +223,12 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
       },
       {
         label: "Relatórios avançados e análise de dados (Analytics)",
+        note: "Leitura de métricas para decisões estratégicas.",
         status: "included",
       },
       {
         label: "Suporte VIP dedicado",
+        note: "Acompanhamento premium para sua operação clínica.",
         status: "included",
       },
     ],
