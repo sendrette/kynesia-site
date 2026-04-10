@@ -2,20 +2,31 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type BlogPost = {
   id: string;
   slug: string;
   title: string;
   excerpt: string;
-  category: "Ortopedia" | "Avaliação" | "Reabilitação" | "Gestão Clínica";
+  category: "Dor" | "Ortopedia" | "Avaliação" | "Reabilitação" | "Gestão Clínica";
   image: string;
   readTime: string;
   date: string;
 };
 
 const blogPosts: BlogPost[] = [
+  {
+    id: "7",
+    slug: "dor-lombar-ao-acordar-causas-e-como-aliviar-rapido",
+    title: "Dor lombar ao acordar: causas e como aliviar rápido",
+    excerpt:
+      "Entenda por que a dor lombar ao acordar acontece, quando ela preocupa e quais estratégias práticas ajudam a aliviar já nos primeiros dias.",
+    category: "Dor",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "10 Abr 2026",
+  },
   {
     id: "1",
     slug: "dor-lombar-avaliacao-clinica",
@@ -89,6 +100,8 @@ const allCategories = ["Todas", ...new Set(blogPosts.map((post) => post.category
 export default function BlogPageClient() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<(typeof allCategories)[number]>("Todas");
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
 
   const filteredPosts = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -104,6 +117,20 @@ export default function BlogPageClient() {
       return matchesSearch && matchesCategory;
     });
   }, [search, activeCategory]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, activeCategory]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / postsPerPage));
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   return (
     <main className="bg-white text-gray-900">
@@ -205,7 +232,7 @@ export default function BlogPageClient() {
 
       <section className="px-6 pb-24 pt-6">
         <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {filteredPosts.map((post) => (
+          {paginatedPosts.map((post) => (
             <article
               key={post.id}
               className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
@@ -244,6 +271,34 @@ export default function BlogPageClient() {
         {filteredPosts.length === 0 ? (
           <div className="mx-auto mt-10 max-w-6xl rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500">
             Nenhum artigo encontrado para sua busca.
+          </div>
+        ) : null}
+
+        {filteredPosts.length > 0 && totalPages > 1 ? (
+          <div className="mx-auto mt-10 flex max-w-6xl items-center justify-center gap-3">
+            {currentPage > 1 ? (
+              <button
+                type="button"
+                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                className="inline-flex rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700"
+              >
+                Página anterior
+              </button>
+            ) : null}
+
+            <span className="text-sm text-slate-500">
+              Página {currentPage} de {totalPages}
+            </span>
+
+            {currentPage < totalPages ? (
+              <button
+                type="button"
+                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                className="inline-flex rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700"
+              >
+                Próxima página
+              </button>
+            ) : null}
           </div>
         ) : null}
       </section>
