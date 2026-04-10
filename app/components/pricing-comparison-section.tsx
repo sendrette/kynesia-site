@@ -12,11 +12,6 @@ import {
   type PlanKey,
 } from "../lib/pricing";
 
-type TooltipState = {
-  planKey: PlanKey;
-  featureLabel: string;
-} | null;
-
 function CheckIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-4 w-4 shrink-0 text-emerald-500">
@@ -35,15 +30,6 @@ function LockIcon() {
   );
 }
 
-function FeatureTooltip({ note }: { note: string | undefined }) {
-  if (!note) return null;
-  return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-slate-400">
-      <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.5" />
-      <text x="10" y="12" textAnchor="middle" className="text-xs font-bold fill-current" fontSize="10">?</text>
-    </svg>
-  );
-}
 
 type PricingComparisonSectionProps = {
   showHeader?: boolean;
@@ -62,7 +48,6 @@ export default function PricingComparisonSection({
 }: PricingComparisonSectionProps) {
   const [uncontrolledBillingCycle, setUncontrolledBillingCycle] = useState<BillingCycle>("monthly");
   const [selectedPlanKey, setSelectedPlanKey] = useState<PlanKey>("flow");
-  const [activeTooltip, setActiveTooltip] = useState<TooltipState>(null);
   const detailsRef = useRef<HTMLDivElement | null>(null);
 
   const billingCycle = controlledBillingCycle ?? uncontrolledBillingCycle;
@@ -131,7 +116,7 @@ export default function PricingComparisonSection({
             return (
               <Reveal key={plan.key} delay={index * 90}>
                 <article
-                  className={`flex h-full flex-col rounded-3xl border bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                  className={`flex h-full flex-col rounded-3xl border bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
                     isFeatured
                       ? "border-teal-400 bg-gradient-to-b from-teal-50/90 to-white shadow-teal-100 ring-1 ring-teal-200"
                       : "border-slate-200"
@@ -150,12 +135,12 @@ export default function PricingComparisonSection({
                     ) : null}
                   </div>
 
-                  <div className="mt-4 rounded-2xl border border-slate-100 bg-slate-50/80 p-3">
+                  <div className="mt-5 rounded-3xl border border-slate-100 bg-slate-50/80 p-5">
                     {meta.monthlyPrice > 0 ? (
                       billingCycle === "annual" ? (
                         <>
                           <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Cobrança anual em 12x</p>
-                          <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                          <p className="mt-1 text-4xl font-bold tracking-tight text-slate-900">
                             12x {formatCurrencyBRL(pricing.installmentValue)}
                           </p>
                           <p className="mt-0.5 text-xs text-slate-600">Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
@@ -163,17 +148,17 @@ export default function PricingComparisonSection({
                         </>
                       ) : (
                         <>
-                          <p className="text-3xl font-bold tracking-tight text-slate-900">
+                          <p className="text-5xl font-bold tracking-tight text-slate-900">
                             {formatCurrencyBRL(meta.monthlyPrice)}
-                            <span className="text-sm font-medium text-slate-500">/mês</span>
+                            <span className="text-2xl font-medium text-slate-500">/mês</span>
                           </p>
-                          <p className="mt-0.5 text-xs text-slate-600">{plan.summary}</p>
+                          <p className="mt-2 text-base text-slate-600">{plan.summary}</p>
                         </>
                       )
                     ) : (
                       <>
-                        <p className="text-3xl font-bold tracking-tight text-slate-900">Gratuito</p>
-                        <p className="mt-0.5 text-xs text-slate-600">{plan.summary}</p>
+                        <p className="text-5xl font-bold tracking-tight text-slate-900">Gratuito</p>
+                        <p className="mt-2 text-base text-slate-600">{plan.summary}</p>
                       </>
                     )}
                   </div>
@@ -184,43 +169,14 @@ export default function PricingComparisonSection({
                     </p>
                   ) : null}
 
-                  <ul className="mt-4 space-y-2 flex-1">
-                    {plan.features.map((feature) => (
-                      <li
-                        key={feature.label}
-                        className={`group relative flex items-start gap-2 rounded-lg border px-3 py-2 text-xs transition ${
-                          feature.status === "included"
-                            ? "border-emerald-100 bg-white text-slate-700 cursor-pointer hover:border-emerald-200 hover:bg-emerald-50/30"
-                            : "border-slate-200 bg-slate-50 text-slate-500"
-                        }`}
-                        onClick={() => {
-                          if (feature.note) {
-                            setActiveTooltip(
-                              activeTooltip?.planKey === plan.key && activeTooltip?.featureLabel === feature.label
-                                ? null
-                                : { planKey: plan.key, featureLabel: feature.label }
-                            );
-                          }
-                        }}
-                      >
-                        {feature.status === "included" ? <CheckIcon /> : <LockIcon />}
-                        <div className="min-w-0 flex-1">
-                          <p className="font-medium leading-snug text-slate-900">{feature.label}</p>
-                          {feature.note && (
-                            <div className="opacity-0 group-hover:opacity-60 transition text-[10px] text-slate-500">?</div>
-                          )}
-                          {activeTooltip?.planKey === plan.key && activeTooltip?.featureLabel === feature.label && feature.note && (
-                            <p className="mt-1 text-[10px] leading-tight text-slate-600 bg-slate-100 -mx-3 -mb-2 px-3 py-1.5 rounded">{feature.note}</p>
-                          )}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mt-4 flex-1 rounded-xl border border-slate-100 bg-white/70 px-3 py-2 text-sm text-slate-600">
+                    Veja as vantagens completas ao clicar em <span className="font-semibold text-slate-800">Ver detalhes</span>.
+                  </div>
 
                   <button
                     type="button"
                     onClick={() => handleDetailsClick(plan.key)}
-                    className={`mt-auto inline-flex w-full items-center justify-center rounded-xl px-4 py-2.5 text-xs font-semibold transition ${
+                    className={`mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition ${
                       isFeatured
                         ? "bg-teal-600 text-white shadow-sm shadow-teal-200 hover:bg-teal-700"
                         : "border border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
