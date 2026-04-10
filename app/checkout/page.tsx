@@ -4,6 +4,7 @@ import { Suspense, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { formatCurrencyBRL, getPlanPricing, planCatalog, type BillingCycle, type PlanKey, onlyDigits } from "../lib/pricing";
+import SiteHeader from "../components/site-header";
 
 type PaymentMethod = "card" | "pix";
 
@@ -214,8 +215,10 @@ function CheckoutContent() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50 px-6 py-10">
-      <div className="mx-auto w-full max-w-6xl">
+    <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50">
+      <SiteHeader />
+
+      <div className="mx-auto w-full max-w-6xl px-6 py-10">
         <div className="mb-6 flex items-center justify-between">
           <Link href="/planos" className="text-sm font-medium text-teal-700 underline">
             ← Voltar para planos
@@ -543,10 +546,14 @@ function CheckoutContent() {
 
 function CheckoutFallback() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-white via-teal-50 to-blue-50 px-6 text-center">
-      <div className="max-w-lg rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-        <h1 className="text-2xl font-semibold text-gray-900">Preparando checkout seguro</h1>
-        <p className="mt-3 text-gray-600">Estamos carregando os detalhes do seu plano.</p>
+    <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50">
+      <SiteHeader />
+
+      <div className="flex items-center justify-center px-6 py-12 text-center">
+        <div className="max-w-lg rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+          <h1 className="text-2xl font-semibold text-gray-900">Preparando checkout seguro</h1>
+          <p className="mt-3 text-gray-600">Estamos carregando os detalhes do seu plano.</p>
+        </div>
       </div>
     </main>
   );

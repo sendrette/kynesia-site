@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+import SiteHeader from "../components/site-header";
 
 type Profession = "" | "Fisioterapeuta" | "Estudante";
 
@@ -72,21 +71,10 @@ export default function StartFreePageClient() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50 px-6 py-10">
-      <div className="mx-auto w-full max-w-5xl">
-        <header className="mb-8 flex items-center justify-between">
-          <Link href="/" aria-label="Kynesia" className="inline-flex items-center">
-            <Image
-              src="/kynesia-logo-continuo.svg"
-              alt="Kynesia"
-              width={240}
-              height={64}
-              priority
-              className="h-auto w-[190px] md:w-[240px]"
-            />
-          </Link>
-          <Link href="/" className="text-sm font-medium text-teal-700 underline">Voltar ao site</Link>
-        </header>
+    <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50">
+      <SiteHeader />
+
+      <div className="mx-auto w-full max-w-5xl px-6 py-10">
 
         <section className="mx-auto w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] md:p-9">
           <h1 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">

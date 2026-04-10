@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Reveal from "../components/reveal";
 import PricingComparisonSection from "../components/pricing-comparison-section";
+import SiteHeader from "../components/site-header";
 import type { BillingCycle } from "../lib/pricing";
 
 const quickFaq = [
@@ -30,6 +31,8 @@ export default function PlanosPageClient() {
 
   return (
     <main className="bg-white text-gray-900">
+      <SiteHeader />
+
       <section className="relative overflow-hidden px-6 py-20 md:py-24">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-white via-teal-50 to-blue-50" />
         <div className="pointer-events-none absolute -left-10 top-10 -z-10 h-56 w-56 rounded-full bg-teal-300/35 blur-3xl" />

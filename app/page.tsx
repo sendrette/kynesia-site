@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./components/reveal";
 import HomePricingSection from "./components/home-pricing-section";
+import SiteHeader from "./components/site-header";
 
 export const metadata: Metadata = {
   title: "kynesia - Gestão Clínica para Fisioterapeutas",
@@ -191,45 +192,7 @@ const depoimentos = [
 export default function Home() {
   return (
     <main className="bg-white text-gray-900">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-4 md:flex-row md:items-center md:justify-between md:px-8 md:py-0">
-          <div className="flex items-center justify-between gap-4 md:contents">
-            <Link href="/" aria-label="Kynesia" className="inline-flex items-center">
-              <Image
-                src="/kynesia-logo-continuo.svg"
-                alt="Kynesia"
-                width={240}
-                height={64}
-                priority
-                className="h-auto w-[190px] md:w-[240px]"
-              />
-            </Link>
-
-            <Link
-              href="/start-free"
-              className="inline-flex rounded-lg bg-teal-500 px-3 py-2 text-[11px] font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:hidden"
-            >
-              Começar grátis
-            </Link>
-          </div>
-
-          <nav className="flex w-full flex-nowrap items-center justify-between gap-2 px-1 text-[12px] font-medium text-slate-600 md:gap-8 md:px-0 md:text-base">
-            <a href="#funcionalidades" className="whitespace-nowrap transition hover:text-slate-900">Funcionalidades</a>
-            <a href="#ia" className="whitespace-nowrap transition hover:text-slate-900">IA</a>
-            <a href="#planos" className="whitespace-nowrap transition hover:text-slate-900">Planos</a>
-            <a href="#faq" className="whitespace-nowrap transition hover:text-slate-900">FAQ</a>
-            <Link href="/blog" className="whitespace-nowrap transition hover:text-slate-900">Blog</Link>
-            <a href="#contato" className="whitespace-nowrap transition hover:text-slate-900">Contato</a>
-          </nav>
-
-          <Link
-            href="/start-free"
-            className="hidden rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-600 md:inline-flex"
-          >
-            Começar grátis
-          </Link>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="bg-slate-50 px-6 py-20 md:px-10 md:py-24">
         <Reveal className="mx-auto max-w-5xl text-center">
