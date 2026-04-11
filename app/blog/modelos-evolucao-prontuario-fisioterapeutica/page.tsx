@@ -119,7 +119,7 @@ export default function ModelosEvolucaoProntuarioPage() {
       <article className="mx-auto max-w-2xl px-6 py-16">
         <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6">
           <p className="text-gray-900">
-            <strong>Resposta rápida:</strong> modelos de evolução e prontuário fisioterapêutica devem registrar avaliação, hipóteses, condutas, resposta do paciente e plano de continuidade de forma objetiva.
+             Modelos de evolução e prontuário fisioterapêutica devem registrar avaliação, hipóteses, condutas, resposta do paciente e plano de continuidade de forma objetiva.
             Com estrutura padronizada, você ganha clareza clínica, reduz retrabalho e melhora segurança documental.
           </p>
         </div>
