@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "8",
+    slug: "modelos-evolucao-prontuario-fisioterapeutica",
+    title: "Modelos de evolução e prontuário fisioterapêutica: guia prático",
+    excerpt:
+      "Aprenda a estruturar modelos de evolução e prontuário fisioterapêutica com padrão clínico, segurança jurídica e aplicação no dia a dia.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "10 min",
+    date: "11 Abr 2026",
+  },
+  {
     id: "7",
     slug: "dor-lombar-ao-acordar-causas-e-como-aliviar-rapido",
     title: "Dor lombar ao acordar: causas e como aliviar rápido",
