@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "9",
+    slug: "diagnostico-diferencial-cervical-vs-ombro",
+    title: "Diagnóstico diferencial: cervical vs ombro na prática clínica",
+    excerpt:
+      "Veja como diferenciar dor cervical e dor de ombro com uma avaliação objetiva, reduzindo erro clínico e melhorando a conduta desde a primeira sessão.",
+    category: "Avaliação",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "9 min",
+    date: "11 Abr 2026",
+  },
+  {
     id: "8",
     slug: "modelos-evolucao-prontuario-fisioterapeutica",
     title: "Modelos de evolução e prontuário fisioterapêutica: guia prático",
