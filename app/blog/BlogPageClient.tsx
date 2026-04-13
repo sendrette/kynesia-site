@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "10",
+    slug: "quanto-tempo-dura-entorse-de-tornozelo",
+    title: "Quanto tempo dura uma entorse de tornozelo?",
+    excerpt:
+      "Entenda o tempo médio de recuperação da entorse de tornozelo, fatores que aceleram melhora e sinais de alerta para buscar avaliação.",
+    category: "Dor",
+    image: "/blog/reabilitacao-joelho.svg",
+    readTime: "8 min",
+    date: "13 Abr 2026",
+  },
+  {
     id: "9",
     slug: "diagnostico-diferencial-cervical-vs-ombro",
     title: "Diagnóstico diferencial: cervical vs ombro na prática clínica",
