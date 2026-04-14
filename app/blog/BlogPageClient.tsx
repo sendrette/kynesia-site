@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "11",
+    slug: "cervical-travada-o-que-fazer-na-hora-e-quando-preocupar",
+    title: "Cervical travada: o que fazer na hora e quando preocupar",
+    excerpt:
+      "Cervical travada? Veja condutas imediatas, causas comuns, quanto tempo dura e sinais de alerta para procurar fisioterapia.",
+    category: "Dor",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "8 min",
+    date: "14 Abr 2026",
+  },
+  {
     id: "10",
     slug: "quanto-tempo-dura-entorse-de-tornozelo",
     title: "Quanto tempo dura uma entorse de tornozelo?",
