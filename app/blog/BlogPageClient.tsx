@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "12",
+    slug: "dor-no-joelho-ao-subir-escada-causas-e-tratamento",
+    title: "Dor no joelho ao subir escada: causas e tratamento",
+    excerpt:
+      "Dor no joelho ao subir escada pode indicar sobrecarga ou lesão. Veja causas, sintomas e quando procurar fisioterapia.",
+    category: "Dor",
+    image: "/blog/reabilitacao-joelho.svg",
+    readTime: "8 min",
+    date: "15 Abr 2026",
+  },
+  {
     id: "11",
     slug: "cervical-travada-o-que-fazer-na-hora-e-quando-preocupar",
     title: "Cervical travada: o que fazer na hora e quando preocupar",
