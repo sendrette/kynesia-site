@@ -8,7 +8,7 @@ import SiteHeader from "./components/site-header";
 export const metadata: Metadata = {
   title: "kynesia - Gestão Clínica para Fisioterapeutas",
   description:
-    "Kynesia é o sistema para fisioterapeutas que integra prontuário eletrônico fisioterapia, software para clínica de fisioterapia e gestão clínica fisioterapia com mais organização e produtividade.",
+    "Sistema de gestão clínica para fisioterapeutas com prontuário eletrônico, inteligência clínica baseada em evidências, controle financeiro e organização completa da rotina.",
 };
 
 const dores = [

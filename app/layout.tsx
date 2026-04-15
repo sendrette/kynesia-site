@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s - Kynesia",
   },
   description:
-    "Sistema para fisioterapeutas com prontuário eletrônico fisioterapia, gestão clínica fisioterapia e organização de atendimentos com IA.",
+    "Sistema de gestão clínica para fisioterapeutas com prontuário eletrônico, inteligência clínica baseada em evidências, controle financeiro e organização completa da rotina.",
   icons: {
     icon: [{ url: "/kynesia-logo.svg", type: "image/svg+xml" }],
     shortcut: "/kynesia-logo.svg",
