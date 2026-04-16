@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "13",
+    slug: "hernia-de-disco-tem-cura-entenda-o-tratamento",
+    title: "Hérnia de disco tem cura? Entenda o tratamento",
+    excerpt:
+      "Hérnia de disco tem cura? Veja quando melhora, tratamentos mais indicados e quando procurar fisioterapia para aliviar a dor.",
+    category: "Dor",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "8 min",
+    date: "16 Abr 2026",
+  },
+  {
     id: "12",
     slug: "dor-no-joelho-ao-subir-escada-causas-e-tratamento",
     title: "Dor no joelho ao subir escada: causas e tratamento",
