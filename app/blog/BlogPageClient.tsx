@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "14",
+    slug: "kinesio-tape-funciona-o-que-dizem-as-evidencias",
+    title: "Kinesio Tape funciona? O que dizem as evidências",
+    excerpt:
+      "Kinesio Tape funciona mesmo? Veja o que a ciência diz sobre seus efeitos, indicações e quando usar na fisioterapia.",
+    category: "Ortopedia",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "8 min",
+    date: "16 Abr 2026",
+  },
+  {
     id: "13",
     slug: "hernia-de-disco-tem-cura-entenda-o-tratamento",
     title: "Hérnia de disco tem cura? Entenda o tratamento",
