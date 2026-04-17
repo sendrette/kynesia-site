@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "15",
+    slug: "gestao-clinica-em-fisioterapia-guia-completo-2026",
+    title: "Gestão clínica em fisioterapia: guia completo 2026",
+    excerpt:
+      "Entenda como fazer gestão clínica em fisioterapia com eficiência, organização e tecnologia. Veja estratégias e ferramentas essenciais.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "9 min",
+    date: "17 Abr 2026",
+  },
+  {
     id: "14",
     slug: "kinesio-tape-funciona-o-que-dizem-as-evidencias",
     title: "Kinesio Tape funciona? O que dizem as evidências",
