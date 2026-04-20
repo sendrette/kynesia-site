@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "16",
+    slug: "software-para-fisioterapia-como-escolher-o-melhor",
+    title: "Software para fisioterapia: como escolher o melhor",
+    excerpt:
+      "Descubra qual o melhor software para fisioterapia, como escolher e como melhorar sua gestão clínica com tecnologia.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "9 min",
+    date: "20 Abr 2026",
+  },
+  {
     id: "15",
     slug: "gestao-clinica-em-fisioterapia-guia-completo-2026",
     title: "Gestão clínica em fisioterapia: guia completo 2026",
