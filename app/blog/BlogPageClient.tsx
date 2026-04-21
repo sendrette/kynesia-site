@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "17",
+    slug: "fisioterapia-ortopedica-como-se-especializar",
+    title: "Fisioterapia ortopédica: como se especializar",
+    excerpt:
+      "Veja como se especializar em fisioterapia ortopédica, quais estudos são essenciais, livros recomendados e dicas para evoluir na área.",
+    category: "Ortopedia",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "9 min",
+    date: "21 Abr 2026",
+  },
+  {
     id: "16",
     slug: "software-para-fisioterapia-como-escolher-o-melhor",
     title: "Software para fisioterapia: como escolher o melhor",
