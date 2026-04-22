@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "18",
+    slug: "dor-no-ombro-ao-levantar-o-braco-causas-e-tratamento",
+    title: "Dor no ombro ao levantar o braço: causas e tratamento",
+    excerpt:
+      "Dor no ombro ao levantar o braço? Veja causas, sintomas e quando procurar fisioterapia para aliviar a dor e recuperar o movimento.",
+    category: "Dor",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "7 min",
+    date: "22 Abr 2026",
+  },
+  {
     id: "17",
     slug: "fisioterapia-ortopedica-como-se-especializar",
     title: "Fisioterapia ortopédica: como se especializar",
