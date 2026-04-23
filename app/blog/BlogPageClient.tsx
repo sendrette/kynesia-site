@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "19",
+    slug: "dor-no-pescoco-e-dor-de-cabeca-entenda-a-relacao",
+    title: "Dor no pescoço e dor de cabeça: entenda a relação",
+    excerpt:
+      "Dor no pescoço e dor de cabeça podem estar relacionadas. Veja causas, sintomas e quando procurar fisioterapia para aliviar.",
+    category: "Dor",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "8 min",
+    date: "23 Abr 2026",
+  },
+  {
     id: "18",
     slug: "dor-no-ombro-ao-levantar-o-braco-causas-e-tratamento",
     title: "Dor no ombro ao levantar o braço: causas e tratamento",
