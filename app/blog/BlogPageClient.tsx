@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "20",
+    slug: "estalo-no-joelho-e-normal-entenda-quando-preocupar",
+    title: "Estalo no joelho é normal? Entenda quando preocupar",
+    excerpt:
+      "Estalo no joelho é normal? Veja causas, quando se preocupar e como tratar com fisioterapia de forma segura.",
+    category: "Dor",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "8 min",
+    date: "24 Abr 2026",
+  },
+  {
     id: "19",
     slug: "dor-no-pescoco-e-dor-de-cabeca-entenda-a-relacao",
     title: "Dor no pescoço e dor de cabeça: entenda a relação",
