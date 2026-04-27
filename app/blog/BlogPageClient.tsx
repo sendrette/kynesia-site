@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "21",
+    slug: "anamnese-fisioterapeutica-como-fazer-passo-a-passo",
+    title: "Anamnese fisioterapêutica: como fazer passo a passo",
+    excerpt:
+      "Aprenda como fazer uma anamnese fisioterapêutica completa com passo a passo, perguntas essenciais e dicas práticas.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "27 Abr 2026",
+  },
+  {
     id: "20",
     slug: "estalo-no-joelho-e-normal-entenda-quando-preocupar",
     title: "Estalo no joelho é normal? Entenda quando preocupar",
