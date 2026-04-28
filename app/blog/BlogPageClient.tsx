@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "22",
+    slug: "clusters-de-testes-ortopedicos-o-que-sao-e-como-usar",
+    title: "Clusters de testes ortopédicos: o que são e como usar",
+    excerpt:
+      "Entenda o que são clusters de testes ortopédicos, como aplicar na prática e melhorar seu diagnóstico na fisioterapia.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "28 Abr 2026",
+  },
+  {
     id: "21",
     slug: "anamnese-fisioterapeutica-como-fazer-passo-a-passo",
     title: "Anamnese fisioterapêutica: como fazer passo a passo",
