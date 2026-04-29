@@ -18,6 +18,39 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "25",
+    slug: "gestao-financeira-na-fisioterapia",
+    title: "Gestão financeira na fisioterapia: como ter previsibilidade",
+    excerpt:
+      "Veja como organizar a gestão financeira na fisioterapia para ganhar previsibilidade, reduzir inadimplência e crescer com segurança.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "8 min",
+    date: "29 Abr 2026",
+  },
+  {
+    id: "24",
+    slug: "indicadores-de-gestao-clinica-em-fisioterapia",
+    title: "Indicadores de gestão clínica em fisioterapia: o que acompanhar",
+    excerpt:
+      "Veja quais indicadores de gestão clínica em fisioterapia acompanham melhor a performance da clínica e ajudam na tomada de decisão.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "8 min",
+    date: "29 Abr 2026",
+  },
+  {
+    id: "23",
+    slug: "prontuario-eletronico-para-fisioterapia-como-organizar-a-clinica",
+    title: "Prontuário eletrônico para fisioterapia: como organizar a clínica",
+    excerpt:
+      "Veja como usar prontuário eletrônico para fisioterapia para organizar a clínica, padronizar registros e melhorar a gestão clínica.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "8 min",
+    date: "29 Abr 2026",
+  },
+  {
     id: "22",
     slug: "clusters-de-testes-ortopedicos-o-que-sao-e-como-usar",
     title: "Clusters de testes ortopédicos: o que são e como usar",
