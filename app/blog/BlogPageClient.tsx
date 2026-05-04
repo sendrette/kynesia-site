@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "26",
+    slug: "torcicolo-fisiopatologia-e-tratamento-na-fisioterapia",
+    title: "Torcicolo: fisiopatologia e tratamento na fisioterapia",
+    excerpt:
+      "Entenda a fisiopatologia do torcicolo, avaliação clínica e tratamento baseado em evidências na fisioterapia.",
+    category: "Ortopedia",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "8 min",
+    date: "4 Mai 2026",
+  },
+  {
     id: "25",
     slug: "gestao-financeira-na-fisioterapia",
     title: "Gestão financeira na fisioterapia: como ter previsibilidade",
