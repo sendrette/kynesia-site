@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "27",
+    slug: "agenda-para-fisioterapeuta-organize-sua-clinica-melhor",
+    title: "Agenda para fisioterapeuta: organize sua clínica melhor",
+    excerpt:
+      "Veja como uma agenda para fisioterapeuta pode melhorar organização, produtividade e gestão clínica no dia a dia.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "7 min",
+    date: "6 Mai 2026",
+  },
+  {
     id: "26",
     slug: "torcicolo-fisiopatologia-e-tratamento-na-fisioterapia",
     title: "Torcicolo: fisiopatologia e tratamento na fisioterapia",
