@@ -184,6 +184,11 @@ export default function PricingComparisonSection({
                   >
                     Ver detalhes
                   </button>
+                        {plan.key === "start" ? (
+                          <span className="mb-3 inline-flex rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-700">
+                            Teste todos os recursos por 3 dias grátis
+                          </span>
+                        ) : null}
                 </article>
               </Reveal>
             );
