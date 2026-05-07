@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "28",
+    slug: "marketing-para-fisioterapeuta-como-atrair-pacientes-sem-depender-de-indicacao",
+    title: "Marketing para fisioterapeuta: como atrair pacientes sem depender de indicação",
+    excerpt:
+      "Aprenda estratégias de marketing para fisioterapeuta para atrair pacientes, fortalecer autoridade e melhorar a previsibilidade da clínica.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "8 min",
+    date: "7 Mai 2026",
+  },
+  {
     id: "27",
     slug: "agenda-para-fisioterapeuta-organize-sua-clinica-melhor",
     title: "Agenda para fisioterapeuta: organize sua clínica melhor",
