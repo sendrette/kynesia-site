@@ -29,6 +29,17 @@ const blogPosts: BlogPost[] = [
     date: "7 Mai 2026",
   },
   {
+    id: "29",
+    slug: "prontuario-eletronico-na-fisioterapia-vantagens-reais",
+    title: "Prontuário eletrônico na fisioterapia: vantagens reais",
+    excerpt:
+      "Entenda como o prontuário eletrônico na fisioterapia melhora organização, segurança e produtividade clínica no dia a dia.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "7 min",
+    date: "12 Mai 2026",
+  },
+  {
     id: "27",
     slug: "agenda-para-fisioterapeuta-organize-sua-clinica-melhor",
     title: "Agenda para fisioterapeuta: organize sua clínica melhor",
