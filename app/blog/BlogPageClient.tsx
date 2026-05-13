@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "30",
+    slug: "evolucao-fisioterapica-como-fazer-corretamente",
+    title: "Evolução fisioterapêutica: como fazer corretamente",
+    excerpt:
+      "Aprenda como fazer uma evolução fisioterapêutica completa, organizada e profissional para melhorar sua prática clínica.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "6 min",
+    date: "13 Mai 2026",
+  },
+  {
     id: "28",
     slug: "marketing-para-fisioterapeuta-como-atrair-pacientes-sem-depender-de-indicacao",
     title: "Marketing para fisioterapeuta: como atrair pacientes sem depender de indicação",
@@ -349,7 +360,7 @@ export default function BlogPageClient() {
   const filteredPosts = useMemo(() => {
     const query = search.trim().toLowerCase();
 
-    return blogPosts.filter((post) => {
+    const results = blogPosts.filter((post) => {
       const matchesSearch =
         query.length === 0 ||
         post.title.toLowerCase().includes(query) ||
@@ -359,6 +370,36 @@ export default function BlogPageClient() {
 
       return matchesSearch && matchesCategory;
     });
+
+    // Ordena por data (mais recente primeiro). Datas estão no formato 'DD Mmm YYYY' em português, ex: '12 Mai 2026'
+    const monthMap: Record<string, number> = {
+      Jan: 0,
+      Fev: 1,
+      Mar: 2,
+      Abr: 3,
+      Mai: 4,
+      Jun: 5,
+      Jul: 6,
+      Ago: 7,
+      Set: 8,
+      Out: 9,
+      Nov: 10,
+      Dez: 11,
+    };
+
+    function parseDate(ptDate: string) {
+      const parts = ptDate.split(" ").map((p) => p.trim());
+      if (parts.length !== 3) return new Date(ptDate);
+      const day = parseInt(parts[0], 10);
+      const monthAbbr = parts[1];
+      const year = parseInt(parts[2], 10);
+      const month = monthMap[monthAbbr] ?? 0;
+      return new Date(year, month, day);
+    }
+
+    results.sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
+
+    return results;
   }, [search, activeCategory]);
 
   useEffect(() => {
