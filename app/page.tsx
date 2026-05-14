@@ -564,7 +564,7 @@ export default function Home() {
             </a>
             <a className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50" href="https://wa.me/5500000000000" target="_blank" rel="noreferrer">
               <p className="text-sm text-gray-500">WhatsApp</p>
-              <p className="text-sm font-medium text-gray-900 md:text-base">(12) 99630-4111</p>
+              <p className="text-sm font-medium text-gray-900 md:text-base">(12) 99748-9847</p>
             </a>
             <div className="rounded-xl border border-gray-200 p-4 text-center">
               <p className="text-sm text-gray-500">Atendimento</p>
