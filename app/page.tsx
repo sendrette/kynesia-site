@@ -195,14 +195,14 @@ export default function Home() {
       <SiteHeader />
 
       <section className="relative overflow-hidden bg-slate-50 px-6 py-20 md:px-10 md:py-24">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 flex items-center justify-center overflow-hidden">
           <Image
             src="/kynesia-logo-centro.svg"
             alt=""
             width={900}
             height={900}
             priority={false}
-            className="absolute left-1/2 top-[52%] w-[min(110vw,1200px)] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.05] blur-[0.25px] md:w-[min(92vw,1100px)] lg:w-[1200px]"
+            className="select-none opacity-[0.035] blur-[1px] w-[90vw] max-w-[1600px] h-auto md:w-[82vw] lg:w-[78vw]"
           />
         </div>
 
