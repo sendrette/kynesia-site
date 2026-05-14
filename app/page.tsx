@@ -568,7 +568,7 @@ export default function Home() {
           <p className="mx-auto mt-3 max-w-3xl text-sm text-gray-600 md:text-base">
             Fale com nosso time para dúvidas comerciais e implantação da plataforma.
           </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <a className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50" href="mailto:contato@kynesia.com.br">
               <p className="text-sm text-gray-500">Email</p>
               <p className="text-sm font-medium text-gray-900 md:text-base">contato@kynesia.com.br</p>
@@ -581,6 +581,29 @@ export default function Home() {
             >
               <p className="text-sm text-gray-500">WhatsApp</p>
               <p className="text-sm font-medium text-gray-900 md:text-base">(12) 99748-9847</p>
+            </a>
+            <a
+              className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50"
+              href="https://www.instagram.com/kynesia.fisio/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Abrir perfil do Instagram da Kynesia"
+            >
+              <p className="text-sm text-gray-500">Instagram</p>
+              <div className="mt-1 flex items-center justify-center gap-2">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5 shrink-0 text-gray-900"
+                  fill="none"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
+                  <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.8" />
+                  <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" />
+                </svg>
+                <p className="text-sm font-medium text-gray-900 md:text-base">Kynesia</p>
+              </div>
+              <p className="mt-1 text-xs text-gray-500">@kynesia.fisio</p>
             </a>
             <div className="rounded-xl border border-gray-200 p-4 text-center">
               <p className="text-sm text-gray-500">Atendimento</p>
