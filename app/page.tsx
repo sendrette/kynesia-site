@@ -194,8 +194,19 @@ export default function Home() {
     <main className="bg-white text-gray-900">
       <SiteHeader />
 
-      <section className="bg-slate-50 px-6 py-20 md:px-10 md:py-24">
-        <Reveal className="mx-auto max-w-5xl text-center">
+      <section className="relative overflow-hidden bg-slate-50 px-6 py-20 md:px-10 md:py-24">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+          <Image
+            src="/kynesia-logo-centro.svg"
+            alt=""
+            width={900}
+            height={900}
+            priority={false}
+            className="absolute right-[-8rem] top-1/2 w-[min(88vw,900px)] -translate-y-1/2 select-none opacity-[0.05] blur-[0.2px] md:right-[-10rem] md:w-[min(70vw,820px)] lg:right-[-12rem] lg:w-[900px]"
+          />
+        </div>
+
+        <Reveal className="relative z-10 mx-auto max-w-5xl text-center">
           <p className="mx-auto inline-flex rounded-full bg-teal-100 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-teal-700 md:text-sm">
             Gerenciamento clínico para fisioterapeutas
           </p>
