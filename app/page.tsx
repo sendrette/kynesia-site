@@ -202,7 +202,7 @@ export default function Home() {
             width={900}
             height={900}
             priority={false}
-            className="absolute right-[-8rem] top-1/2 w-[min(88vw,900px)] -translate-y-1/2 select-none opacity-[0.05] blur-[0.2px] md:right-[-10rem] md:w-[min(70vw,820px)] lg:right-[-12rem] lg:w-[900px]"
+            className="absolute left-1/2 top-[52%] w-[min(110vw,1200px)] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.05] blur-[0.25px] md:w-[min(92vw,1100px)] lg:w-[1200px]"
           />
         </div>
 
