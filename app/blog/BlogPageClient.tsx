@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "32",
+    slug: "ia-na-fisioterapia-como-a-tecnologia-esta-mudando-clinicas",
+    title: "IA na fisioterapia: como a tecnologia está mudando clínicas",
+    excerpt:
+      "Entenda como a inteligência artificial na fisioterapia está transformando avaliações, gestão clínica e produtividade profissional.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "8 min",
+    date: "14 Mai 2026",
+  },
+  {
     id: "30",
     slug: "evolucao-fisioterapica-como-fazer-corretamente",
     title: "Evolução fisioterapêutica: como fazer corretamente",
