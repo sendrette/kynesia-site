@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-const WA_NUMBER = "https://wa.me/551299748-9847";
-const WA_MESSAGE = "Olá! Gostaria de conhecer melhor o Kynesia.";
+const WA_NUMBER = "https://wa.me/5512997489847";
+const WA_MESSAGE = "Olá, gostaria de saber mais sobre os planos do Kynesia";
 
 export default function WhatsAppFab() {
   const [visible, setVisible] = useState(false);
