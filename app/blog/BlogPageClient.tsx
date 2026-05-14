@@ -29,6 +29,17 @@ const blogPosts: BlogPost[] = [
     date: "13 Mai 2026",
   },
   {
+    id: "31",
+    slug: "gestao-clinica-checklist-organize-sua-agenda",
+    title: "Gestão clínica para fisioterapia: checklist prático para otimizar agenda e operação",
+    excerpt:
+      "Checklist prático para gestão clínica na fisioterapia: otimize agenda, reduza faltas, aumente produtividade e melhore a experiência do paciente.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "8 min",
+    date: "14 Mai 2026",
+  },
+  {
     id: "28",
     slug: "marketing-para-fisioterapeuta-como-atrair-pacientes-sem-depender-de-indicacao",
     title: "Marketing para fisioterapeuta: como atrair pacientes sem depender de indicação",
