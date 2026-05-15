@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "33",
+    slug: "dor-lombar-ao-ficar-muito-tempo-sentado-causas-e-tratamento",
+    title: "Dor lombar ao ficar muito tempo sentado: causas e tratamento",
+    excerpt:
+      "Entenda por que a dor lombar aparece ao ficar muito tempo sentado, quais são as causas mais comuns e como a fisioterapia pode ajudar.",
+    category: "Dor",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "15 Mai 2026",
+  },
+  {
     id: "32",
     slug: "ia-na-fisioterapia-como-a-tecnologia-esta-mudando-clinicas",
     title: "IA na fisioterapia: como a tecnologia está mudando clínicas",
