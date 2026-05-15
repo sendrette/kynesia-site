@@ -554,7 +554,7 @@ export default function Home() {
             Comece a transformar sua rotina clínica hoje
           </h2>
           <Link
-            href="/checkout?plan=flow"
+            href="/start-free"
             className="mt-7 inline-flex rounded-xl bg-teal-500 px-7 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-teal-400"
           >
             Testar grátis
