@@ -29,6 +29,17 @@ const blogPosts: BlogPost[] = [
     date: "15 Mai 2026",
   },
   {
+    id: "34",
+    slug: "biopsicossocial-vs-biomecanico-o-que-vale-na-pratica",
+    title: "Biopsicossocial vs modelo biomecânico: o que vale na prática?",
+    excerpt:
+      "Polêmica 2026: biopsicossocial versus biomecânico na fisioterapia. Saiba o que a evidência recomenda e como aplicar na clínica.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "10 min",
+    date: "18 Mai 2026",
+  },
+  {
     id: "32",
     slug: "ia-na-fisioterapia-como-a-tecnologia-esta-mudando-clinicas",
     title: "IA na fisioterapia: como a tecnologia está mudando clínicas",
