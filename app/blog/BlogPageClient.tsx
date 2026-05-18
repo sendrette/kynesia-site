@@ -18,6 +18,39 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "35",
+    slug: "dry-needling-eficacia-riscos-quando-indicar",
+    title: "Dry needling: eficácia, riscos e quando indicar",
+    excerpt:
+      "O que a evidência mostra sobre dry needling, riscos e quando indicar essa técnica na prática clínica.",
+    category: "Ortopedia",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "6 min",
+    date: "18 Mai 2026",
+  },
+  {
+    id: "36",
+    slug: "teleconsulta-vs-presencial",
+    title: "Teleconsulta vs atendimento presencial: resultados, limites e quando usar",
+    excerpt:
+      "Compare evidências sobre teleconsulta e atendimento presencial na fisioterapia: eficácia, limitações e recomendações práticas.",
+    category: "Avaliação",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "7 min",
+    date: "18 Mai 2026",
+  },
+  {
+    id: "37",
+    slug: "terapias-adjuvantes-ciencia-vs-marketing",
+    title: "Terapias adjuvantes (ultrassom, ondas de choque): ciência vs marketing",
+    excerpt:
+      "O que a ciência diz sobre ultrassom terapêutico e ondas de choque: eficácia, indicações e como separar evidência de marketing.",
+    category: "Ortopedia",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "8 min",
+    date: "18 Mai 2026",
+  },
+  {
     id: "33",
     slug: "dor-lombar-ao-ficar-muito-tempo-sentado-causas-e-tratamento",
     title: "Dor lombar ao ficar muito tempo sentado: causas e tratamento",
