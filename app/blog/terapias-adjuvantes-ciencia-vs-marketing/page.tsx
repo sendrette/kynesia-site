@@ -154,12 +154,12 @@ export default function TerapiasAdjuvantesPage() {
         <ul className="mb-6 ml-6 space-y-2 text-gray-700">
           <li><strong>Calcificação do ombro:</strong> Revisão Cochrane (2019) mostra evidência de alta qualidade que ondas de choque aceleram reabsorção de calcificação e melhora de dor/função. Recomendado para casos refratários.</li>
           <li><strong>Tendinopatia aquiliana crônica:</strong> Revisão (Mani-Babu et al., 2015) mostra efeito moderado quando protocolos são respeitados, especialmente para casos refratários após 6+ meses.</li>
-          <li><strong>Epicondilite lateral (cotovelo de tenista):</strong> Estudos mostram eficácia variável; melhor quando crônica (>6 meses) refratária.</li>
+          <li><strong>Epicondilite lateral (cotovelo de tenista):</strong> Estudos mostram eficácia variável; melhor quando crônica (&gt;6 meses) refratária.</li>
           <li><strong>Fascite plantar:</strong> Evidência moderada; melhora em casos crônicos refratários.</li>
           <li><strong>Outras condições:</strong> Evidência limitada; extrapolação é difícil.</li>
         </ul>
         <p className="mb-5 leading-relaxed text-gray-700">
-          <strong>Importante:</strong> ESWT não é cura mágica. Eficácia depende muito de: (1) seleção correta de caso (crônico, refratário), (2) protocolo rigoroso (número correto de ondas, energia, sessões—não improvisar), (3) combinação com reabilitação (exercício continua necessário), (4) expectativas realistas.
+          <strong>Importante:</strong> ESWT não é cura mágica. Eficácia depende muito de: (1) seleção correta de caso (crônico, refratário), (2) protocolo rigoroso (número correto de ondas, energia, sessões - não improvisar), (3) combinação com reabilitação (exercício continua necessário), (4) expectativas realistas.
         </p>
 
         <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Outras terapias adjuvantes: o que diz evidência?</h2>
