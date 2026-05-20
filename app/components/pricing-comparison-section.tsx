@@ -5,6 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import Reveal from "./reveal";
 import {
   formatCurrencyBRL,
+  getPromoEndDateLabel,
   getPlanPricing,
   planCatalog,
   pricingComparisonCards,
@@ -102,7 +103,7 @@ export default function PricingComparisonSection({
           </div>
 
           <p className="mt-4 text-sm font-medium text-teal-700">
-            Assinatura anual com 15% de desconto. No cartão, a cobrança fica em 12x.
+            Assinatura anual com 15% de desconto. Promoção por tempo limitado até {getPromoEndDateLabel()}.
           </p>
         </Reveal>
 
@@ -128,11 +129,19 @@ export default function PricingComparisonSection({
                       <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">{meta.name}</h3>
                     </div>
 
-                    {isFeatured ? (
-                      <span className="inline-flex items-center rounded-full bg-teal-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white whitespace-nowrap">
-                        Mais escolhido
-                      </span>
-                    ) : null}
+                    <div className="flex flex-col items-end gap-2">
+                      {isFeatured ? (
+                        <span className="inline-flex items-center rounded-full bg-teal-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white whitespace-nowrap">
+                          Mais escolhido
+                        </span>
+                      ) : null}
+
+                      {pricing.isPromoActive ? (
+                        <span className="inline-flex items-center rounded-full bg-rose-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white whitespace-nowrap">
+                          {pricing.promoDiscountPercent}% OFF
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
 
                   <div className="mt-5 rounded-3xl border border-slate-100 bg-slate-50/80 p-5">
@@ -140,16 +149,32 @@ export default function PricingComparisonSection({
                       billingCycle === "annual" ? (
                         <>
                           <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Cobrança anual em 12x</p>
+                          {pricing.isPromoActive ? (
+                            <p className="mt-1 text-sm font-medium text-slate-500 line-through">
+                              12x {formatCurrencyBRL(pricing.originalInstallmentValue)}
+                            </p>
+                          ) : null}
                           <p className="mt-1 text-4xl font-bold tracking-tight text-slate-900">
                             12x {formatCurrencyBRL(pricing.installmentValue)}
                           </p>
+                          {pricing.isPromoActive ? (
+                            <p className="mt-0.5 text-xs text-slate-500 line-through">
+                              Total de {formatCurrencyBRL(pricing.originalTotalPrice)}/ano
+                            </p>
+                          ) : null}
                           <p className="mt-0.5 text-xs text-slate-600">Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
                           <p className="mt-0.5 text-xs font-medium text-emerald-600">Economia de {formatCurrencyBRL(pricing.savings)}</p>
                         </>
                       ) : (
                         <>
+                          {pricing.isPromoActive ? (
+                            <p className="text-lg font-medium text-slate-500 line-through">
+                              {formatCurrencyBRL(pricing.originalMonthlyPrice)}
+                              <span className="text-base font-medium text-slate-500">/mês</span>
+                            </p>
+                          ) : null}
                           <p className="text-5xl font-bold tracking-tight text-slate-900">
-                            {formatCurrencyBRL(meta.monthlyPrice)}
+                            {formatCurrencyBRL(pricing.monthlyPrice)}
                             <span className="text-2xl font-medium text-slate-500">/mês</span>
                           </p>
                           <p className="mt-2 text-base text-slate-600">{plan.summary}</p>
@@ -165,7 +190,13 @@ export default function PricingComparisonSection({
 
                   {billingCycle === "annual" && meta.monthlyPrice > 0 ? (
                     <p className="mt-3 rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
-                      Desconto anual de 15% aplicado.
+                      Desconto anual de 15% aplicado {pricing.isPromoActive ? `+ ${pricing.promoDiscountPercent}% OFF promocional.` : "."}
+                    </p>
+                  ) : null}
+
+                  {pricing.isPromoActive ? (
+                    <p className="mt-3 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 text-xs font-medium text-rose-700">
+                      Promoção por tempo limitado.
                     </p>
                   ) : null}
 
@@ -211,16 +242,30 @@ export default function PricingComparisonSection({
                   billingCycle === "annual" ? (
                     <>
                       <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
+                      {selectedPricing.isPromoActive ? (
+                        <p className="mt-1 text-base text-slate-500 line-through">
+                          12x {formatCurrencyBRL(selectedPricing.originalInstallmentValue)}
+                        </p>
+                      ) : null}
                       <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
                         12x {formatCurrencyBRL(selectedPricing.installmentValue)}
                       </p>
+                      {selectedPricing.isPromoActive ? (
+                        <p className="mt-1 text-sm text-slate-500 line-through">Total de {formatCurrencyBRL(selectedPricing.originalTotalPrice)}/ano</p>
+                      ) : null}
                       <p className="mt-1 text-sm text-slate-600">Total de {formatCurrencyBRL(selectedPricing.totalPrice)}/ano</p>
                     </>
                   ) : (
                     <>
                       <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
+                      {selectedPricing.isPromoActive ? (
+                        <p className="mt-1 text-base text-slate-500 line-through">
+                          {formatCurrencyBRL(selectedPricing.originalMonthlyPrice)}
+                          <span className="text-sm font-medium text-slate-500">/mês</span>
+                        </p>
+                      ) : null}
                       <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
-                        {formatCurrencyBRL(selectedMeta.monthlyPrice)}
+                        {formatCurrencyBRL(selectedPricing.monthlyPrice)}
                         <span className="text-base font-medium text-slate-500">/mês</span>
                       </p>
                     </>

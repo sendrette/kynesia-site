@@ -3,7 +3,7 @@
 import { Suspense, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { formatCurrencyBRL, getPlanPricing, planCatalog, type BillingCycle, type PlanKey, onlyDigits } from "../lib/pricing";
+import { formatCurrencyBRL, getPlanPricing, getPromoEndDateLabel, planCatalog, type BillingCycle, type PlanKey, onlyDigits } from "../lib/pricing";
 import SiteHeader from "../components/site-header";
 
 type PaymentMethod = "card" | "pix";
@@ -253,6 +253,20 @@ function CheckoutContent() {
               </button>
             </div>
 
+            {pricing.isPromoActive && plan.monthlyPrice > 0 ? (
+              <div className="mt-4 rounded-xl border border-rose-100 bg-rose-50 px-4 py-3">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-rose-700">
+                    Promoção por tempo limitado
+                  </p>
+                  <span className="inline-flex rounded-full bg-rose-600 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white">
+                    {pricing.promoDiscountPercent}% OFF
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-rose-700">Válido até {getPromoEndDateLabel()}.</p>
+              </div>
+            ) : null}
+
             {plan.monthlyPrice > 0 ? (
               <div className="mt-4 space-y-1">
                 {isAnnual ? (
@@ -260,9 +274,19 @@ function CheckoutContent() {
                     <p className="text-sm font-medium uppercase tracking-wide text-teal-700">
                       Cobrança anual em 12x
                     </p>
+                    {pricing.isPromoActive ? (
+                      <p className="text-sm text-gray-500 line-through">
+                        12x de {formatCurrencyBRL(pricing.originalInstallmentValue)}
+                      </p>
+                    ) : null}
                     <p className="text-xl font-semibold text-teal-700">
                       12x de {formatCurrencyBRL(pricing.installmentValue)}
                     </p>
+                    {pricing.isPromoActive ? (
+                      <p className="text-sm text-gray-500 line-through">
+                        Total de {formatCurrencyBRL(pricing.originalTotalPrice)} por ano
+                      </p>
+                    ) : null}
                     <p className="text-sm text-gray-500">
                       Total de {formatCurrencyBRL(pricing.totalPrice)} por ano
                     </p>
@@ -272,11 +296,16 @@ function CheckoutContent() {
                   </>
                 ) : (
                   <>
+                    {pricing.isPromoActive ? (
+                      <p className="text-base text-gray-500 line-through">
+                        {formatCurrencyBRL(pricing.originalMonthlyPrice)}/mês
+                      </p>
+                    ) : null}
                     <p className="text-xl font-semibold text-teal-700">
-                      {formatCurrencyBRL(plan.monthlyPrice)}/mês
+                      {formatCurrencyBRL(pricing.monthlyPrice)}/mês
                     </p>
                     <p className="text-sm text-gray-500">
-                      Total de {formatCurrencyBRL(plan.monthlyPrice)} por mês
+                      Total de {formatCurrencyBRL(pricing.monthlyPrice)} por mês
                     </p>
                   </>
                 )}
@@ -296,7 +325,9 @@ function CheckoutContent() {
 
             {isAnnual && plan.monthlyPrice > 0 ? (
               <div className="mt-5 rounded-xl bg-teal-50 p-4 text-sm text-teal-900">
-                Assinatura anual com 15% de desconto. No cartão, o Asaas fará o parcelamento em 12x.
+                Assinatura anual com 15% de desconto.
+                {pricing.isPromoActive ? ` Promoção adicional de ${pricing.promoDiscountPercent}% OFF aplicada.` : ""}
+                {" "}No cartão, o Asaas fará o parcelamento em 12x.
                 No Pix, a cobrança será única com o valor anual total.
               </div>
             ) : null}
@@ -484,9 +515,19 @@ function CheckoutContent() {
                   <div className="mt-3 space-y-1">
                     {isAnnual ? (
                       <>
+                        {pricing.isPromoActive ? (
+                          <p>
+                            Total anual anterior: <strong className="line-through">{formatCurrencyBRL(pricing.originalTotalPrice)}</strong>
+                          </p>
+                        ) : null}
                         <p>
                           Total anual: <strong>{formatCurrencyBRL(pricing.totalPrice)}</strong>
                         </p>
+                        {pricing.isPromoActive ? (
+                          <p>
+                            Parcelamento anterior: <strong className="line-through">12x de {formatCurrencyBRL(pricing.originalInstallmentValue)}</strong>
+                          </p>
+                        ) : null}
                         <p>
                           Parcelamento no cartão: <strong>12x de {formatCurrencyBRL(pricing.installmentValue)}</strong>
                         </p>
@@ -495,9 +536,16 @@ function CheckoutContent() {
                         </p>
                       </>
                     ) : (
-                      <p>
-                        Cobrança mensal de <strong>{formatCurrencyBRL(pricing.totalPrice)}</strong>.
-                      </p>
+                      <>
+                        {pricing.isPromoActive ? (
+                          <p>
+                            Valor anterior: <strong className="line-through">{formatCurrencyBRL(pricing.originalMonthlyPrice)}</strong>.
+                          </p>
+                        ) : null}
+                        <p>
+                          Cobrança mensal de <strong>{formatCurrencyBRL(pricing.totalPrice)}</strong>.
+                        </p>
+                      </>
                     )}
                   </div>
                 </div>

@@ -18,6 +18,24 @@ export type PricingComparisonCard = {
 
 export const annualDiscountRate = 0.15;
 
+export const ORIGINAL_PRICES: Record<PlanKey, number> = {
+  start: 0,
+  flow: 99,
+  elite: 149,
+};
+
+export const PROMO_DISCOUNT_PERCENT = 25;
+export const IS_PROMO_ACTIVE = true;
+export const PROMO_END_DATE = "2026-06-20";
+
+const promoDiscountRate = PROMO_DISCOUNT_PERCENT / 100;
+
+export const PROMO_PRICES: Record<PlanKey, number> = {
+  start: 0,
+  flow: roundCurrency(ORIGINAL_PRICES.flow * (1 - promoDiscountRate)),
+  elite: roundCurrency(ORIGINAL_PRICES.elite * (1 - promoDiscountRate)),
+};
+
 export const planCatalog: Record<
   PlanKey,
   {
@@ -28,12 +46,12 @@ export const planCatalog: Record<
 > = {
   start: {
     name: "Start",
-    monthlyPrice: 0,
+    monthlyPrice: ORIGINAL_PRICES.start,
     benefits: ["Gestão de pacientes", "Prontuário básico", "Agenda simples"],
   },
   flow: {
     name: "Flow",
-    monthlyPrice: 99,
+    monthlyPrice: ORIGINAL_PRICES.flow,
     benefits: [
       "IA completa para evolução clínica",
       "Gestão financeira",
@@ -42,7 +60,7 @@ export const planCatalog: Record<
   },
   elite: {
     name: "Elite",
-    monthlyPrice: 149,
+    monthlyPrice: ORIGINAL_PRICES.elite,
     benefits: ["Tudo do Flow + recursos avançados", "Suporte prioritário", "Prioridade em novidades"],
   },
 };
@@ -251,30 +269,74 @@ function roundCurrency(value: number) {
   return Math.round(value * 100) / 100;
 }
 
+function getLocalDateISO(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export function isPromoEnabled(date = new Date()) {
+  if (!IS_PROMO_ACTIVE) {
+    return false;
+  }
+
+  return getLocalDateISO(date) < PROMO_END_DATE;
+}
+
+export function getPromoEndDateLabel(date = new Date(PROMO_END_DATE)) {
+  return date.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+  });
+}
+
 export function getPlanPricing(plan: PlanKey, cycle: BillingCycle) {
-  const monthlyPrice = planCatalog[plan].monthlyPrice;
+  const originalMonthlyPrice = ORIGINAL_PRICES[plan];
+  const promoActive = plan !== "start" && isPromoEnabled();
+  const monthlyPrice = promoActive ? PROMO_PRICES[plan] : originalMonthlyPrice;
+
+  const originalAnnualTotal = roundCurrency(originalMonthlyPrice * 12 * (1 - annualDiscountRate));
+  const originalAnnualInstallment = roundCurrency(originalAnnualTotal / 12);
 
   if (cycle === "annual") {
     const total = roundCurrency(monthlyPrice * 12 * (1 - annualDiscountRate));
     const installmentValue = roundCurrency(total / 12);
     const savings = roundCurrency(monthlyPrice * 12 - total);
+    const cycleSavings = roundCurrency(originalAnnualTotal - total);
 
     return {
       monthlyPrice,
+      originalMonthlyPrice,
       totalPrice: total,
+      originalTotalPrice: originalAnnualTotal,
       installmentCount: 12,
       installmentValue,
+      originalInstallmentValue: originalAnnualInstallment,
       savings,
+      cycleSavings,
       discountRate: annualDiscountRate,
+      isPromoActive: promoActive,
+      promoDiscountPercent: PROMO_DISCOUNT_PERCENT,
+      promoEndDate: PROMO_END_DATE,
     };
   }
 
+  const cycleSavings = roundCurrency(originalMonthlyPrice - monthlyPrice);
+
   return {
     monthlyPrice,
+    originalMonthlyPrice,
     totalPrice: monthlyPrice,
+    originalTotalPrice: originalMonthlyPrice,
     installmentCount: 1,
     installmentValue: monthlyPrice,
+    originalInstallmentValue: originalMonthlyPrice,
     savings: 0,
+    cycleSavings,
     discountRate: 0,
+    isPromoActive: promoActive,
+    promoDiscountPercent: PROMO_DISCOUNT_PERCENT,
+    promoEndDate: PROMO_END_DATE,
   };
 }
