@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "38",
+    slug: "fasciite-plantar-causas-tratamento-e-exercicios",
+    title: "Fasciite plantar: causas, tratamento e exercícios baseados em evidências",
+    excerpt:
+      "Entenda a fasciite plantar: causas, diagnóstico clínico, exercícios e tratamento baseado em evidências para dor no calcanhar.",
+    category: "Ortopedia",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "12 min",
+    date: "21 Mai 2026",
+  },
+  {
     id: "35",
     slug: "dry-needling-eficacia-riscos-quando-indicar",
     title: "Dry needling: eficácia, riscos e quando indicar",
