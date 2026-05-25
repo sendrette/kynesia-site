@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "39",
+    slug: "sindrome-do-impacto-do-ombro-causas-tratamento-e-exercicios",
+    title: "Síndrome do impacto do ombro: causas, tratamento e exercícios baseados em evidências",
+    excerpt:
+      "Veja como avaliar e tratar a síndrome do impacto do ombro com estratégia baseada em evidências, manejo de carga e exercício terapêutico.",
+    category: "Ortopedia",
+    image: "/blog/ortopedia-ombro.svg",
+    readTime: "13 min",
+    date: "21 Mai 2026",
+  },
+  {
     id: "38",
     slug: "fasciite-plantar-causas-tratamento-e-exercicios",
     title: "Fasciite plantar: causas, tratamento e exercícios baseados em evidências",
