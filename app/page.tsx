@@ -78,6 +78,65 @@ function PainIcon({ type }: { type: (typeof dores)[number]["icon"] }) {
   );
 }
 
+const faqs = [
+  {
+    q: "O que é o Kynesia?",
+    a: "O Kynesia é uma plataforma de gestão clínica criada para fisioterapeutas que desejam organizar melhor sua rotina profissional. O sistema reúne em um só lugar recursos como agenda, prontuário eletrônico, evolução fisioterapêutica, cadastro de pacientes, controle financeiro, questionários validados e apoio com inteligência artificial. A proposta do Kynesia é reduzir tarefas manuais, melhorar a organização dos atendimentos e ajudar o fisioterapeuta a ter mais clareza sobre seus pacientes, sua agenda e sua clínica.",
+  },
+  {
+    q: "Para quem o Kynesia é indicado?",
+    a: "O Kynesia é indicado para fisioterapeutas autônomos, clínicas de fisioterapia, consultórios e profissionais que atendem em diferentes áreas da reabilitação. Ele pode ser utilizado por quem está começando na carreira e precisa de organização, mas também por profissionais que já possuem uma rotina maior de atendimentos e desejam centralizar informações clínicas, financeiras e administrativas em uma plataforma mais profissional.",
+  },
+  {
+    q: "O Kynesia funciona no celular?",
+    a: "Sim. O Kynesia foi desenvolvido para funcionar em celular, tablet e computador. Isso permite que o fisioterapeuta acesse sua rotina clínica de forma prática, seja no consultório, na clínica ou em outro local de atendimento. Por ser uma plataforma online, o acesso acontece pelo navegador, sem depender inicialmente de instalação de aplicativo.",
+  },
+  {
+    q: "Preciso instalar algum programa para usar o Kynesia?",
+    a: "Não. O Kynesia pode ser acessado diretamente pela internet, usando navegador como Chrome, Safari ou Edge. Basta criar sua conta, fazer login e começar a utilizar os recursos disponíveis. Isso facilita o acesso e permite que o sistema seja usado em diferentes dispositivos.",
+  },
+  {
+    q: "O Kynesia possui prontuário eletrônico?",
+    a: "Sim. O Kynesia possui prontuário eletrônico para fisioterapia, permitindo registrar informações importantes do paciente, avaliações, evoluções, histórico clínico e acompanhamento do tratamento. Esse recurso ajuda o fisioterapeuta a manter os dados organizados, reduzir o uso de papel e acessar rapidamente as informações necessárias durante o atendimento.",
+  },
+  {
+    q: "O Kynesia tem agenda para fisioterapeutas?",
+    a: "Sim. A plataforma conta com agenda clínica para organizar atendimentos, horários, pacientes e rotina profissional. A agenda ajuda o fisioterapeuta a visualizar melhor seus compromissos, evitar confusões de horários e manter uma rotina mais produtiva e organizada.",
+  },
+  {
+    q: "O Kynesia ajuda no controle financeiro?",
+    a: "Sim. O Kynesia também auxilia na organização financeira da rotina clínica, permitindo acompanhar pagamentos, planos, atendimentos realizados e informações importantes relacionadas ao faturamento. Esse recurso é útil para fisioterapeutas que desejam ter mais controle sobre a parte administrativa da clínica sem depender apenas de planilhas ou anotações manuais.",
+  },
+  {
+    q: "Como funciona a inteligência artificial do Kynesia?",
+    a: "A inteligência artificial do Kynesia funciona como uma ferramenta de apoio ao fisioterapeuta. Ela pode auxiliar na organização das informações clínicas e em sugestões baseadas em evidências, ajudando o profissional a ganhar tempo e estruturar melhor sua rotina. A IA não substitui o raciocínio clínico do fisioterapeuta. Ela serve como suporte para tornar o processo mais organizado, rápido e eficiente.",
+  },
+  {
+    q: "O Kynesia substitui o fisioterapeuta?",
+    a: "Não. O Kynesia não substitui o fisioterapeuta, nem realiza decisões clínicas de forma independente. A plataforma foi criada para apoiar o profissional na gestão, organização e documentação da prática clínica. A avaliação, interpretação dos dados, conduta terapêutica e tomada de decisão continuam sendo responsabilidade do fisioterapeuta.",
+  },
+  {
+    q: "Meus dados e os dados dos pacientes ficam seguros?",
+    a: "Sim. O Kynesia foi pensado para organizar informações clínicas com responsabilidade e segurança, considerando a importância dos dados dos pacientes. A plataforma busca seguir boas práticas de proteção de dados e privacidade, alinhada aos princípios da LGPD, para que o fisioterapeuta possa utilizar o sistema com mais confiança.",
+  },
+  {
+    q: "O Kynesia possui questionários validados?",
+    a: "Sim. O Kynesia conta com recursos voltados para o uso de questionários e instrumentos de avaliação que auxiliam o fisioterapeuta na coleta de informações clínicas. Esses questionários ajudam a tornar a avaliação mais organizada, padronizada e útil para acompanhar a evolução do paciente ao longo do tratamento.",
+  },
+  {
+    q: "Existe plano gratuito?",
+    a: "Sim. O Kynesia possui uma opção gratuita inicial para que o fisioterapeuta possa conhecer a plataforma, testar os recursos disponíveis e começar a organizar sua rotina clínica. Conforme a necessidade do profissional ou da clínica aumenta, é possível evoluir para planos com mais funcionalidades.",
+  },
+  {
+    q: "O Kynesia serve para clínicas ou apenas para profissionais autônomos?",
+    a: "O Kynesia pode ser utilizado tanto por fisioterapeutas autônomos quanto por clínicas de fisioterapia. Para profissionais autônomos, ele ajuda na organização da rotina individual. Para clínicas, auxilia na centralização de informações, gestão de pacientes, agenda, financeiro e padronização dos processos.",
+  },
+  {
+    q: "Como faço para começar a usar o Kynesia?",
+    a: "Para começar, basta clicar em “Começar grátis”, preencher seus dados e acessar a plataforma. Depois disso, você poderá criar sua conta, conhecer os recursos disponíveis e começar a organizar sua rotina clínica de forma mais profissional.",
+  },
+];
+
 const categorias = [
   {
     title: "Inteligência Artificial & Clínica",
@@ -138,33 +197,6 @@ const categorias = [
       "Prescrição de exercícios",
       "Feedback de evolução",
     ],
-  },
-];
-
-const faqs = [
-  {
-    q: "O que é o Kynesia?",
-    a: "O Kynesia é um sistema para fisioterapeutas que reúne prontuário eletrônico fisioterapia, gestão de pacientes, agenda e inteligência clínica em uma única plataforma.",
-  },
-  {
-    q: "Para quem é o Kynesia?",
-    a: "Para profissionais autônomos, clínicas e equipes que precisam de um software para clínica de fisioterapia com organização e produtividade no atendimento.",
-  },
-  {
-    q: "Preciso pagar para usar?",
-    a: "Você pode começar no plano gratuito inicial e evoluir para um plano pago conforme a necessidade da operação.",
-  },
-  {
-    q: "Funciona no celular?",
-    a: "Sim. O sistema é responsivo e funciona em celular, tablet e desktop.",
-  },
-  {
-    q: "Meus dados estão seguros?",
-    a: "Sim. O Kynesia segue boas práticas de segurança e conformidade LGPD para proteção de dados clínicos.",
-  },
-  {
-    q: "Preciso de internet?",
-    a: "Sim. Por ser SaaS, o acesso acontece pela internet com atualização contínua e sincronização dos dados.",
   },
 ];
 
@@ -397,7 +429,12 @@ export default function Home() {
 
               return (
                 <Reveal key={category.title} delay={index * 80}>
-                  <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
+                  <article className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
+                    {category.title === "Ecossistema de Benefícios" && (
+                      <span className="absolute top-4 right-4 inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                        EM BREVE
+                      </span>
+                    )}
                     <h3 className="text-base font-semibold text-slate-900 text-center">{category.title}</h3>
                     <ul className="mt-5 space-y-3">
                       {category.items.map((item) => (
