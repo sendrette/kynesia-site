@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "40",
+    slug: "pratica-baseada-em-evidencias-fisioterapia",
+    title: "Prática baseada em evidências na fisioterapia: como aplicar na rotina clínica",
+    excerpt:
+      "Entenda como aplicar a prática baseada em evidências na fisioterapia e tomar decisões clínicas mais seguras, humanas e bem fundamentadas.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "11 min",
+    date: "26 Mai 2026",
+  },
+  {
     id: "39",
     slug: "sindrome-do-impacto-do-ombro-causas-tratamento-e-exercicios",
     title: "Síndrome do impacto do ombro: causas, tratamento e exercícios baseados em evidências",
