@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "41",
+    slug: "indicadores-clinicos-na-fisioterapia",
+    title: "Indicadores clínicos na fisioterapia: como acompanhar evolução e resultados dos pacientes",
+    excerpt:
+      "Aprenda a usar indicadores clínicos na fisioterapia para acompanhar evolução, ajustar condutas e documentar resultados com mais precisão.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "12 min",
+    date: "28 Mai 2026",
+  },
+  {
     id: "40",
     slug: "pratica-baseada-em-evidencias-fisioterapia",
     title: "Prática baseada em evidências na fisioterapia: como aplicar na rotina clínica",
