@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "43",
+    slug: "sindrome-do-tunel-do-carpo",
+    title: "Síndrome do Túnel do Carpo: sintomas, diagnóstico e tratamento baseado em evidências",
+    excerpt:
+      "Entenda a síndrome do túnel do carpo, seus sintomas, diagnóstico e tratamento baseado em evidências na fisioterapia.",
+    category: "Ortopedia",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "14 min",
+    date: "29 Mai 2026",
+  },
+  {
     id: "42",
     slug: "como-precificar-sessoes-de-fisioterapia",
     title: "Como precificar sessões de fisioterapia: fatores que todo fisioterapeuta deve considerar",
