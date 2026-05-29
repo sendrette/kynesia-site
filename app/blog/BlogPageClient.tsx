@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "42",
+    slug: "como-precificar-sessoes-de-fisioterapia",
+    title: "Como precificar sessões de fisioterapia: fatores que todo fisioterapeuta deve considerar",
+    excerpt:
+      "Aprenda como precificar sessões de fisioterapia com método, considerando custos, margem e posicionamento profissional.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "14 min",
+    date: "29 Mai 2026",
+  },
+  {
     id: "41",
     slug: "indicadores-clinicos-na-fisioterapia",
     title: "Indicadores clínicos na fisioterapia: como acompanhar evolução e resultados dos pacientes",
