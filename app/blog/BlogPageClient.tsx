@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "44",
+    slug: "epicondilalgia-lateral-cotovelo-de-tenista",
+    title: "Epicondilalgia lateral (cotovelo de tenista): avaliação e tratamento",
+    excerpt:
+      "Revisão baseada em evidências sobre avaliação e tratamento da epicondilalgia lateral para fisioterapeutas e pacientes.",
+    category: "Ortopedia",
+    image: "/blog/epicondilalgia-lateral-cover.svg",
+    readTime: "12 min",
+    date: "01 Jun 2026",
+  },
+  {
     id: "43",
     slug: "sindrome-do-tunel-do-carpo",
     title: "Síndrome do Túnel do Carpo: sintomas, diagnóstico e tratamento baseado em evidências",
