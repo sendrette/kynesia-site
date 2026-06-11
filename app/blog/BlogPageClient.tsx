@@ -53,13 +53,13 @@ const blogPosts: BlogPost[] = [
   {
     id: "41",
     slug: "indicadores-clinicos-na-fisioterapia",
-    title: "Indicadores clínicos na fisioterapia: como acompanhar evolução e resultados dos pacientes",
+    title: "Indicadores clínicos na fisioterapia: quais métricas acompanhar para tomar melhores decisões",
     excerpt:
-      "Aprenda a usar indicadores clínicos na fisioterapia para acompanhar evolução, ajustar condutas e documentar resultados com mais precisão.",
-    category: "Avaliação",
-    image: "/blog/avaliacao-clinica.svg",
+      "Descubra quais indicadores clínicos acompanhar na fisioterapia para melhorar resultados, produtividade e gestão baseada em dados.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
     readTime: "12 min",
-    date: "28 Mai 2026",
+    date: "11 Jun 2026",
   },
   {
     id: "40",
