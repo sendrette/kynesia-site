@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "45",
+    slug: "raciocinio-clinico-na-fisioterapia-avaliacoes-diferentes",
+    title: "Raciocínio clínico na fisioterapia: por que dois profissionais avaliam o mesmo paciente e chegam a conclusões diferentes?",
+    excerpt:
+      "Entenda os fatores que influenciam o raciocínio clínico na fisioterapia e por que diferentes profissionais podem chegar a conclusões distintas para o mesmo paciente.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "10 min",
+    date: "12 Jun 2026",
+  },
+  {
     id: "44",
     slug: "epicondilalgia-lateral-cotovelo-de-tenista",
     title: "Epicondilalgia lateral (cotovelo de tenista): avaliação e tratamento",
