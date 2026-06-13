@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "46",
+    slug: "red-flags-na-fisioterapia",
+    title: "Red Flags na Fisioterapia: Quando a Dor Pode Indicar Algo Mais Grave?",
+    excerpt:
+      "Entenda o que são red flags na fisioterapia. Saiba identificar sinais de alerta em dores musculoesqueléticas e quando realizar o encaminhamento médico imediato.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "13 Jun 2026",
+  },
+  {
     id: "45",
     slug: "raciocinio-clinico-na-fisioterapia-avaliacoes-diferentes",
     title: "Raciocínio clínico na fisioterapia: por que dois profissionais avaliam o mesmo paciente e chegam a conclusões diferentes?",
