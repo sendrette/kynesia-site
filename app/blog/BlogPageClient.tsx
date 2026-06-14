@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "47",
+    slug: "como-aumentar-a-produtividade-na-clinica-de-fisioterapia",
+    title: "Como aumentar a produtividade na clínica de fisioterapia sem aumentar a carga horária",
+    excerpt:
+      "Descubra estratégias práticas para aumentar a produtividade na clínica de fisioterapia. Otimize a gestão de pacientes, a organização e o uso da tecnologia.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "9 min",
+    date: "14 Jun 2026",
+  },
+  {
     id: "46",
     slug: "red-flags-na-fisioterapia",
     title: "Red Flags na Fisioterapia: Quando a Dor Pode Indicar Algo Mais Grave?",
