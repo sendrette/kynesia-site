@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "48",
+    slug: "escalas-e-questionarios-validados-na-fisioterapia",
+    title: "Escalas e Questionários Validados na Fisioterapia: Quais Utilizar e Como Interpretar os Resultados",
+    excerpt:
+      "Descubra a importância das escalas validadas na fisioterapia. Aprenda a escolher, aplicar e interpretar os questionários clínicos de funcionalidade e dor de forma objetiva.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "10 min",
+    date: "15 Jun 2026",
+  },
+  {
     id: "47",
     slug: "como-aumentar-a-produtividade-na-clinica-de-fisioterapia",
     title: "Como aumentar a produtividade na clínica de fisioterapia sem aumentar a carga horária",
