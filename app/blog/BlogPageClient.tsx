@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "49",
+    slug: "teste-especial-positivo-significa-diagnostico",
+    title: "Teste Especial Positivo Significa Diagnóstico? O Que a Ciência Mostra Sobre os Testes Ortopédicos",
+    excerpt:
+      "Entenda por que um teste especial positivo não é sinônimo de diagnóstico na fisioterapia. Aprenda a interpretar sensibilidade, especificidade e clusters de testes.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "16 Jun 2026",
+  },
+  {
     id: "48",
     slug: "escalas-e-questionarios-validados-na-fisioterapia",
     title: "Escalas e Questionários Validados na Fisioterapia: Quais Utilizar e Como Interpretar os Resultados",
