@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "50",
+    slug: "como-organizar-o-fluxo-de-atendimento-na-fisioterapia",
+    title: "Como Organizar o Fluxo de Atendimento na Fisioterapia: Do Primeiro Contato à Alta do Paciente",
+    excerpt:
+      "Aprenda a organizar o fluxo de atendimento na fisioterapia. Otimize a jornada de gestão de pacientes, organização clínica e critérios de alta funcional.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "10 min",
+    date: "16 Jun 2026",
+  },
+  {
     id: "49",
     slug: "teste-especial-positivo-significa-diagnostico",
     title: "Teste Especial Positivo Significa Diagnóstico? O Que a Ciência Mostra Sobre os Testes Ortopédicos",
