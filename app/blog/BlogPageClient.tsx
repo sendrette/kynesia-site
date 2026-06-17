@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "51",
+    slug: "desfechos-clinicos-na-fisioterapia",
+    title: "Desfechos Clínicos na Fisioterapia: Como Saber se Seu Tratamento Está Funcionando?",
+    excerpt:
+      "Descubra a importância do monitoramento dos desfechos clínicos na fisioterapia para documentar a evolução do paciente e comprovar a resolutividade de suas condutas.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "17 Jun 2026",
+  },
+  {
     id: "50",
     slug: "como-organizar-o-fluxo-de-atendimento-na-fisioterapia",
     title: "Como Organizar o Fluxo de Atendimento na Fisioterapia: Do Primeiro Contato à Alta do Paciente",
