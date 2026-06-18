@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "52",
+    slug: "por-que-bons-fisioterapeutas-fracassam-na-gestao-da-clinica",
+    title: "Por que bons fisioterapeutas fracassam na gestão da clínica? Os 7 erros mais comuns",
+    excerpt:
+      "Descubra os principais erros na gestão de clínica de fisioterapia. Saiba por que excelentes profissionais falham administrativamente e como reverter esse cenário.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "9 min",
+    date: "18 Jun 2026",
+  },
+  {
     id: "51",
     slug: "desfechos-clinicos-na-fisioterapia",
     title: "Desfechos Clínicos na Fisioterapia: Como Saber se Seu Tratamento Está Funcionando?",
