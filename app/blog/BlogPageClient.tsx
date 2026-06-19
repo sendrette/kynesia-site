@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "53",
+    slug: "proms-e-prems-na-fisioterapia",
+    title: "PROMs e PREMs na Fisioterapia: Por Que Você Deveria Medir Resultados dos Seus Pacientes?",
+    excerpt:
+      "Descubra o papel dos PROMs e PREMs na fisioterapia. Aprenda a medir a experiência e os desfechos dos pacientes para uma prática baseada em evidências.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "19 Jun 2026",
+  },
+  {
     id: "52",
     slug: "por-que-bons-fisioterapeutas-fracassam-na-gestao-da-clinica",
     title: "Por que bons fisioterapeutas fracassam na gestão da clínica? Os 7 erros mais comuns",
