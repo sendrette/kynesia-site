@@ -18,6 +18,28 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "55",
+    slug: "yellow-flags-na-fisioterapia-fatores-psicossociais",
+    title: "Yellow Flags na Fisioterapia: Como Fatores Psicossociais Influenciam a Dor e a Reabilitação",
+    excerpt:
+      "Entenda o papel das Yellow Flags na fisioterapia. Aprenda a identificar fatores psicossociais, crenças sobre a dor e como eles afetam a reabilitação clínica.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "22 Jun 2026",
+  },
+  {
+    id: "54",
+    slug: "vies-cognitivo-na-fisioterapia-erros-de-julgamento",
+    title: "Viés Cognitivo na Fisioterapia: Como Erros de Julgamento Podem Afetar o Diagnóstico Clínico",
+    excerpt:
+      "Descubra como os vieses cognitivos afetam a fisioterapia. Saiba identificar erros de julgamento e aprimorar seu raciocínio clínico para diagnósticos mais precisos.",
+    category: "Avaliação",
+    image: "/blog/avaliacao-clinica.svg",
+    readTime: "9 min",
+    date: "22 Jun 2026",
+  },
+  {
     id: "53",
     slug: "proms-e-prems-na-fisioterapia",
     title: "PROMs e PREMs na Fisioterapia: Por Que Você Deveria Medir Resultados dos Seus Pacientes?",
