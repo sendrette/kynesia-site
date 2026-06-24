@@ -283,3 +283,31 @@ Antes de criar qualquer novo artigo:
 10. Sempre incluir Equipe Kynesia.
 
 Esta estrutura é obrigatória para todos os artigos do blog Kynesia.
+
+# BLOCO OBRIGATÓRIO DE CONVERSÃO
+
+Todo artigo deve terminar com uma seção adicional após "Equipe Kynesia".
+
+## Como o Kynesia pode ajudar?
+
+Criar um texto contextualizado com o tema do artigo explicando como o sistema Kynesia auxilia fisioterapeutas na prática clínica e gestão da clínica.
+
+O texto deve ser educativo e não excessivamente comercial.
+
+Estrutura:
+
+### Como o Kynesia pode ajudar?
+
+O Kynesia é uma plataforma de gestão clínica desenvolvida exclusivamente para fisioterapeutas. Além de prontuário eletrônico, agenda inteligente e gestão financeira, o sistema conta com recursos de inteligência artificial baseados em evidências, questionários validados, indicadores clínicos e ferramentas para otimizar a rotina da clínica.
+
+Se você busca mais organização, produtividade e qualidade no atendimento, conheça gratuitamente o Kynesia.
+
+[Botão: Começar Grátis]
+
+Instruções para o Antigravity:
+
+* Sempre inserir esta seção ao final do artigo.
+* Utilizar o componente visual padrão do site.
+* O botão deve direcionar para a página de cadastro.
+* Utilizar exatamente o texto "Começar Grátis".
+* Manter consistência visual com os demais CTAs do site.

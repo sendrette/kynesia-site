@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "56",
+    slug: "como-reduzir-faltas-e-cancelamentos-na-fisioterapia",
+    title: "Como Reduzir Faltas e Cancelamentos na Fisioterapia: Estratégias que Melhoram a Adesão ao Tratamento",
+    excerpt:
+      "Descubra estratégias práticas e baseadas em evidências para reduzir faltas na fisioterapia, combater cancelamentos e melhorar a adesão dos pacientes ao tratamento.",
+    category: "Gestão Clínica",
+    image: "/blog/gestao-clinica.svg",
+    readTime: "11 min",
+    date: "24 Jun 2026",
+  },
+  {
     id: "55",
     slug: "yellow-flags-na-fisioterapia-fatores-psicossociais",
     title: "Yellow Flags na Fisioterapia: Como Fatores Psicossociais Influenciam a Dor e a Reabilitação",
