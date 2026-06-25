@@ -8,36 +8,42 @@ const faqItems = [
   {
     question: "IA na fisioterapia substitui o profissional?",
     answer:
-      "Não. A IA apoia o fisioterapeuta com organização de dados, sugestões e automações, mas a decisão clínica, a comunicação e a conduta continuam sendo responsabilidades do profissional.",
+      "Não. A IA apoia o fisioterapeuta com organização de dados, sugestões e automações de tarefas administrativas repetitivas, mas a tomada de decisão clínica, o diagnóstico, a empatia e a manipulação física permanecem sendo responsabilidades exclusivas do profissional humano.",
   },
   {
     question: "Onde a IA gera mais ganho na rotina da clínica?",
     answer:
-      "Os maiores ganhos costumam aparecer na documentação clínica, gestão de agenda, monitoramento de indicadores e padronização de processos operacionais.",
+      "Os maiores ganhos práticos estão na automação da documentação clínica (agilizando a redação de evoluções e anamneses), no preenchimento de questionários validados, no controle preventivo de faltas (predição de no-show) e na organização inteligente da agenda.",
   },
   {
-    question: "É possível usar IA mantendo segurança e LGPD?",
+    question: "É possível usar IA mantendo segurança e conformidade com a LGPD?",
     answer:
-      "Sim. Com processos adequados de segurança, controle de acesso, consentimento e governança de dados, a clínica pode usar IA de forma ética e alinhada à LGPD.",
+      "Sim. Desde que as ferramentas utilizadas contem com criptografia ponta a ponta, controle rigoroso de acessos de usuários, servidores seguros em nuvem e termos claros de consentimento livre e esclarecido dos pacientes para o processamento de dados sob sigilo profissional.",
   },
   {
-    question: "Como começar a implementar IA na fisioterapia?",
+    question: "Como começar a implementar IA na minha prática clínica?",
     answer:
-      "Comece por um problema específico, como reduzir tempo de registro ou diminuir faltas. Defina indicadores simples, teste em pequena escala e ajuste o fluxo antes de expandir.",
+      "O melhor caminho é adotar um software de gestão especializado em fisioterapia que já possua inteligência artificial integrada nativamente, permitindo automatizar prontuários e agendamentos de forma segura e sem a necessidade de múltiplos sistemas paralelos.",
   },
 ];
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "IA na fisioterapia: como a tecnologia está mudando clínicas",
+  headline: "IA na Fisioterapia: Como a Tecnologia Está Mudando Clínicas",
   description:
-    "Entenda como a inteligência artificial na fisioterapia está transformando avaliações, gestão clínica e produtividade profissional.",
-  author: { "@type": "Organization", name: "Equipe Kynesia" },
-  publisher: { "@type": "Organization", name: "Kynesia" },
+    "Descubra como a IA na fisioterapia transforma a gestão clínica, automatiza a evolução no prontuário e aumenta a produtividade. Leia nosso guia completo!",
+  author: {
+    "@type": "Organization",
+    name: "Equipe Kynesia",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Kynesia",
+  },
   mainEntityOfPage: pageUrl,
   datePublished: "2026-05-14",
-  dateModified: "2026-05-14",
+  dateModified: "2026-06-25",
   image: "https://kynesia.com.br/blog/gestao-clinica.svg",
 };
 
@@ -47,131 +53,251 @@ const faqSchema = {
   mainEntity: faqItems.map((item) => ({
     "@type": "Question",
     name: item.question,
-    acceptedAnswer: { "@type": "Answer", text: item.answer },
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
   })),
 };
 
 export const metadata: Metadata = {
-  title: "IA na fisioterapia: como a tecnologia está mudando clínicas",
+  title: "IA na Fisioterapia: Como a Tecnologia Está Mudando Clínicas",
   description:
-    "Entenda como a inteligência artificial na fisioterapia está transformando avaliações, gestão clínica e produtividade profissional.",
-  alternates: { canonical: pageUrl },
+    "Descubra como a IA na fisioterapia transforma a gestão clínica, automatiza a evolução no prontuário e aumenta a produtividade. Leia nosso guia completo!",
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
-    title: "IA na fisioterapia: como a tecnologia está mudando clínicas",
+    title: "IA na Fisioterapia: Como a Tecnologia Está Mudando Clínicas",
     description:
-      "Entenda como a inteligência artificial na fisioterapia está transformando avaliações, gestão clínica e produtividade profissional.",
-    url: pageUrl,
+      "Descubra como a IA na fisioterapia transforma a gestão clínica, automatiza a evolução no prontuário e aumenta a produtividade. Leia nosso guia completo!",
     type: "article",
+    url: pageUrl,
   },
 };
 
 export default function IaNaFisioterapiaPage() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="bg-white text-gray-900 animate-fadeIn">
+      <SiteHeader />
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      <SiteHeader />
-
       <div className="bg-slate-50 px-6 py-4 text-sm text-gray-600">
-        <div className="mx-auto max-w-6xl">
-          <Link href="/blog" className="text-teal-600 hover:underline">Blog</Link>
+        <div className="mx-auto max-w-2xl">
+          <Link href="/blog" className="text-teal-600 hover:underline">
+            Blog
+          </Link>
           {" / "}
           <span className="font-medium text-teal-600">IA na fisioterapia</span>
         </div>
       </div>
 
-      <header className="bg-gradient-to-b from-teal-50 via-blue-50 to-white px-6 py-14 md:py-16">
-        <div className="mx-auto max-w-3xl">
-          <span className="mb-5 inline-block rounded-full bg-teal-500 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white">
+      <header className="bg-gradient-to-b from-teal-50 via-blue-50 to-white px-6 py-16 md:py-20">
+        <div className="mx-auto max-w-2xl">
+          <span className="mb-6 inline-block rounded-full bg-teal-500 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white">
             Gestão Clínica
           </span>
 
-          <h1 className="text-3xl font-bold leading-tight text-gray-900 md:text-5xl">
-            IA na fisioterapia: como a tecnologia está mudando clínicas
+          <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
+            IA na Fisioterapia: Como a Tecnologia Está Mudando Clínicas e Consultórios
           </h1>
 
-          <p className="mt-5 text-lg text-gray-600">
-            Entenda como a inteligência artificial na fisioterapia está transformando avaliações, gestão clínica e produtividade profissional.
+          <p className="mb-6 text-lg text-gray-600">
+            A inteligência artificial deixou de ser uma promessa distante para se tornar uma aliada da produtividade e da precisão clínica na reabilitação física. Saiba como aplicar na sua prática.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-500">
-            <span>Data: 14 Mai 2026</span>
-            <span>Leitura: 8 min</span>
-            <span>Autor: Equipe Kynesia</span>
+          <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+            <span>📅 14 Mai 2026</span>
+            <span>⏱ 11 min de leitura</span>
+            <span>✍️ Equipe Kynesia</span>
           </div>
         </div>
       </header>
 
-      <article className="mx-auto max-w-3xl px-6 py-14">
-        <p className="mb-6 leading-relaxed text-gray-700">
-          A inteligência artificial já faz parte do dia a dia de muitas clínicas, mesmo quando isso não está explícito. Da organização da agenda ao apoio na documentação, a tecnologia vem reduzindo tarefas repetitivas e liberando tempo para o que mais importa: o cuidado com o paciente.
-        </p>
-
-        <div className="mb-10 rounded-2xl border border-teal-200 bg-teal-50 p-6">
-          <h2 className="mb-3 text-xl font-bold text-gray-900">Por que falar de IA na fisioterapia agora?</h2>
-          <p className="leading-relaxed text-gray-700">
-            Porque clínicas estão sendo pressionadas por mais produtividade, melhor experiência do paciente e maior previsibilidade financeira. A IA surge como alavanca para acelerar processos sem comprometer qualidade clínica.
+      <article className="mx-auto max-w-2xl px-6 py-16">
+        {/* Resposta Rápida (Featured Snippet) */}
+        <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6">
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-600">Resposta Rápida</h2>
+          <p className="text-gray-900 font-medium leading-relaxed">
+            O uso de <strong>IA na fisioterapia</strong> atua otimizando a documentação clínica (prontuários e evoluções), automatizando a gestão de agendas e fornecendo análise preditiva de desfechos. Em vez de substituir o profissional, a IA atua como um co-piloto clínico inteligente que reduz tarefas administrativas repetitivas e potencializa o raciocínio baseado em evidências.
           </p>
         </div>
 
-        <h2 className="mb-4 text-2xl font-bold text-gray-900">1) Avaliação clínica mais estruturada</h2>
         <p className="mb-5 leading-relaxed text-gray-700">
-          Ferramentas com IA ajudam a organizar anamnese, hipóteses e evolução de forma padronizada. Isso reduz variabilidade entre profissionais, melhora a comunicação da equipe e facilita revisão de caso.
+          A rápida evolução da tecnologia tem redefinido as fronteiras do setor de saúde. No entanto, quando pensamos em **IA na fisioterapia**, muitos profissionais ainda associam o conceito a robôs complexos ou cenários futuristas de ficção científica. A realidade prática é muito mais próxima e útil ao dia a dia clínico: a inteligência artificial já está inserida nos melhores softwares de gestão e apoio à decisão, transformando a rotina de milhares de clínicas e consultórios de reabilitação.
         </p>
 
-        <h2 className="mb-4 mt-10 text-2xl font-bold text-gray-900">2) Documentação mais rápida e consistente</h2>
-        <p className="mb-5 leading-relaxed text-gray-700">
-          Um dos maiores gargalos operacionais da clínica é registrar tudo com qualidade sem aumentar o tempo administrativo. Com IA, é possível acelerar registros, manter histórico mais limpo e ganhar rastreabilidade para auditoria e tomada de decisão.
+        <p className="mb-8 leading-relaxed text-gray-700">
+          O principal objetivo do uso de inteligência artificial na fisioterapia não é substituir o olho clínico, a sensibilidade manual ou o calor humano do terapeuta. Pelo contrário: ao automatizar processos administrativos morosos, como a redação minuciosa de evoluções de prontuário, a triagem de mensagens de pacientes e a gestão complexa de escalas de agendamento, a IA libera o fisioterapeuta para fazer aquilo em que ele é insubstituível: aplicar o raciocínio clínico e construir o vínculo terapêutico essencial para a adesão e alta do paciente.
         </p>
 
-        <h2 className="mb-4 mt-10 text-2xl font-bold text-gray-900">3) Gestão clínica orientada por dados</h2>
-        <p className="mb-5 leading-relaxed text-gray-700">
-          Quando a clínica acompanha indicadores como faltas, adesão ao plano terapêutico, taxa de retorno e produtividade por agenda, a gestão deixa de ser reativa. A IA pode ajudar a identificar padrões e apontar onde agir primeiro.
-        </p>
-
-        <div className="mb-10 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-          <h3 className="mb-3 text-lg font-semibold text-gray-900">Exemplo prático de ganho operacional</h3>
-          <p className="leading-relaxed text-gray-700">
-            Se a clínica reduz apenas alguns minutos por atendimento em tarefas administrativas, o impacto semanal já é relevante. Em escala, isso significa mais capacidade de atendimento com melhor padrão de execução.
-          </p>
+        {/* Links Internos (Leia também) */}
+        <div className="mb-8 rounded-2xl border border-blue-200 bg-blue-50 p-6">
+          <h3 className="mb-4 font-semibold text-gray-900">📚 Leia também:</h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/blog/como-montar-prontuario-fisioterapeutico-completo" className="text-teal-600 hover:underline">
+                → Como Montar um Prontuário Fisioterapêutico Completo: O Que Não Pode Faltar na Avaliação Clínica
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog/anamnese-fisioterapeutica-como-fazer-passo-a-passo" className="text-teal-600 hover:underline">
+                → Anamnese fisioterapêutica: como fazer passo a passo
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog/modelos-evolucao-prontuario-fisioterapeutica" className="text-teal-600 hover:underline">
+                → Modelos de evolução para prontuário fisioterapêutico
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog/prontuario-eletronico-na-fisioterapia-vantagens-reais" className="text-teal-600 hover:underline">
+                → Prontuário eletrônico na fisioterapia: vantagens reais e como escolher
+              </Link>
+            </li>
+          </ul>
         </div>
 
-        <h2 className="mb-4 mt-10 text-2xl font-bold text-gray-900">4) Experiência do paciente mais fluida</h2>
+        <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">O que é e como funciona a IA na fisioterapia na prática?</h2>
         <p className="mb-5 leading-relaxed text-gray-700">
-          A tecnologia também melhora a jornada do paciente: lembretes inteligentes, comunicação mais clara, histórico organizado e acompanhamento da evolução. Resultado: maior percepção de valor e melhor adesão ao tratamento.
+          A **IA na fisioterapia** consiste no uso de algoritmos avançados de aprendizado de máquina (Machine Learning), processamento de linguagem natural (NLP) e visão computacional para apoiar e acelerar fluxos operacionais e clínicos. Ela funciona analisando grandes volumes de dados de atendimento e gestão para identificar padrões e propor ações rápidas que poupam o tempo do profissional.
+        </p>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          Por exemplo, por meio do processamento de linguagem natural, o sistema é capaz de ler anotações rápidas ou áudios gravados pelo fisioterapeuta após a consulta e estruturá-los automaticamente em uma evolução clínica perfeita no padrão SOAP (Subjetivo, Objetivo, Avaliação, Plano), pronta para ser assinada.
+        </p>
+        <p className="mb-8 leading-relaxed text-gray-700">
+          Além disso, na esfera da gestão, os algoritmos conseguem monitorar a taxa de assiduidade histórica dos pacientes e prever a probabilidade de um paciente faltar a uma determinada sessão (no-show) com base em variáveis como horário, clima e padrão de faltas anterior. Isso permite intervenções proativas antes que a ausência ocorra.
         </p>
 
-        <h2 className="mb-4 mt-10 text-2xl font-bold text-gray-900">5) O que muda no papel do fisioterapeuta</h2>
+        <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Aplicações clínicas da IA na fisioterapia e na gestão da reabilitação</h2>
         <p className="mb-5 leading-relaxed text-gray-700">
-          Com IA, o fisioterapeuta tende a dedicar menos energia a tarefas mecânicas e mais atenção ao raciocínio clínico, à educação em saúde e ao vínculo terapêutico. A tecnologia potencializa o trabalho humano; não substitui o julgamento profissional.
+          A atuação prática da inteligência artificial pode ser dividida em pilares fundamentais, gerando resultados diretos tanto para a produtividade do fisioterapeuta quanto para o faturamento da clínica.
         </p>
 
-        <h2 className="mb-4 mt-10 text-2xl font-bold text-gray-900">Como implementar IA com segurança</h2>
-        <ul className="mb-8 list-disc space-y-2 pl-6 text-gray-700">
-          <li>Comece pequeno: escolha um processo crítico para testar.</li>
-          <li>Defina métricas claras de sucesso (tempo, qualidade, adesão, no-show).</li>
-          <li>Treine a equipe e padronize uso no fluxo diário.</li>
-          <li>Garanta segurança, privacidade e conformidade com LGPD.</li>
-          <li>Revise resultados periodicamente e ajuste o processo.</li>
-        </ul>
+        <h3 className="mb-3 mt-6 text-xl font-semibold text-gray-900">1. Automação Inteligente de Prontuários e Evoluções</h3>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          Escrever registros clínicos é um dos maiores drenos de tempo e produtividade na rotina dos fisioterapeutas. Uma evolução completa, detalhando cargas, amplitudes de movimento, tolerância e plano, exige vários minutos de digitação após cada atendimento.
+        </p>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          Com a IA, o profissional insere palavras-chave ou dita os pontos cruciais do atendimento. O algoritmo gera uma redação técnica padronizada, corrigindo a sintaxe e organizando os dados de forma lógica e concisa. Isso reduz em até 70% o tempo dedicado a preencher prontuários, permitindo focar a atenção na aplicação das técnicas manuais ou exercícios terapêuticos.
+        </p>
 
-        <h2 className="mb-4 mt-10 text-2xl font-bold text-gray-900">Perguntas frequentes</h2>
-        <div className="space-y-3">
-          {faqItems.map((item) => (
-            <details key={item.question} className="cursor-pointer rounded-lg border border-gray-200 p-4 hover:bg-gray-50">
-              <summary className="font-semibold text-gray-900">{item.question}</summary>
-              <p className="mt-3 leading-relaxed text-gray-700">{item.answer}</p>
+        <h3 className="mb-3 mt-6 text-xl font-semibold text-gray-900">2. Triagem e Escores Funcionais Automatizados</h3>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          A aplicação de escalas de dor e questionários validados de funcionalidade (PROMs) costuma ser abandonada nas clínicas devido ao tempo necessário para o paciente responder e para o terapeuta calcular as pontuações à mão.
+        </p>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          Sistemas inteligentes facilitam esse processo enviando questionários automaticamente por WhatsApp ou e-mail antes do horário agendado. No momento em que o paciente entra no consultório, a IA já tabulou os dados, calculou o escore funcional de base e o exibiu em forma de gráfico de evolução, facilitando a decisão sobre a progressão de carga.
+        </p>
+
+        <h3 className="mb-3 mt-6 text-xl font-semibold text-gray-900">3. Redução Preventiva de Absenteísmo (Faltas e Cancelamentos)</h3>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          O impacto financeiro de janelas vazias na agenda de fisioterapia é avassalador. Lembretes genéricos por SMS ajudam, mas não resolvem o problema por completo.
+        </p>
+        <p className="mb-8 leading-relaxed text-gray-700">
+          A IA analisa o comportamento histórico de presença. Se o algoritmo identifica um paciente com altíssimo risco de cancelar ou faltar na sexta-feira à noite, ela sinaliza para a secretária de forma visual ou envia uma mensagem personalizada oferecendo um remanejamento preventivo de horário.
+        </p>
+
+        <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Como a IA na fisioterapia impacta a jornada do paciente</h2>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          A tecnologia não serve apenas para tornar a gestão interna mais eficiente; ela tem um papel pedagógico essencial no empoderamento e na adesão do próprio paciente.
+        </p>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          Pacientes em reabilitação de longo prazo (como em pós-operatórios complexos de joelho ou no tratamento de dores crônicas lombares) frequentemente perdem a motivação por não perceberem melhoras rápidas de uma semana para outra.
+        </p>
+        <p className="mb-8 leading-relaxed text-gray-700">
+          Quando a clínica utiliza ferramentas baseadas em inteligência artificial para consolidar as métricas de força, amplitude e limitação funcional colhidas nas avaliações periódicas, é possível gerar relatórios visuais claros e de fácil interpretação. Mostrar ao paciente um gráfico de evolução de força muscular de 35% ao longo do mês fortalece o entendimento sobre a resolutividade do tratamento e aumenta a adesão aos exercícios domiciliares sugeridos.
+        </p>
+
+        <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Ética, segurança dos dados e conformidade da IA na fisioterapia</h2>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          A incorporação de inovações tecnológicas na saúde deve seguir parâmetros regulatórios estritos. A privacidade do paciente e a segurança jurídica do profissional estão em jogo ao utilizar qualquer algoritmo que manipule informações clínicas.
+        </p>
+        <p className="mb-5 leading-relaxed text-gray-700">
+          No Brasil, o tratamento de dados de saúde é categorizado como dados sensíveis pela Lei Geral de Proteção de Dados (LGPD). Isso significa que qualquer software com recursos de **IA na fisioterapia** deve obedecer a requisitos elevados de segurança física e lógica, como hospedagem em servidores protegidos contra ataques e criptografia de ponta a ponta dos registros clínicos.
+        </p>
+        <p className="mb-8 leading-relaxed text-gray-700">
+          Adicionalmente, os registros gerados pela inteligência artificial devem passar sempre pela revisão crítica e homologação (assinatura eletrônica) do fisioterapeuta responsável. O algoritmo atua apenas como processador auxiliar; a responsabilidade profissional e legal pela evolução, prognóstico e diagnóstico cinético-funcional continua recaindo integralmente sobre o registro do CREFITO do terapeuta.
+        </p>
+
+        <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">As Pessoas Também Perguntam</h2>
+        <div className="mt-6 space-y-6">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">Como a inteligência artificial pode ajudar o fisioterapeuta?</h3>
+            <p className="mt-2 leading-relaxed text-gray-700">
+              A inteligência artificial auxilia automatizando a escrita de evoluções, sugerindo parâmetros de tratamento com base em evidências científicas integradas, prevendo cancelamentos de sessões na agenda e calculando automaticamente escores de escalas funcionais validadas.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">O uso de IA na fisioterapia é regulamentado pelo COFFITO?</h3>
+            <p className="mt-2 leading-relaxed text-gray-700">
+              O COFFITO permite o uso de tecnologias digitais e sistemas auxiliares desde que o sigilo profissional seja respeitado, o prontuário eletrônico atenda aos padrões exigidos de segurança e a decisão clínica e a assinatura dos atendimentos sejam de autoria exclusiva do fisioterapeuta registrado.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900">Quais são os riscos da inteligência artificial no diagnóstico fisioterapêutico?</h3>
+            <p className="mt-2 leading-relaxed text-gray-700">
+              O principal risco é o profissional aceitar cegamente sugestões automáticas do sistema sem realizar o raciocínio crítico necessário e a interpretação individualizada. A IA serve como uma ferramenta complementar e nunca deve substituir a avaliação cinético-funcional física do terapeuta.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Perguntas frequentes</h2>
+        <div className="mt-6 space-y-3">
+          {faqItems.map((faq) => (
+            <details key={faq.question} className="cursor-pointer rounded-lg border border-gray-200 p-4 hover:bg-gray-50 transition-colors">
+              <summary className="font-semibold text-gray-900">{faq.question}</summary>
+              <p className="mt-3 leading-relaxed text-gray-700">{faq.answer}</p>
             </details>
           ))}
         </div>
 
-        <div className="mt-12 rounded-2xl bg-gray-900 p-8 text-white">
-          <h2 className="mb-4 text-2xl font-bold">Conclusão</h2>
-          <p className="leading-relaxed text-white">
-            A IA na fisioterapia já é uma realidade prática para clínicas que querem escalar qualidade sem perder controle da operação. O melhor caminho é implementar com foco, dados e processo, mantendo sempre o paciente no centro das decisões.
-          </p>
+        {/* Resumo Clínico */}
+        <section className="mt-12 rounded-2xl bg-slate-50 border border-slate-200 p-8">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Resumo Clínico</h2>
+          <div className="space-y-4 text-sm text-gray-700">
+            <p>
+              <strong>Principais achados:</strong> A incorporação da inteligência artificial na fisioterapia não tem como objetivo substituir profissionais de saúde, mas sim otimizar tarefas administrativas e operacionais repetitivas para otimizar os fluxos clínicos.
+            </p>
+            <p>
+              <strong>Implicações clínicas:</strong> A automação de prontuários e de questionários funcionais baseada em IA reduz significativamente o tempo administrativo do fisioterapeuta, proporcionando mais foco na aplicação de abordagens baseadas em evidências.
+            </p>
+            <p>
+              <strong>Aplicação prática:</strong> Busque integrar softwares de gestão especializados que tragam assistentes inteligentes de preenchimento de evolução clínica, respeitando as normas da LGPD e mantendo o raciocínio profissional humano no controle de validação dos dados.
+            </p>
+          </div>
+        </section>
+
+        <div className="flex items-center gap-4 border-t border-gray-200 pt-8 mt-12">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">
+            K
+          </div>
+          <div>
+            <p className="font-semibold text-gray-900">Equipe Kynesia</p>
+            <p className="text-sm text-gray-600">Conteúdo desenvolvido pela Equipe Kynesia com foco em prática baseada em evidências, raciocínio clínico, gestão clínica e inovação em fisioterapia. Nosso objetivo é transformar conhecimento científico em aplicação prática para fisioterapeutas, estudantes e gestores de clínicas que buscam excelência clínica e crescimento profissional.</p>
+          </div>
         </div>
+
+        {/* Conversão Kynesia */}
+        <section className="mt-16 rounded-2xl bg-teal-900 p-8 text-white">
+          <h3 className="mb-4 text-2xl font-bold">Como o Kynesia pode ajudar?</h3>
+          <p className="mb-6 leading-relaxed">
+            O Kynesia é uma plataforma de gestão clínica desenvolvida exclusivamente para fisioterapeutas. Além de prontuário eletrônico, agenda inteligente e gestão financeira, o sistema conta com recursos de inteligência artificial baseados em evidências, questionários validados, indicadores clínicos e ferramentas para otimizar a rotina da clínica.
+          </p>
+          <p className="mb-6 leading-relaxed">
+            Se você busca mais organização, produtividade e qualidade no atendimento, conheça gratuitamente o Kynesia.
+          </p>
+          <div className="flex">
+            <Link
+              href="/cadastro"
+              className="inline-block rounded-lg bg-teal-500 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-teal-600 active:scale-95"
+            >
+              Começar Grátis
+            </Link>
+          </div>
+        </section>
       </article>
     </main>
   );
