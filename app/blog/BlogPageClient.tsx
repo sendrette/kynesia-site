@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "57",
+    slug: "como-montar-prontuario-fisioterapeutico-completo",
+    title: "Como Montar um Prontuário Fisioterapêutico Completo: O Que Não Pode Faltar na Avaliação Clínica",
+    excerpt:
+      "Descubra como montar um prontuário fisioterapêutico completo para sua clínica. Veja o que não pode faltar na avaliação clínica e garanta segurança jurídica e eficiência.",
+    category: "Gestão Clínica",
+    image: "/blog/como-montar-prontuario-fisioterapeutico-completo.jpg",
+    readTime: "12 min",
+    date: "25 Jun 2026",
+  },
+  {
     id: "56",
     slug: "como-reduzir-faltas-e-cancelamentos-na-fisioterapia",
     title: "Como Reduzir Faltas e Cancelamentos na Fisioterapia: Estratégias que Melhoram a Adesão ao Tratamento",
