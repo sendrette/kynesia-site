@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "58",
+    slug: "sensibilidade-especificidade-razoes-verossimilhanca-testes-ortopedicos",
+    title: "Sensibilidade, Especificidade e Razões de Verossimilhança: Como Interpretar Testes Ortopédicos na Prática Clínica",
+    excerpt:
+      "Entenda como aplicar sensibilidade, especificidade e razões de verossimilhança para interpretar testes ortopédicos na prática clínica diária de fisioterapia.",
+    category: "Avaliação",
+    image: "/blog/sensibilidade-especificidade-razoes-verossimilhanca.jpg",
+    readTime: "11 min",
+    date: "26 Jun 2026",
+  },
+  {
     id: "57",
     slug: "como-montar-prontuario-fisioterapeutico-completo",
     title: "Como Montar um Prontuário Fisioterapêutico Completo: O Que Não Pode Faltar na Avaliação Clínica",
