@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "59",
+    slug: "agenda-online-fisioterapia-organizacao-2026",
+    title: "Agenda Online para Fisioterapia: Como Organizar Sua Clínica em 2026",
+    excerpt:
+      "Descubra as vantagens da agenda online para fisioterapia e aprenda como organizar sua clínica em 2026, reduzindo faltas e otimizando atendimentos.",
+    category: "Gestão Clínica",
+    image: "/blog/agenda-online-fisioterapia-2026.jpg",
+    readTime: "10 min",
+    date: "30 Jun 2026",
+  },
+  {
     id: "58",
     slug: "sensibilidade-especificidade-razoes-verossimilhanca-testes-ortopedicos",
     title: "Sensibilidade, Especificidade e Razões de Verossimilhança: Como Interpretar Testes Ortopédicos na Prática Clínica",
