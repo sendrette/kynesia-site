@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "60",
+    slug: "red-flags-dor-lombar-quando-suspeitar",
+    title: "Red Flags na Dor Lombar: Quando Suspeitar de Condições Graves?",
+    excerpt:
+      "Entenda o que são as red flags dor lombar, saiba identificar os principais sinais de alerta clínicos e quando encaminhar o paciente com urgência para o médico.",
+    category: "Avaliação",
+    image: "/blog/red-flags-dor-lombar.jpg",
+    readTime: "10 min",
+    date: "30 Jun 2026",
+  },
+  {
     id: "59",
     slug: "agenda-online-fisioterapia-organizacao-2026",
     title: "Agenda Online para Fisioterapia: Como Organizar Sua Clínica em 2026",
