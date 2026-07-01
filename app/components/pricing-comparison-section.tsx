@@ -103,7 +103,7 @@ export default function PricingComparisonSection({
           </div>
 
           <p className="mt-4 text-sm font-medium text-teal-700">
-            Assinatura anual com 15% de desconto. Promoção por tempo limitado até {getPromoEndDateLabel()}.
+            Assinatura anual com 15% de desconto.
           </p>
         </Reveal>
 
