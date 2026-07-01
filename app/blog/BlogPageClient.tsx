@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "61",
+    slug: "como-interpretar-proms-na-fisioterapia",
+    title: "Como Interpretar PROMs na Fisioterapia: Guia Completo para Tomar Decisões Clínicas",
+    excerpt:
+      "Aprenda a interpretar PROMs na fisioterapia. Entenda conceitos como MCID e MDC e saiba como analisar questionários como ODI, NDI, TSK e EVA na prática.",
+    category: "Avaliação",
+    image: "/blog/como-interpretar-proms-fisioterapia.jpg",
+    readTime: "11 min",
+    date: "01 Jul 2026",
+  },
+  {
     id: "60",
     slug: "red-flags-dor-lombar-quando-suspeitar",
     title: "Red Flags na Dor Lombar: Quando Suspeitar de Condições Graves?",
