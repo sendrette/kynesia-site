@@ -111,6 +111,7 @@ export default function PricingComparisonSection({
           {pricingComparisonCards.map((plan, index) => {
             const meta = planCatalog[plan.key];
             const pricing = getPlanPricing(plan.key, billingCycle);
+            const annualPricing = getPlanPricing(plan.key, "annual");
             const isFeatured = plan.featured;
             const isSelected = selectedPlan.key === plan.key;
 
@@ -178,6 +179,18 @@ export default function PricingComparisonSection({
                             <span className="text-2xl font-medium text-slate-500">/mês</span>
                           </p>
                           <p className="mt-2 text-base text-slate-600">{plan.summary}</p>
+                          {plan.key !== "start" ? (
+                            <div className="mt-4 space-y-1 rounded-2xl border border-teal-100 bg-teal-50/50 p-3 text-xs text-teal-800">
+                              <p className="font-semibold text-teal-900 uppercase tracking-wider text-[10px]">Opção Anual:</p>
+                              <p>
+                                <span className="font-bold text-slate-950">{formatCurrencyBRL(annualPricing.installmentValue)}/mês</span>{" "}
+                                (cobrado {formatCurrencyBRL(annualPricing.totalPrice)}/ano)
+                              </p>
+                              <p className="font-semibold text-emerald-600">
+                                Economize {formatCurrencyBRL(annualPricing.savings)} por ano
+                              </p>
+                            </div>
+                          ) : null}
                         </>
                       )
                     ) : (

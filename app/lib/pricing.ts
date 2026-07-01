@@ -20,8 +20,8 @@ export const annualDiscountRate = 0.15;
 
 export const ORIGINAL_PRICES: Record<PlanKey, number> = {
   start: 0,
-  flow: 99,
-  elite: 149,
+  flow: 49.90,
+  elite: 89.90,
 };
 
 export const PROMO_DISCOUNT_PERCENT = 25;
