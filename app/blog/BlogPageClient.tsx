@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "62",
+    slug: "como-reduzir-tempo-documentacao-fisioterapia",
+    title: "Como Reduzir o Tempo Gasto com Documentação na Fisioterapia Sem Perder Qualidade",
+    excerpt:
+      "Aprenda como otimizar a documentação na fisioterapia sem perder qualidade. Reduza a burocracia das evoluções de prontuário e ganhe tempo com o paciente.",
+    category: "Gestão Clínica",
+    image: "/blog/como-reduzir-tempo-documentacao-fisioterapia.jpg",
+    readTime: "10 min",
+    date: "02 Jul 2026",
+  },
+  {
     id: "61",
     slug: "como-interpretar-proms-na-fisioterapia",
     title: "Como Interpretar PROMs na Fisioterapia: Guia Completo para Tomar Decisões Clínicas",
