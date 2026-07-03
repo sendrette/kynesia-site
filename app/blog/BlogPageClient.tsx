@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "63",
+    slug: "soap-na-fisioterapia-evolucao-clinica",
+    title: "SOAP na Fisioterapia: Como Fazer uma Evolução Clínica Completa (com Exemplo Prático)",
+    excerpt:
+      "Aprenda como aplicar o método SOAP na fisioterapia para estruturar evoluções clínicas completas e eficientes. Veja exemplos práticos para sua rotina.",
+    category: "Avaliação",
+    image: "/blog/soap-na-fisioterapia-evolucao-clinica.jpg",
+    readTime: "11 min",
+    date: "03 Jul 2026",
+  },
+  {
     id: "62",
     slug: "como-reduzir-tempo-documentacao-fisioterapia",
     title: "Como Reduzir o Tempo Gasto com Documentação na Fisioterapia Sem Perder Qualidade",
