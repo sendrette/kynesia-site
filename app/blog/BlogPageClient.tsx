@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "64",
+    slug: "red-flags-dor-cervical-encaminhamento-imediato",
+    title: "Red Flags na Dor Cervical: Quais Sinais Exigem Encaminhamento Imediato?",
+    excerpt:
+      "Entenda o que são as red flags dor cervical, aprenda a identificar os 5 principais sinais de alerta clínicos e saiba quando encaminhar o paciente de urgência.",
+    category: "Avaliação",
+    image: "/blog/red-flags-dor-cervical.jpg",
+    readTime: "11 min",
+    date: "06 Jul 2026",
+  },
+  {
     id: "63",
     slug: "soap-na-fisioterapia-evolucao-clinica",
     title: "SOAP na Fisioterapia: Como Fazer uma Evolução Clínica Completa (com Exemplo Prático)",
