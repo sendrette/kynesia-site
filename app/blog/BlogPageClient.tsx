@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "66",
+    slug: "diferenca-tendinopatia-patelar-quadriceps-condropatia",
+    title: "Diferença entre Tendinopatia Patelar, Tendinopatia do Quadríceps e Condropatia Patelar: Como Diferenciar na Avaliação Fisioterapêutica?",
+    excerpt:
+      "Entenda a diferença entre tendinopatia patelar, tendinopatia do quadríceps e condropatia patelar. Aprenda a avaliar, palpar e conduzir o diagnóstico diferencial.",
+    category: "Avaliação",
+    image: "/blog/diferenca-tendinopatia-patelar-quadriceps-condropatia.jpg",
+    readTime: "11 min",
+    date: "10 Jul 2026",
+  },
+  {
     id: "65",
     slug: "red-flags-dor-no-ombro-quando-encaminhar",
     title: "Red Flags na Dor no Ombro: Quando a Dor Não É Apenas uma Lesão Musculoesquelética?",
