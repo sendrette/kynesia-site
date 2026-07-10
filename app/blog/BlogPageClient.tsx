@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "67",
+    slug: "diferenca-manguito-rotador-bursite-capsulite",
+    title: "Como Diferenciar Tendinopatia do Manguito Rotador, Bursite Subacromial e Capsulite Adesiva na Avaliação Fisioterapêutica",
+    excerpt:
+      "Entenda como diferenciar a tendinopatia do manguito rotador, bursite subacromial e capsulite adesiva. Guia de avaliação física, testes e conduta.",
+    category: "Avaliação",
+    image: "/blog/diferenca-manguito-bursite-capsulite.jpg",
+    readTime: "11 min",
+    date: "10 Jul 2026",
+  },
+  {
     id: "66",
     slug: "diferenca-tendinopatia-patelar-quadriceps-condropatia",
     title: "Diferença entre Tendinopatia Patelar, Tendinopatia do Quadríceps e Condropatia Patelar: Como Diferenciar na Avaliação Fisioterapêutica?",
