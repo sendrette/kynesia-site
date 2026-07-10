@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "65",
+    slug: "red-flags-dor-no-ombro-quando-encaminhar",
+    title: "Red Flags na Dor no Ombro: Quando a Dor Não É Apenas uma Lesão Musculoesquelética?",
+    excerpt:
+      "Entenda o que são as red flags dor no ombro, aprenda a identificar os 8 principais sinais de alerta clínicos e saiba quando encaminhar o paciente de urgência.",
+    category: "Avaliação",
+    image: "/blog/red-flags-dor-ombro.jpg",
+    readTime: "11 min",
+    date: "10 Jul 2026",
+  },
+  {
     id: "64",
     slug: "red-flags-dor-cervical-encaminhamento-imediato",
     title: "Red Flags na Dor Cervical: Quais Sinais Exigem Encaminhamento Imediato?",
