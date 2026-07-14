@@ -87,14 +87,14 @@ export const metadata: Metadata = {
 
 export default function AlongamentoPrevineLesaoPage() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="bg-white text-gray-900 animate-fadeIn">
       <SiteHeader />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       <div className="bg-slate-50 px-6 py-4 text-sm text-gray-600">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-2xl">
           <Link href="/blog" className="text-teal-600 hover:underline">
             Blog
           </Link>
@@ -104,9 +104,9 @@ export default function AlongamentoPrevineLesaoPage() {
       </div>
 
       <header className="bg-gradient-to-b from-teal-50 via-blue-50 to-white px-6 py-16 md:py-20">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-2xl">
           <span className="mb-6 inline-block rounded-full bg-teal-500 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white">
-            Alongamento e prevenção
+            Avaliação
           </span>
 
           <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
@@ -125,23 +125,44 @@ export default function AlongamentoPrevineLesaoPage() {
         </div>
       </header>
 
-      <article className="mx-auto max-w-3xl px-6 py-16">
-        <div className="mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
+      <article className="mx-auto max-w-2xl px-6 py-16">
+        <div className="mb-10 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-lg">
           <Image
             src="/blog/alongamento-previne-lesao-o-que-dizem-as-evidencias.svg"
             alt="Capa do artigo com layout editorial em tons de verde e branco, título Alongamento previne lesão? e mensagem sobre evidências científicas"
             width={1200}
             height={800}
-            className="w-full object-cover"
+            className="w-full object-contain"
             priority
           />
         </div>
 
         <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6">
-          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-600">Resposta curta</h2>
-          <p className="leading-relaxed text-gray-900">
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-600">Resposta rápida</h2>
+          <p className="font-medium leading-relaxed text-gray-900">
             <strong>Alongamento isolado não é uma estratégia confiável para prevenir lesões.</strong> A literatura recente mostra que o risco de lesão é multifatorial e depende muito mais de força, controle motor, progressão de carga, histórico de lesão, sono, fadiga e contexto da atividade do que de apenas “ser encurtado” ou “ser flexível”.
           </p>
+        </div>
+
+        <div className="mb-8 rounded-2xl border border-blue-200 bg-blue-50 p-6">
+          <h3 className="mb-4 font-semibold text-gray-900">Leituras recomendadas para se aprofundar</h3>
+          <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
+            <li>
+              <Link href="/blog/como-interpretar-proms-na-fisioterapia" className="text-teal-600 hover:underline">
+                → Como Interpretar PROMs na Fisioterapia
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog/dor-no-pescoco-e-dor-de-cabeca-entenda-a-relacao" className="text-teal-600 hover:underline">
+                → Dor no Pescoço e Dor de Cabeça: Entenda a Relação
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog/como-reduzir-tempo-documentacao-fisioterapia" className="text-teal-600 hover:underline">
+                → Como Reduzir Tempo de Documentação na Fisioterapia
+              </Link>
+            </li>
+          </ul>
         </div>
 
         <p className="mb-5 leading-relaxed text-gray-700">
