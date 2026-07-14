@@ -18,17 +18,6 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
-    id: "70",
-    slug: "alongamento-previne-lesao-o-que-dizem-as-evidencias",
-    title: "Alongamento previne lesão? O que dizem as evidências",
-    excerpt:
-      "Veja o que a ciência mostra sobre alongamento, flexibilidade e prevenção de lesões. Entenda por que força, controle e carga importam mais do que alongar sozinho.",
-    category: "Reabilitação",
-    image: "/blog/alongamento-previne-lesao-o-que-dizem-as-evidencias.svg",
-    readTime: "10 min",
-    date: "14 Jul 2026",
-  },
-  {
     id: "69",
     slug: "hoffite-como-diferenciar-tendinopatia-patelar-condropatia",
     title: "Hoffite: Como Diferenciar da Tendinopatia Patelar e Condropatia na Avaliação Fisioterapêutica",
