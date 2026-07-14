@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "69",
+    slug: "hoffite-como-diferenciar-tendinopatia-patelar-condropatia",
+    title: "Hoffite: Como Diferenciar da Tendinopatia Patelar e Condropatia na Avaliação Fisioterapêutica",
+    excerpt:
+      "Entenda o que é a Hoffite (Síndrome de Hoffa) e aprenda a diferenciá-la da tendinopatia patelar e condropatia na avaliação clínica do joelho com foco em evidências.",
+    category: "Avaliação",
+    image: "/blog/hoffite-como-diferenciar-tendinopatia-patelar-condropatia.png",
+    readTime: "12 min",
+    date: "14 Jul 2026",
+  },
+  {
     id: "68",
     slug: "testes-clinicos-manguito-rotador-precisao-diagnostica",
     title: "Como Diagnosticar uma Lesão do Manguito Rotador: Quais Testes Clínicos Têm Maior Precisão?",
