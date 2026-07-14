@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "68",
+    slug: "testes-clinicos-manguito-rotador-precisao-diagnostica",
+    title: "Como Diagnosticar uma Lesão do Manguito Rotador: Quais Testes Clínicos Têm Maior Precisão?",
+    excerpt:
+      "Descubra quais testes clínicos do manguito rotador têm maior precisão diagnóstica. Entenda a sensibilidade, especificidade e como combinar testes para avaliar o ombro.",
+    category: "Avaliação",
+    image: "/blog/testes-clinicos-manguito-rotador.jpg",
+    readTime: "11 min",
+    date: "13 Jul 2026",
+  },
+  {
     id: "67",
     slug: "diferenca-manguito-rotador-bursite-capsulite",
     title: "Como Diferenciar Tendinopatia do Manguito Rotador, Bursite Subacromial e Capsulite Adesiva na Avaliação Fisioterapêutica",
