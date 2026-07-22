@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "70",
+    slug: "alongamento-previne-lesao-o-que-dizem-as-evidencias",
+    title: "Alongamento Previne Lesões? O Que Dizem as Evidências Científicas",
+    excerpt:
+      "Descubra se o alongamento realmente previne lesões no esporte e na clínica. Entenda o que as evidências científicas atuais dizem sobre flexibilidade, força e carga.",
+    category: "Ortopedia",
+    image: "/blog/alongamento-previne-lesoes.jpg",
+    readTime: "10 min",
+    date: "22 Jul 2026",
+  },
+  {
     id: "69",
     slug: "hoffite-como-diferenciar-tendinopatia-patelar-condropatia",
     title: "Hoffite: Como Diferenciar da Tendinopatia Patelar e Condropatia na Avaliação Fisioterapêutica",
