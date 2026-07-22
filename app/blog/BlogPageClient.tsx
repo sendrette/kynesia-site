@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "71",
+    slug: "crepitacao-no-joelho-quando-estalos-sao-normais-e-quando-devem-preocupar",
+    title: "Crepitação no Joelho: Quando Estalos São Normais e Quando Devem Preocupar?",
+    excerpt:
+      "Descubra o que causa a crepitação no joelho. Aprenda a diferenciar estalos articulares benignos de sinais de alerta como dor, inchaço e travamento.",
+    category: "Ortopedia",
+    image: "/blog/crepitacao-joelho-estalos-normais-preocupar.jpg",
+    readTime: "11 min",
+    date: "22 Jul 2026",
+  },
+  {
     id: "70",
     slug: "alongamento-previne-lesao-o-que-dizem-as-evidencias",
     title: "Alongamento Previne Lesões? O Que Dizem as Evidências Científicas",
