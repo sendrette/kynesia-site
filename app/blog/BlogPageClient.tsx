@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "72",
+    slug: "estalido-no-ombro-quando-e-normal",
+    title: "Estalido no Ombro: Quando é Normal e Quando Deve Preocupar?",
+    excerpt:
+      "Descubra o que causa o estalido no ombro. Entenda a diferença entre cavitação fisiológica, movimento dos tendões e lesões como manguito rotador e labrais.",
+    category: "Ortopedia",
+    image: "/blog/estalido-no-ombro-quando-e-normal.jpg",
+    readTime: "11 min",
+    date: "23 Jul 2026",
+  },
+  {
     id: "71",
     slug: "crepitacao-no-joelho-quando-estalos-sao-normais-e-quando-devem-preocupar",
     title: "Crepitação no Joelho: Quando Estalos São Normais e Quando Devem Preocupar?",
