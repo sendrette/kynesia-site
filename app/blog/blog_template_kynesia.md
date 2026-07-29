@@ -311,3 +311,27 @@ Instruções para o Antigravity:
 * O botão deve direcionar para a página de cadastro.
 * Utilizar exatamente o texto "Começar Grátis".
 * Manter consistência visual com os demais CTAs do site.
+
+---
+
+# BLOCO OBRIGATÓRIO DE ATENDIMENTO (PATIENT CTA)
+
+Todo artigo deve conter o componente `<PatientCTA />` ("Precisa de ajuda para tratar sua dor?") posicionado imediatamente antes da assinatura da "Equipe Kynesia".
+
+Isso serve para direcionar leitores que são pacientes em busca de atendimento fisioterapêutico especializado para o canal de agendamento e triagem do Kynesia.
+
+Estrutura:
+```tsx
+import PatientCTA from "../../components/PatientCTA";
+
+...
+
+{/* CTA para o Paciente */}
+<PatientCTA />
+
+{/* Assinatura da Equipe Kynesia */}
+<div className="flex items-center gap-4 border-t border-gray-200 pt-8 mb-12">
+  ...
+</div>
+```
+

@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "73",
+    slug: "dor-na-lombar-posso-correr",
+    title: "Dor na Lombar: Posso Correr? O Que Dizem as Evidências",
+    excerpt:
+      "Descubra se correr com dor na lombar é seguro. Entenda o que as evidências científicas mostram sobre o impacto da corrida na coluna e como reabilitar com segurança.",
+    category: "Ortopedia",
+    image: "/blog/dor-na-lombar-posso-correr.png",
+    readTime: "9 min",
+    date: "29 Jul 2026",
+  },
+  {
     id: "72",
     slug: "estalido-no-ombro-quando-e-normal",
     title: "Estalido no Ombro: Quando é Normal e Quando Deve Preocupar?",
