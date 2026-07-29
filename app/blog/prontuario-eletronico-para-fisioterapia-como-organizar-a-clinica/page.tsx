@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/prontuario-eletronico-para-fisioterapia-como-organizar-a-clinica";
 
@@ -100,6 +101,8 @@ export default function ProntuarioEletronicoFisioterapiaPage() {
         <section className="mt-12"><h2 className="text-2xl font-bold text-gray-900">Perguntas frequentes</h2><div className="mt-6 space-y-3">{faqItems.map((faq) => (<details key={faq.question} className="cursor-pointer rounded-lg border border-gray-200 p-4 hover:bg-gray-50"><summary className="font-semibold text-gray-900">{faq.question}</summary><p className="mt-3 leading-relaxed text-gray-700">{faq.answer}</p></details>))}</div></section>
 
         <div className="mb-8 mt-12 rounded-2xl bg-gray-900 p-8 text-white"><h2 className="mb-4 text-2xl font-bold">Prontuário eletrônico é base de gestão</h2><p className="mb-4 leading-relaxed">Quem quer escalar a clínica precisa tratar prontuário como ativo estratégico. O dado clínico bem organizado melhora cuidado e gestão ao mesmo tempo.</p><p className="leading-relaxed">Quanto mais claro o histórico, melhor a decisão clínica.</p></div>
+      <PatientCTA />
+
       </article>
     </main>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Agenda para fisioterapeuta: organize sua clínica melhor",
@@ -206,6 +207,9 @@ export default function AgendaParaFisioterapeutaPage() {
             Pequenas melhorias no fluxo diário podem gerar um efeito grande no resultado final. Comece pela agenda e depois refine os demais processos da clínica.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>

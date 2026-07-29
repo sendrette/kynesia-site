@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/epicondilalgia-lateral-cotovelo-de-tenista";
 
@@ -323,6 +324,9 @@ export default function EpicondilalgiaPage() {
           </p>
           <p className="leading-relaxed">O objetivo clínico é recuperar capacidade e função, não apenas alívio sintomático temporário.</p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">K</div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/como-reduzir-faltas-e-cancelamentos-na-fisioterapia";
 
@@ -326,6 +327,9 @@ export default function ReduzirFaltasFisioterapiaPage() {
             A redução sustentável das taxas de no-show exige uma gestão ativa apoiada em tecnologia: lembretes automáticos integrados, políticas de cancelamento acordadas formalmente e adoção de cobranças recorrentes.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">

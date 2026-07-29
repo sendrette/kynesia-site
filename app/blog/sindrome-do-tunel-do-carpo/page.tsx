@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/sindrome-do-tunel-do-carpo";
 
@@ -320,6 +321,8 @@ export default function SindromeDoTunelDoCarpoPage() {
             Quando a decisão clínica é guiada por evidência e contexto, o manejo do paciente se torna mais seguro, consistente e funcional. Esse é o ponto central para lidar bem com a síndrome do túnel do carpo.
           </p>
         </section>
+      <PatientCTA />
+
       </article>
     </main>
   );

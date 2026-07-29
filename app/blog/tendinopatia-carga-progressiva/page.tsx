@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Tendinopatia e Carga Progressiva: Quando Avançar ou Regredir",
@@ -196,6 +197,8 @@ export default function TendinopatiaCargaProgressivaPage() {
             Com critérios objetivos, você decide melhor e acelera o retorno funcional com segurança.
           </p>
         </div>
+      <PatientCTA />
+
       </article>
     </main>
   );

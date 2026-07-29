@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Gestão de Agenda Fisioterapia: Menos Faltas e Previsibilidade",
@@ -196,6 +197,8 @@ export default function GestaoAgendaFisioterapiaPage() {
             Com processos simples e consistentes, sua clínica ganha produtividade, previsibilidade e qualidade assistencial.
           </p>
         </div>
+      <PatientCTA />
+
       </article>
     </main>
   );

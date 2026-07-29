@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Cervicalgia: Raciocínio Clínico para Conduta sem Excesso",
@@ -181,6 +182,8 @@ export default function CervicalgiaRaciocinioClinicoPage() {
             Resultado clínico consistente vem de avaliação boa, intervenção progressiva e comunicação clara com o paciente.
           </p>
         </div>
+      <PatientCTA />
+
       </article>
     </main>
   );

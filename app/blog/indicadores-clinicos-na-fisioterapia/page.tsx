@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/indicadores-clinicos-na-fisioterapia";
 
@@ -334,6 +335,9 @@ export default function IndicadoresClinicosFisioterapiaPage() {
             A combinação entre raciocínio clínico, prática baseada em evidências e monitoramento de indicadores representa uma das principais tendências da fisioterapia moderna.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">

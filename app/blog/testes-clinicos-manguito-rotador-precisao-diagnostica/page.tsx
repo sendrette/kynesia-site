@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/testes-clinicos-manguito-rotador-precisao-diagnostica";
 
@@ -395,6 +396,8 @@ export default function TestesManguitoPage() {
         </div>
 
         {/* Assinatura da Equipe Kynesia */}
+        <PatientCTA />
+
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8 mb-12">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700 shrink-0">
             K

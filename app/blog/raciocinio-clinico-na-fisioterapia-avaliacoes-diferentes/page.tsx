@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/raciocinio-clinico-na-fisioterapia-avaliacoes-diferentes";
 
@@ -269,6 +270,9 @@ export default function RaciocinioClinicoFisioterapiaPage() {
             A adoção da Prática Baseada em Evidências, a escuta ativa do paciente e a utilização de metodologias padronizadas de registro (como prontuários focados em dados) são os caminhos mais eficazes para garantir uma assistência assertiva e coesa.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">

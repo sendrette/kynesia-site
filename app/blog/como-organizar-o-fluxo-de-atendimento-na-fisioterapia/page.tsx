@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/como-organizar-o-fluxo-de-atendimento-na-fisioterapia";
 
@@ -265,6 +266,9 @@ export default function FluxoAtendimentoFisioterapiaPage() {
             Integrar tecnologia e softwares na gestão clínica elimina a burocracia, reduz absenteísmo e padroniza as rotinas de acompanhamento e fidelização pós-alta.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">

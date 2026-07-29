@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Torcicolo: fisiopatologia e tratamento na fisioterapia",
@@ -215,6 +216,9 @@ export default function TorcicoloPage() {
             Educação do paciente, progressão prudente de exercício e correção de fatores de risco ocupacionais são tão importantes quanto a intervenção manual inicial. Com essa abordagem integrada, a recuperação funcional é consistente.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>

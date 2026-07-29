@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/dor-lombar-ao-ficar-muito-tempo-sentado-causas-e-tratamento";
 
@@ -279,6 +280,9 @@ export default function DorLombarSentadoPage() {
             Com a conduta certa, o paciente costuma voltar a sentar, levantar e se mover com mais segurança e menos medo.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div>

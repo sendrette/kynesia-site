@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/gestao-clinica-em-fisioterapia-guia-completo-2026";
 
@@ -262,6 +263,9 @@ export default function GestaoClinicaFisioterapiaPage() {
             Em 2026, gestão clínica profissional não é opcional: é o caminho para crescer com consistência.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">

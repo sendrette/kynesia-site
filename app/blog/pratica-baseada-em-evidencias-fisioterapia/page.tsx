@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/pratica-baseada-em-evidencias-fisioterapia";
 
@@ -309,6 +310,8 @@ export default function PraticaBaseadaEmEvidenciasPage() {
             Em um cenário que exige precisão, documentação e atualização constante, adotar a prática baseada em evidências na fisioterapia é um passo importante para atuar de forma mais ética, segura e profissional.
           </p>
         </section>
+      <PatientCTA />
+
       </article>
     </main>
   );

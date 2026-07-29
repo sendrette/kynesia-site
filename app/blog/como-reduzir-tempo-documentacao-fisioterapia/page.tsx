@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/como-reduzir-tempo-documentacao-fisioterapia";
 
@@ -351,6 +352,8 @@ export default function ComoReduzirTempoDocumentacaoPage() {
             </Link>
           </div>
         </div>
+      <PatientCTA />
+
       </article>
     </main>
   );

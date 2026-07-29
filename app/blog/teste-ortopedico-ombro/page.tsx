@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Testes de Ombro: Quais Realmente Ajudam na Decisão Clínica",
@@ -292,6 +293,8 @@ export default function TesteOrtopedicoOmbroPage() {
             <p className="text-sm text-gray-600">Conteúdo clínico baseado em evidência para quem busca saúde com qualidade.</p>
           </div>
         </div>
+      <PatientCTA />
+
       </article>
 
       <footer className="border-t border-gray-200 px-6 py-8 mt-16">

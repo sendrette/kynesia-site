@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Gestão clínica para fisioterapia: checklist prático para otimizar agenda e operação",
@@ -125,6 +126,9 @@ export default function GestaoClinicaChecklistPage() {
           <p className="mb-4 leading-relaxed">A disciplina operacional reduz falhas, aumenta previsibilidade e melhora o resultado clínico. Comece com um checklist simples e evolua conforme os dados indicarem prioridades.</p>
           <p className="leading-relaxed">Se precisar, o Kynesia ajuda a automatizar lembretes, monitorar indicadores e organizar a agenda da sua clínica.</p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>

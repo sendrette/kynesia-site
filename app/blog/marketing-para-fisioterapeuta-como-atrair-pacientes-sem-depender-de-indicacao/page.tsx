@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Marketing para fisioterapeuta: como atrair pacientes sem depender de indicação",
@@ -204,6 +205,9 @@ export default function MarketingParaFisioterapeutaPage() {
             O melhor marketing é aquele que educa, gera confiança e facilita o primeiro contato com o paciente.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/dry-needling-eficacia-riscos-quando-indicar";
 
@@ -243,6 +244,9 @@ export default function DryNeedlingPage() {
             Não substitua intervenções com maior suporte de evidência (exercício estruturado, educação). Use como adjuvante seletivo para pacientes que respondem inadequadamente a intervenções ativas isoladas. Mantenha-se atualizado com literatura, respeite contraindicações e sempre coloque segurança do paciente em primeiro lugar.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">K</div>

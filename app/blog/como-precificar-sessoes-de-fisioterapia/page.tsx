@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/como-precificar-sessoes-de-fisioterapia";
 
@@ -326,6 +327,8 @@ export default function ComoPrecificarSessoesPage() {
             Em um cenário de alta concorrência e custos crescentes, aprender como precificar sessões de fisioterapia de forma técnica é um passo essencial para valorização profissional e desenvolvimento sustentável da prática clínica.
           </p>
         </section>
+      <PatientCTA />
+
       </article>
     </main>
   );

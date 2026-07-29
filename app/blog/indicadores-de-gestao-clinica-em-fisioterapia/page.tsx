@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/indicadores-de-gestao-clinica-em-fisioterapia";
 
@@ -98,6 +99,8 @@ export default function IndicadoresGestaoClinicaPage() {
 
         <section className="mt-12"><h2 className="text-2xl font-bold text-gray-900">Perguntas frequentes</h2><div className="mt-6 space-y-3">{faqItems.map((faq) => (<details key={faq.question} className="cursor-pointer rounded-lg border border-gray-200 p-4 hover:bg-gray-50"><summary className="font-semibold text-gray-900">{faq.question}</summary><p className="mt-3 leading-relaxed text-gray-700">{faq.answer}</p></details>))}</div></section>
         <div className="mb-8 mt-12 rounded-2xl bg-gray-900 p-8 text-white"><h2 className="mb-4 text-2xl font-bold">Medir bem é melhorar a clínica</h2><p className="leading-relaxed">Indicadores certos mostram o que precisa ser mantido, o que precisa ser corrigido e onde a clínica pode crescer com mais segurança.</p></div>
+      <PatientCTA />
+
       </article>
     </main>
   );

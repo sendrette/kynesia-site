@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Evolução fisioterapêutica: como fazer corretamente",
@@ -131,6 +132,9 @@ export default function EvolucaoFisioterapicaPage() {
           <p className="mb-4 leading-relaxed text-white">Boas evoluções ajudam a medir efeito, ajustar planos e comprovar a qualidade do serviço prestado.</p>
           <p className="leading-relaxed text-white">Invista em padrão e em processos que tornem o registro fácil e informativo.</p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Yellow Flags na Fisioterapia: Fatores Psicossociais e Dor",
@@ -256,6 +257,9 @@ export default function YellowFlagsPage() {
             Com os prontuários customizáveis e centralizados da Kynesia, você pode registrar escalas de cinesiofobia, triagens do STarT Back e desfechos clínicos com poucos cliques. Tenha todo o histórico do paciente documentado de forma clara e profissional.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>

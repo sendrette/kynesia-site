@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "@/app/components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl =
   "https://kynesia.com.br/blog/dor-no-ombro-ao-levantar-o-braco-causas-e-tratamento";
@@ -415,6 +416,8 @@ export default function DorOmbroBracoPage() {
       </section>
 
       {/* Author Section */}
+      <PatientCTA />
+
       <section className="py-8 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-4">

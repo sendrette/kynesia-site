@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/como-aumentar-a-produtividade-na-clinica-de-fisioterapia";
 
@@ -274,6 +275,9 @@ export default function ProdutividadeClinicaFisioterapiaPage() {
             Políticas claras contra faltas, o uso de blocos de tempo diários estruturados e o monitoramento constante de indicadores operacionais garantem um consultório saudável e sustentável.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="flex items-center gap-4 border-t border-gray-200 pt-8">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-100 text-lg font-bold text-teal-700">

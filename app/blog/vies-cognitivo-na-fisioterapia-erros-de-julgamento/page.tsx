@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
   title: "Viés Cognitivo na Fisioterapia: Erros de Julgamento no Diagnóstico",
@@ -229,6 +230,9 @@ export default function ViesCognitivoPage() {
             Com a Kynesia, você tem à disposição prontuários estruturados e recursos pensados para facilitar a documentação de desfechos clínicos e avaliações físicas de alta precisão. Organize sua rotina de atendimento e reduza a margem de erro na sua tomada de decisão.
           </p>
         </div>
+
+        <PatientCTA />
+
 
         <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-8">
           <h3 className="mb-4 text-xl font-bold text-gray-900">Sobre o autor</h3>
