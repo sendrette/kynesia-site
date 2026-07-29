@@ -21,35 +21,37 @@ export default function PatientCTA() {
 
   return (
     <div className="my-12 rounded-2xl bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 p-8 text-white shadow-xl border border-teal-700/20">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-        <div className="flex-1 space-y-4">
+      <div className="flex flex-col gap-8 text-center">
+        <div className="space-y-4">
           <h3 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
             Precisa de ajuda para tratar sua dor?
           </h3>
-          <p className="text-sm leading-relaxed text-teal-100/90 md:text-base">
+          <p className="text-sm leading-relaxed text-teal-100/90 md:text-base max-w-[85%] mx-auto">
             As informações deste artigo ajudam você a compreender melhor o problema, mas cada pessoa apresenta sintomas e necessidades diferentes. Converse com um dos especialistas do Kynesia e receba uma orientação individualizada baseada em evidências científicas.
           </p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-sm font-medium text-teal-100">
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400 font-bold">✓</span> Atendimento online
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400 font-bold">✓</span> Especialistas em fisioterapia
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400 font-bold">✓</span> Plano de tratamento personalizado
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-emerald-400 font-bold">✓</span> Baseado em evidências científicas
-            </li>
-          </ul>
         </div>
-        <div className="flex shrink-0 items-center justify-center md:justify-end">
+
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-medium text-teal-100 max-w-[80%] mx-auto w-full text-left sm:pl-8">
+          <li className="flex items-center gap-2">
+            <span className="text-emerald-400 font-bold">✓</span> Atendimento online
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-emerald-400 font-bold">✓</span> Especialistas em fisioterapia
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-emerald-400 font-bold">✓</span> Plano de tratamento personalizado
+          </li>
+          <li className="flex items-center gap-2">
+            <span className="text-emerald-400 font-bold">✓</span> Baseado em evidências científicas
+          </li>
+        </ul>
+
+        <div className="flex justify-center pt-2">
           <a
             href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#25D366] px-6 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#22c55e] hover:shadow-emerald-500/20 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-500/30"
+            className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#25D366] px-6 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#22c55e] hover:shadow-emerald-500/20 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-500/30 w-full md:w-[70%]"
           >
             <svg
               viewBox="0 0 32 32"
