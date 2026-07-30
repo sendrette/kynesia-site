@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import SiteHeader from "../../components/site-header";
 import PatientCTA from "../../components/PatientCTA";
 
@@ -126,6 +127,18 @@ export default function DorLombarCorridaPage() {
       </header>
 
       <article className="mx-auto max-w-2xl px-6 py-16">
+        {/* Imagem de Destaque no Post */}
+        <div className="mb-10 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-lg">
+          <Image
+            src="/blog/dor-na-lombar-posso-correr.png"
+            alt="Infográfico com o título 'Dor na Lombar: Posso Correr?' com um homem correndo no parque mostrando a coluna lombar destacada."
+            width={1200}
+            height={800}
+            className="w-full h-auto object-contain"
+            priority
+          />
+        </div>
+
         {/* Resposta Rápida (Featured Snippet) */}
         <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6">
           <h2 className="text-xs font-bold uppercase tracking-wider text-teal-600 mb-2">Resposta Rápida</h2>

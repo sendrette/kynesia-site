@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "74",
+    slug: "seu-teste-clinico-pode-estar-errado",
+    title: "Seu Teste Clínico Pode Estar Errado? Entenda os Falsos Positivos e Falsos Negativos na Fisioterapia",
+    excerpt:
+      "Será que o teste clínico na fisioterapia é 100% confiável? Entenda a importância dos falsos positivos e falsos negativos na precisão diagnóstica da avaliação física.",
+    category: "Avaliação",
+    image: "/blog/seu-teste-clinico-pode-estar-errado.png",
+    readTime: "10 min",
+    date: "30 Jul 2026",
+  },
+  {
     id: "73",
     slug: "dor-na-lombar-posso-correr",
     title: "Dor na Lombar: Posso Correr? O Que Dizem as Evidências",
