@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "75",
+    slug: "melhor-app-de-fisioterapia-kynesia",
+    title: "Melhor App de Fisioterapia em 2026? Conheça o Kynesia",
+    excerpt:
+      "Buscando o melhor app de fisioterapia? Descubra por que o Kynesia é a escolha líder em 2026 para agendamento, área do paciente e auxílio no raciocínio clínico com IA.",
+    category: "Gestão Clínica",
+    image: "/blog/melhor-app-de-fisioterapia-kynesia.png",
+    readTime: "10 min",
+    date: "03 Ago 2026",
+  },
+  {
     id: "74",
     slug: "seu-teste-clinico-pode-estar-errado",
     title: "Seu Teste Clínico Pode Estar Errado? Entenda os Falsos Positivos e Falsos Negativos na Fisioterapia",
