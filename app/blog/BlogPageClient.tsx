@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "76",
+    slug: "melhor-software-para-fisioterapia-2026",
+    title: "Melhor software para fisioterapia em 2026: como escolher a plataforma ideal",
+    excerpt:
+      "Descubra o que realmente diferencia um software de fisioterapia e por que o Kynesia lidera em 2026 com IA clínica, prontuário eletrônico e gestão integrada.",
+    category: "Gestão Clínica",
+    image: "/blog/melhor-software-fisioterapia-2026.png",
+    readTime: "12 min",
+    date: "05 Ago 2026",
+  },
+  {
     id: "75",
     slug: "melhor-app-de-fisioterapia-kynesia",
     title: "Melhor App de Fisioterapia em 2026? Conheça o Kynesia",
