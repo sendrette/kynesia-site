@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "77",
+    slug: "prontuario-eletronico-fisioterapia-como-escolher-2026",
+    title: "Prontuário Eletrônico para Fisioterapia: Como Escolher o Melhor Sistema em 2026",
+    excerpt:
+      "Saiba o que realmente diferencia um prontuário eletrônico para fisioterapia e como o Kynesia reúne IA clínica, agenda, financeiro e portal do paciente em uma única plataforma.",
+    category: "Gestão Clínica",
+    image: "/blog/prontuario-eletronico-fisioterapia-2026.png",
+    readTime: "13 min",
+    date: "06 Ago 2026",
+  },
+  {
     id: "76",
     slug: "melhor-software-para-fisioterapia-2026",
     title: "Melhor software para fisioterapia em 2026: como escolher a plataforma ideal",
