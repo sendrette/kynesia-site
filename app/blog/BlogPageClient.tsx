@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "78",
+    slug: "como-montar-avaliacao-fisioterapeutica-completa-menos-10-minutos",
+    title: "Como Montar uma Avaliação Fisioterapêutica Completa em Menos de 10 Minutos",
+    excerpt:
+      "Descubra o método prático respaldado por evidências para estruturar uma anamnese e exame físico de alto nível com máxima eficiência e tecnologia na fisioterapia.",
+    category: "Avaliação",
+    image: "/blog/como-montar-avaliacao-fisioterapeutica-completa-menos-10-minutos.jpg",
+    readTime: "12 min",
+    date: "18 Ago 2026",
+  },
+  {
     id: "77",
     slug: "prontuario-eletronico-fisioterapia-como-escolher-2026",
     title: "Prontuário Eletrônico para Fisioterapia: Como Escolher o Melhor Sistema em 2026",
