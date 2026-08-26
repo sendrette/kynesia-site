@@ -298,6 +298,64 @@ export default function EscalasQuestionariosFisioterapiaPage() {
           </p>
         </div>
 
+        {/* CTA do Kit de Avaliação Funcional */}
+        <div className="my-12 rounded-3xl border border-teal-200 bg-gradient-to-b from-teal-50/70 to-white p-8 shadow-sm">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Leve isso para a prática: Kit Completo de Avaliação Funcional</h3>
+          
+          <p className="mb-6 leading-relaxed text-gray-700">
+            Os questionários que você viu neste artigo são ótimos para entender os conceitos — mas na correria do consultório, o que realmente economiza tempo é ter tudo isso já formatado, impresso e pronto para aplicar.
+          </p>
+
+          <p className="mb-6 leading-relaxed text-gray-700">
+            Por isso desenvolvi o <strong>Kit Completo de Avaliação Funcional em Fisioterapia Ortopédica</strong>: um PDF completo de 23 páginas com 9 questionários prontos para uso, cobrindo as principais queixas da clínica ortopédica — coluna lombar, cervical, ombro, joelho, quadril, tornozelo/pé, equilíbrio, medo-evitação ao movimento e qualidade de vida geral.
+          </p>
+
+          <div className="mb-8 space-y-2 text-sm text-gray-700">
+            <p className="font-semibold text-gray-800">Cada instrumento vem com:</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+              <div className="flex items-start gap-2">
+                <span>✅</span>
+                <p>Cabeçalho de identificação do paciente</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <span>✅</span>
+                <p>Itens objetivos para marcar em poucos minutos</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <span>✅</span>
+                <p>Cálculo automático de escore e classificação de gravidade</p>
+              </div>
+              <div className="flex items-start gap-2">
+                <span>✅</span>
+                <p>Tabela de evolução para acompanhar o progresso ao longo do tratamento</p>
+              </div>
+              <div className="flex items-start gap-2 md:col-span-2">
+                <span>✅</span>
+                <p>Layout pronto para imprimir e usar no mesmo dia (23 páginas no total)</p>
+              </div>
+            </div>
+          </div>
+
+          <p className="mb-8 leading-relaxed text-gray-700">
+            O resultado: avaliações mais rápidas, mais padronizadas, e uma forma visual de mostrar ao paciente sua evolução — o que aumenta engajamento e adesão ao tratamento.
+          </p>
+
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-gray-150 pt-6 md:flex-row">
+            <div className="text-center md:text-left">
+              <span className="text-xs text-gray-500 uppercase tracking-wider block">Adquira agora o PDF completo</span>
+              <span className="text-2xl font-extrabold text-gray-900">R$ 39,90</span>
+            </div>
+            <a
+              href="https://www.asaas.com/c/r44c3lpv26772prz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-xl bg-teal-600 px-8 py-4 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-700 text-center shadow-md shadow-teal-150"
+            >
+              💚 Quero o meu Kit por R$ 39,90
+            </a>
+          </div>
+        </div>
+
         <PatientCTA />
 
 
