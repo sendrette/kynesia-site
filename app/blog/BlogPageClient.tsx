@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "79",
+    slug: "fisioterapeuta-como-profissional-de-primeiro-contato",
+    title: "Fisioterapeuta como Profissional de Primeiro Contato: Posso Ir Direto?",
+    excerpt:
+      "Posso ir direto ao fisioterapeuta? Entenda as regras do fisioterapeuta como profissional de primeiro contato, a segurança clínica e a autonomia profissional.",
+    category: "Gestão Clínica",
+    image: "/blog/fisioterapeuta-como-profissional-de-primeiro-contato.jpg",
+    readTime: "11 min",
+    date: "26 Ago 2026",
+  },
+  {
     id: "78",
     slug: "como-montar-avaliacao-fisioterapeutica-completa-menos-10-minutos",
     title: "Como Montar uma Avaliação Fisioterapêutica Completa em Menos de 10 Minutos",
