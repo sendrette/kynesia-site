@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const WA_NUMBER = "https://wa.me/5512997489847";
+const WA_NUMBER = "https://wa.me/5512996304111";
 const WA_MESSAGE = "Olá, gostaria de saber mais sobre os planos do Kynesia";
 
 export default function WhatsAppFab() {

@@ -17,7 +17,7 @@ export default function PatientCTA() {
   }, []);
 
   const waMessage = `Olá! Acabei de ler o artigo '${articleTitle}' no blog do Kynesia e gostaria de conversar com um especialista. Gostaria de saber como funciona a avaliação online e qual seria o melhor tratamento para o meu caso.`;
-  const waUrl = `https://wa.me/5512997489847?text=${encodeURIComponent(waMessage)}`;
+  const waUrl = `https://wa.me/5512996304111?text=${encodeURIComponent(waMessage)}`;
 
   return (
     <div className="my-12 rounded-2xl bg-gradient-to-br from-teal-950 via-teal-900 to-emerald-950 p-8 text-white shadow-xl border border-teal-700/20">
