@@ -20,6 +20,7 @@ type CheckoutPayload = {
     complement?: string;
     province: string;
   };
+  isTrial?: boolean;
 };
 
 type AsaasCustomer = {
@@ -46,9 +47,10 @@ function getAsaasBaseUrl() {
   return "https://api.asaas.com/v3";
 }
 
-function getNextDueDate() {
+function getNextDueDate(isTrial?: boolean) {
   const now = new Date();
-  const due = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  const offset = isTrial ? 5 : 1;
+  const due = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
 
   return due.toISOString().slice(0, 10);
 }
@@ -166,10 +168,10 @@ export async function POST(req: Request) {
         customer: customerResult.customerId,
         billingType,
         value: amount,
-        dueDate: getNextDueDate(),
+        dueDate: getNextDueDate(body.isTrial),
         installmentCount: isAnnualCardInstallment ? pricing.installmentCount : undefined,
         installmentValue: isAnnualCardInstallment ? pricing.installmentValue : undefined,
-        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})`,
+        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})${body.isTrial ? " [Trial 5 Dias]" : ""}`,
         externalReference: `kynesia-${body.plan}-${Date.now()}`,
       }),
     });

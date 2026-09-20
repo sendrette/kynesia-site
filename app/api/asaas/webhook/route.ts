@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createElement } from "react";
 import WelcomeEmail from "@/email-templates/WelcomeEmail";
+import ExpirationEmail from "@/email-templates/ExpirationEmail";
+import { supabaseAdmin } from "../../../lib/supabase";
 
 export const runtime = "nodejs";
 
@@ -17,6 +19,9 @@ type AsaasWebhookPayload = {
     customer?: string;
     value?: number;
     billingType?: string;
+    description?: string;
+    externalReference?: string;
+    dueDate?: string;
   };
 };
 
@@ -86,6 +91,21 @@ async function sendWelcomeEmail(email: string, firstName?: string) {
   }
 }
 
+async function sendExpirationEmail(email: string, firstName?: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL;
+
+  if (!apiKey || !from) return;
+
+  const resend = new Resend(apiKey);
+  await resend.emails.send({
+    from,
+    to: [email],
+    subject: "Aviso: Sua assinatura foi encerrada",
+    react: createElement(ExpirationEmail, { firstName }),
+  });
+}
+
 async function handlePaymentReceived(payload: AsaasWebhookPayload) {
   const paymentId = payload.payment?.id;
   const customerId = payload.payment?.customer;
@@ -122,6 +142,96 @@ async function handlePaymentReceived(payload: AsaasWebhookPayload) {
   sentWelcomeForPaymentIds.add(paymentId);
   if (sentWelcomeForPaymentIds.size > 5000) {
     sentWelcomeForPaymentIds.clear();
+  }
+}
+
+async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWebhookPayload) {
+  const event = payload.event;
+  const payment = payload.payment;
+  
+  if (!customerEmail) return;
+
+  const updateData: any = {
+    asaas_customer_id: payment?.customer,
+    payment_id: payment?.id,
+  };
+
+  const isTrial = payment?.description?.includes("[Trial 5 Dias]");
+  const planInDescription = payment?.description?.toLowerCase().includes("elite") ? "elite" : "flow";
+
+  if (event === "PAYMENT_CONFIRMED" || event === "PAYMENT_RECEIVED") {
+    updateData.current_plan = isTrial ? "flow" : planInDescription;
+    updateData.subscription_status = "active";
+    
+    if (isTrial) {
+      updateData.trial_started_at = new Date().toISOString();
+      const trialEnds = new Date();
+      trialEnds.setDate(trialEnds.getDate() + 5);
+      updateData.trial_ends_at = trialEnds.toISOString();
+      updateData.next_billing_at = trialEnds.toISOString();
+    } else {
+      const nextMonth = new Date();
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      updateData.next_billing_at = nextMonth.toISOString();
+    }
+  } else if (event === "PAYMENT_CREATED" && isTrial) {
+    // Activating 5 days free trial immediately upon checkout
+    updateData.current_plan = "flow";
+    updateData.subscription_status = "trialing";
+    updateData.trial_started_at = new Date().toISOString();
+    
+    if (payment?.dueDate) {
+      const dueDate = new Date(payment.dueDate);
+      updateData.trial_ends_at = dueDate.toISOString();
+      updateData.next_billing_at = dueDate.toISOString();
+    }
+  } else if (event === "PAYMENT_OVERDUE" || event === "PAYMENT_DELETED") {
+    updateData.subscription_status = "past_due";
+    updateData.current_plan = "start";
+    
+    // Send expiration email
+    if (customerEmail) {
+      const firstName = customerEmail.split("@")[0]; // Fallback to email prefix if name is not easily available here
+      await sendExpirationEmail(customerEmail, firstName);
+    }
+  } else {
+    // Event not relevant for updating plan
+    return;
+  }
+  
+  // Try updating `profiles` table first
+  let { data: profiles, error: selectError } = await supabaseAdmin
+    .from("profiles")
+    .select("id")
+    .eq("email", customerEmail)
+    .limit(1);
+    
+  if (selectError || !profiles || profiles.length === 0) {
+    // Fallback to "users" table if profiles is not found
+    const { data: users, error: selectUsersError } = await supabaseAdmin
+      .from("users")
+      .select("id")
+      .eq("email", customerEmail)
+      .limit(1);
+      
+    if (!selectUsersError && users && users.length > 0) {
+       await supabaseAdmin.from("users").update(updateData).eq("email", customerEmail);
+       console.log("[SUPABASE] Atualizado plano do usuário na tabela 'users' para", customerEmail);
+       return;
+    }
+    console.warn("[SUPABASE] Usuário não encontrado no Supabase (nem em profiles, nem em users):", customerEmail);
+    return;
+  }
+  
+  const { error: updateError } = await supabaseAdmin
+    .from("profiles")
+    .update(updateData)
+    .eq("email", customerEmail);
+    
+  if (updateError) {
+    console.error("[SUPABASE] Erro ao atualizar plano no Supabase:", updateError);
+  } else {
+    console.log("[SUPABASE] Plano atualizado com sucesso no Supabase para", customerEmail, "Event:", event);
   }
 }
 
@@ -174,10 +284,22 @@ export async function POST(req: Request) {
       }
     }
 
+    // Buscar o email do cliente para atualizar o Supabase
+    let customerEmailForSupabase = "";
+    if (payload.payment?.customer) {
+      const customerResult = await asaasGet<AsaasCustomer>(`/customers/${payload.payment.customer}`);
+      if (customerResult.ok && customerResult.data.email) {
+        customerEmailForSupabase = customerResult.data.email;
+      }
+    }
+
     // Eventos de cobrança (ex.: PAYMENT_CREATED, PAYMENT_CONFIRMED, PAYMENT_RECEIVED, PAYMENT_OVERDUE)
     switch (payload.event) {
       case "PAYMENT_RECEIVED":
         await handlePaymentReceived(payload);
+        if (customerEmailForSupabase) {
+          await updateUserPlanInSupabase(customerEmailForSupabase, payload);
+        }
         console.log("[ASAAS WEBHOOK]", {
           event: payload.event,
           id: payload.id,
@@ -192,6 +314,9 @@ export async function POST(req: Request) {
       case "PAYMENT_OVERDUE":
       case "PAYMENT_DELETED":
       case "PAYMENT_RESTORED":
+        if (customerEmailForSupabase) {
+          await updateUserPlanInSupabase(customerEmailForSupabase, payload);
+        }
         console.log("[ASAAS WEBHOOK]", {
           event: payload.event,
           id: payload.id,

@@ -85,6 +85,7 @@ function CheckoutContent() {
   const searchParams = useSearchParams();
   const requestedPlan = searchParams.get("plan")?.toLowerCase();
   const requestedCycle = searchParams.get("cycle")?.toLowerCase();
+  const isTrial = searchParams.get("trial") === "true";
 
   const selectedPlan = useMemo(() => {
     if (requestedPlan === "start" || requestedPlan === "flow" || requestedPlan === "elite") {
@@ -171,6 +172,7 @@ function CheckoutContent() {
           plan: selectedPlan,
           billingCycle,
           paymentMethod,
+          isTrial,
           customer: {
             name: form.name,
             email: form.email,
@@ -323,7 +325,13 @@ function CheckoutContent() {
               ))}
             </ul>
 
-            {isAnnual && plan.monthlyPrice > 0 ? (
+            {isTrial ? (
+              <div className="mt-5 rounded-xl bg-teal-50 p-4 text-sm text-teal-900">
+                <p className="font-semibold text-teal-900 mb-1">Teste Grátis de 5 dias</p>
+                Você terá 5 dias para testar o plano Flow. Nenhuma cobrança será feita agora.
+                O valor só será cobrado no 6º dia, caso você não cancele antes.
+              </div>
+            ) : isAnnual && plan.monthlyPrice > 0 ? (
               <div className="mt-5 rounded-xl bg-teal-50 p-4 text-sm text-teal-900">
                 Assinatura anual com 15% de desconto.
                 {pricing.isPromoActive ? ` Promoção adicional de ${pricing.promoDiscountPercent}% OFF aplicada.` : ""}
@@ -452,15 +460,17 @@ function CheckoutContent() {
                   >
                     Cartão de Crédito
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("pix")}
-                    className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                      paymentMethod === "pix" ? "bg-teal-600 text-white" : "text-gray-700 hover:bg-gray-100"
-                    }`}
-                  >
-                    Pix
-                  </button>
+                  {!isTrial && (
+                    <button
+                      type="button"
+                      onClick={() => setPaymentMethod("pix")}
+                      className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
+                        paymentMethod === "pix" ? "bg-teal-600 text-white" : "text-gray-700 hover:bg-gray-100"
+                      }`}
+                    >
+                      Pix
+                    </button>
+                  )}
                 </div>
 
                 {paymentMethod === "card" ? (

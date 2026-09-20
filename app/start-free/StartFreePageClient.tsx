@@ -59,9 +59,9 @@ export default function StartFreePageClient() {
         throw new Error(result.error ?? "Não foi possível liberar a conta gratuita.");
       }
 
-      setSuccessMessage("Conta gratuita liberada, redirecionando...");
+      setSuccessMessage("Redirecionando para o cadastro seguro...");
       setTimeout(() => {
-        window.location.href = "https://kynesia-app.vercel.app";
+        window.location.href = `/checkout?plan=flow&trial=true`;
       }, 1200);
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Erro inesperado.");
@@ -78,10 +78,11 @@ export default function StartFreePageClient() {
 
         <section className="mx-auto w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] md:p-9">
           <h1 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">
-            Comece gratuitamente no Kynesia
+            5 dias grátis no Kynesia
           </h1>
           <p className="mt-3 text-slate-600">
-            Crie sua conta gratuita e conheça as funcionalidades da plataforma.
+            Cadastre-se para começar. Você não será cobrado durante os 5 dias. 
+            Após o período de teste, será cobrado o valor do plano Flow caso você não cancele.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-7 space-y-4">
