@@ -113,7 +113,7 @@ function CheckoutContent() {
   const pricing = getPlanPricing(selectedPlan as PlanKey, billingCycle);
   const isAnnual = billingCycle === "annual";
   const paymentSecurityMessage =
-    "Pagamento 100% seguro. Todas as transações são processadas em ambiente criptografado e protegido. As cobranças em sua fatura ou extrato bancário aparecerão sob a razão social: 66.073.513 PEDRO PAULO SENDRETE JUNIOR, CNPJ 66.073.513/0001-30. Ao prosseguir, você concorda com os termos de cobrança da empresa responsável.";
+    "Pagamento 100% seguro. Todas as transações são processadas em ambiente criptografado e protegido. As cobranças em sua fatura ou extrato bancário aparecerão sob a razão social: 66.073.513 PEDRO PAULO SENDRETE JUNIOR, CPF 412.011.818-52. Ao prosseguir, você concorda com os termos de cobrança da empresa responsável.";
 
   async function fetchAddressByCep(rawCep: string) {
     const cep = onlyDigits(rawCep);
@@ -326,10 +326,8 @@ function CheckoutContent() {
             </ul>
 
             {isTrial ? (
-              <div className="mt-5 rounded-xl bg-teal-50 p-4 text-sm text-teal-900">
-                <p className="font-semibold text-teal-900 mb-1">Teste Grátis de 5 dias</p>
-                Você terá 5 dias para testar o plano Flow. Nenhuma cobrança será feita agora.
-                O valor só será cobrado no 6º dia, caso você não cancele antes.
+              <div className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm text-teal-900">
+                <strong>5 dias grátis.</strong> Nenhuma cobrança será realizada durante o período gratuito. A primeira cobrança de R$ 49,90 do plano Flow será realizada somente no 6º dia, caso a assinatura não seja cancelada antes.
               </div>
             ) : isAnnual && plan.monthlyPrice > 0 ? (
               <div className="mt-5 rounded-xl bg-teal-50 p-4 text-sm text-teal-900">

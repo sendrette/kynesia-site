@@ -7,7 +7,6 @@ import { supabaseAdmin } from "../../../lib/supabase";
 
 export const runtime = "nodejs";
 
-const processedEventIds = new Set<string>();
 const sentWelcomeForPaymentIds = new Set<string>();
 
 type AsaasWebhookPayload = {
@@ -274,14 +273,19 @@ export async function POST(req: Request) {
     }
 
     if (payload.id) {
-      if (processedEventIds.has(payload.id)) {
+      const { data: existingEvent } = await supabaseAdmin
+        .from("asaas_events")
+        .select("event_id")
+        .eq("event_id", payload.id)
+        .maybeSingle();
+
+      if (existingEvent) {
         return NextResponse.json({ ok: true, duplicated: true }, { status: 200 });
       }
 
-      processedEventIds.add(payload.id);
-      if (processedEventIds.size > 5000) {
-        processedEventIds.clear();
-      }
+      await supabaseAdmin
+        .from("asaas_events")
+        .insert({ event_id: payload.id, event_type: payload.event });
     }
 
     // Buscar o email do cliente para atualizar o Supabase

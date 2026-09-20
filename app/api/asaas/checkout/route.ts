@@ -49,10 +49,17 @@ function getAsaasBaseUrl() {
 
 function getNextDueDate(isTrial?: boolean) {
   const now = new Date();
+  const spTimeString = now.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" });
+  const spDate = new Date(spTimeString);
+  
   const offset = isTrial ? 5 : 1;
-  const due = new Date(now.getFullYear(), now.getMonth(), now.getDate() + offset);
+  spDate.setDate(spDate.getDate() + offset);
 
-  return due.toISOString().slice(0, 10);
+  const year = spDate.getFullYear();
+  const month = String(spDate.getMonth() + 1).padStart(2, "0");
+  const day = String(spDate.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }
 
 async function asaasRequest<T>(
