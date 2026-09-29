@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import SiteHeader from "../../components/site-header";
 import PatientCTA from "../../components/PatientCTA";
 
@@ -111,6 +112,18 @@ export default function ReduzirTempoEvolucaoPage() {
       </header>
 
       <article className="mx-auto max-w-2xl px-6 py-16">
+        {/* Imagem em Destaque */}
+        <div className="mb-10 overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-lg">
+          <Image
+            src="/blog/como-reduzir-tempo-evolucao-fisioterapeutica-sem-perder-qualidade.jpg"
+            alt="Como reduzir o tempo gasto com evolução fisioterapêutica - Mais produtividade sem perder a qualidade"
+            width={1200}
+            height={800}
+            className="w-full object-contain"
+            priority
+          />
+        </div>
+
         <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6">
           <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-600">Resposta Rápida</h2>
           <p className="text-gray-900 font-medium leading-relaxed">

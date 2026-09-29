@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "80",
+    slug: "como-reduzir-tempo-evolucao-fisioterapeutica-sem-perder-qualidade",
+    title: "Como Reduzir o Tempo Gasto com Evolução Fisioterapêutica sem Perder Qualidade",
+    excerpt:
+      "Aprenda a otimizar a redação clínica na fisioterapia. Descubra métodos práticos para criar evoluções fisioterapêuticas precisas e completas em menos tempo.",
+    category: "Gestão Clínica",
+    image: "/blog/como-reduzir-tempo-evolucao-fisioterapeutica-sem-perder-qualidade.jpg",
+    readTime: "12 min",
+    date: "29 Set 2026",
+  },
+  {
     id: "79",
     slug: "fisioterapeuta-como-profissional-de-primeiro-contato",
     title: "Fisioterapeuta como Profissional de Primeiro Contato: Posso Ir Direto?",
