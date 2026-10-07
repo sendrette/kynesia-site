@@ -213,6 +213,14 @@ async function syncUserInSupabase({
 }) {
   const normalizedEmail = email.trim().toLowerCase();
 
+  // Verificação de segurança de variáveis do Supabase
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.error(
+      "[SUPABASE CRÍTICO] NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_SERVICE_ROLE_KEY não estão configuradas na Vercel/Ambiente. O banco de dados não pôde ser atualizado.",
+    );
+    return;
+  }
+
   try {
     // 1. Tentar criar usuário no Supabase Auth (caso ainda não exista)
     let authUserId: string | null = null;
@@ -231,7 +239,15 @@ async function syncUserInSupabase({
       authUserId = authData.user.id;
       console.log("[SUPABASE AUTH] Usuário criado no Auth com ID:", authUserId);
     } else if (authError) {
-      console.log("[SUPABASE AUTH] Usuário já pode existir ou aviso:", authError.message);
+      console.log("[SUPABASE AUTH] Usuário já existente no Auth ou aviso:", authError.message);
+      // Buscar ID existente se o usuário já estava cadastrado no Auth
+      const { data: listData } = await supabaseAdmin.auth.admin.listUsers();
+      const existingUser = listData?.users?.find(
+        (u) => u.email?.toLowerCase() === normalizedEmail,
+      );
+      if (existingUser?.id) {
+        authUserId = existingUser.id;
+      }
     }
 
     // 2. Dados de perfil e assinatura
@@ -339,6 +355,15 @@ export async function POST(req: Request) {
     }
 
     const dueDate = getNextDueDate(body.isTrial);
+    const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://kynesia-app.vercel.app";
+    const redirectParams = new URLSearchParams({
+      email: body.customer.email.trim().toLowerCase(),
+      name: body.customer.name.trim(),
+      plan: body.plan,
+      trial: body.isTrial ? "true" : "false",
+      status: "success",
+    });
+    const destinationUrl = `${appBaseUrl.replace(/\/$/, "")}?${redirectParams.toString()}`;
 
     // FLUXO CARTÃO DE CRÉDITO (ASSINATURA COM RETENÇÃO DE DADOS E COBRANÇA APÓS 5 DIAS GRÁTIS)
     if (billingType === "CREDIT_CARD") {
@@ -415,7 +440,7 @@ export async function POST(req: Request) {
         billingCycle,
         totalValue: amount,
         nextDueDate: dueDate,
-        redirectUrl: "https://kynesia-app.vercel.app",
+        redirectUrl: destinationUrl,
       });
     }
 
@@ -485,7 +510,7 @@ export async function POST(req: Request) {
       billingType,
       billingCycle,
       totalValue: amount,
-      redirectUrl: "https://kynesia-app.vercel.app",
+      redirectUrl: destinationUrl,
       checkoutUrl: paymentResult.data.invoiceUrl ?? paymentResult.data.bankSlipUrl ?? null,
       pix: pixPayload,
     });
