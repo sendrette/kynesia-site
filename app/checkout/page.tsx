@@ -87,6 +87,10 @@ function CheckoutContent() {
   const requestedCycle = searchParams.get("cycle")?.toLowerCase();
   const isTrial = searchParams.get("trial") === "true";
 
+  const paramName = searchParams.get("name") || "";
+  const paramEmail = searchParams.get("email") || "";
+  const paramPhone = searchParams.get("phone") || "";
+
   const selectedPlan = useMemo(() => {
     if (requestedPlan === "start" || requestedPlan === "flow" || requestedPlan === "elite") {
       return requestedPlan;
@@ -101,10 +105,16 @@ function CheckoutContent() {
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
   const [billingCycle, setBillingCycle] = useState<BillingCycle>(selectedCycle);
-  const [form, setForm] = useState<CheckoutForm>(initialForm);
+  const [form, setForm] = useState<CheckoutForm>({
+    ...initialForm,
+    name: paramName || initialForm.name,
+    email: paramEmail || initialForm.email,
+    phone: paramPhone ? formatPhone(paramPhone) : initialForm.phone,
+  });
   const [loadingCep, setLoadingCep] = useState(false);
   const [cepError, setCepError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [pixPayload, setPixPayload] = useState<{ qrCodeImage?: string; payload?: string } | null>(null);
   const lastFetchedCep = useRef("");
@@ -165,6 +175,11 @@ function CheckoutContent() {
     setPixPayload(null);
 
     try {
+      const expParts = form.cardExpiry.split("/");
+      const expMonth = expParts[0]?.trim() || "";
+      const expYearRaw = expParts[1]?.trim() || "";
+      const expYear = expYearRaw.length === 2 ? `20${expYearRaw}` : expYearRaw;
+
       const response = await fetch("/api/asaas/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -174,22 +189,35 @@ function CheckoutContent() {
           paymentMethod,
           isTrial,
           customer: {
-            name: form.name,
-            email: form.email,
+            name: form.name.trim(),
+            email: form.email.trim(),
             cpfCnpj: form.cpf,
             mobilePhone: form.phone,
             postalCode: form.cep,
-            address: form.street,
-            addressNumber: form.number,
-            complement: form.complement,
-            province: form.neighborhood,
+            address: form.street.trim(),
+            addressNumber: form.number.trim(),
+            complement: form.complement.trim(),
+            province: form.neighborhood.trim(),
+            city: form.city.trim(),
+            state: form.state.trim(),
           },
+          creditCard:
+            paymentMethod === "card"
+              ? {
+                  holderName: form.cardName.trim(),
+                  number: form.cardNumber,
+                  expiryMonth: expMonth,
+                  expiryYear: expYear,
+                  ccv: form.cardCvv,
+                }
+              : undefined,
         }),
       });
 
       const data = (await response.json()) as {
         ok: boolean;
         error?: string;
+        redirectUrl?: string;
         checkoutUrl?: string | null;
         pix?: { qrCodeImage?: string; payload?: string };
       };
@@ -203,12 +231,12 @@ function CheckoutContent() {
         return;
       }
 
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl;
-        return;
-      }
-
-      throw new Error("Cobrança criada, mas sem URL de pagamento para redirecionar.");
+      // Redirecionamento seguro para o login do app
+      setRedirecting(true);
+      const destination = data.redirectUrl || "https://kynesia-app.vercel.app";
+      setTimeout(() => {
+        window.location.href = destination;
+      }, 800);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Erro inesperado ao criar cobrança.");
     } finally {
@@ -561,11 +589,29 @@ function CheckoutContent() {
 
               <button
                 type="submit"
-                disabled={submitting}
-                className="inline-flex w-full items-center justify-center rounded-xl bg-teal-600 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-700"
+                disabled={submitting || redirecting}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {submitting ? "Processando..." : "Confirmar Assinatura"}
+                {redirecting ? (
+                  <>
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                    Redirecionando para o aplicativo...
+                  </>
+                ) : submitting ? (
+                  <>
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                    Processando...
+                  </>
+                ) : (
+                  "Confirmar Assinatura"
+                )}
               </button>
+
+              {redirecting ? (
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center text-sm font-medium text-emerald-800">
+                  🎉 Assinatura e cadastro processados com sucesso! Redirecionando para https://kynesia-app.vercel.app...
+                </div>
+              ) : null}
 
               <p className="mt-2 flex items-start gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-xs leading-relaxed text-gray-700">
                 <span aria-hidden="true" className="mt-0.5 text-gray-600">

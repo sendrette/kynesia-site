@@ -81,8 +81,11 @@ async function sendWelcomeEmail(email: string, firstName?: string) {
   const result = await resend.emails.send({
     from,
     to: [email],
-    subject: "Bem-vindo(a) à Kynesia",
-    react: createElement(WelcomeEmail, { firstName }),
+    subject: "Bem-vindo(a) à Kynesia 🎉",
+    react: createElement(WelcomeEmail, {
+      firstName,
+      loginUrl: "https://kynesia-app.vercel.app",
+    }),
   });
 
   if (result.error) {

@@ -1,4 +1,8 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import { createElement } from "react";
+import WelcomeEmail from "@/email-templates/WelcomeEmail";
+import { supabaseAdmin } from "../../../lib/supabase";
 import { getPlanPricing, onlyDigits, planCatalog, type BillingCycle, type PlanKey } from "../../../lib/pricing";
 
 export const runtime = "nodejs";
@@ -19,6 +23,15 @@ type CheckoutPayload = {
     addressNumber: string;
     complement?: string;
     province: string;
+    city?: string;
+    state?: string;
+  };
+  creditCard?: {
+    holderName: string;
+    number: string;
+    expiryMonth: string;
+    expiryYear: string;
+    ccv: string;
   };
   isTrial?: boolean;
 };
@@ -31,6 +44,7 @@ type AsaasPayment = {
   id: string;
   invoiceUrl?: string;
   bankSlipUrl?: string;
+  status?: string;
 };
 
 type AsaasError = {
@@ -51,7 +65,7 @@ function getNextDueDate(isTrial?: boolean) {
   const now = new Date();
   const spTimeString = now.toLocaleString("en-US", { timeZone: "America/Sao_Paulo" });
   const spDate = new Date(spTimeString);
-  
+
   const offset = isTrial ? 5 : 1;
   spDate.setDate(spDate.getDate() + offset);
 
@@ -131,6 +145,149 @@ async function findOrCreateCustomer(payload: CheckoutPayload["customer"]) {
   return { ok: true as const, customerId: created.data.id };
 }
 
+async function sendWelcomeNotification(email: string, name?: string, isTrial?: boolean, plan?: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL;
+
+  if (!apiKey || !from) {
+    console.warn("[EMAIL] Resend credenciais ausentes (RESEND_API_KEY/RESEND_FROM_EMAIL).");
+    return;
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+    const firstName = name?.trim().split(" ")[0] || "Profissional";
+    const subject = isTrial
+      ? "Bem-vindo(a) à Kynesia — Seus 5 dias grátis estão liberados!"
+      : "Bem-vindo(a) à Kynesia — Assinatura confirmada!";
+
+    await resend.emails.send({
+      from,
+      to: [email.trim().toLowerCase()],
+      subject,
+      react: createElement(WelcomeEmail, {
+        firstName,
+        loginUrl: "https://kynesia-app.vercel.app",
+        isTrial: Boolean(isTrial),
+        planName: plan ? plan.toUpperCase() : "FLOW",
+      }),
+    });
+    console.log("[EMAIL] E-mail de boas-vindas enviado com sucesso para:", email);
+  } catch (err) {
+    console.error("[EMAIL ERROR] Erro ao enviar e-mail de boas-vindas:", err);
+  }
+}
+
+async function syncUserInSupabase({
+  name,
+  email,
+  phone,
+  cpfCnpj,
+  plan,
+  isTrial,
+  asaasCustomerId,
+  paymentId,
+  dueDate,
+}: {
+  name: string;
+  email: string;
+  phone?: string;
+  cpfCnpj?: string;
+  plan: string;
+  isTrial?: boolean;
+  asaasCustomerId: string;
+  paymentId: string;
+  dueDate: string;
+}) {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  try {
+    // 1. Tentar criar usuário no Supabase Auth (caso ainda não exista)
+    let authUserId: string | null = null;
+    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
+      email: normalizedEmail,
+      email_confirm: true,
+      user_metadata: {
+        name: name.trim(),
+        full_name: name.trim(),
+        phone: phone || "",
+        cpf: cpfCnpj || "",
+      },
+    });
+
+    if (authData?.user?.id) {
+      authUserId = authData.user.id;
+      console.log("[SUPABASE AUTH] Usuário criado no Auth com ID:", authUserId);
+    } else if (authError) {
+      console.log("[SUPABASE AUTH] Usuário já pode existir ou aviso:", authError.message);
+    }
+
+    // 2. Dados de perfil e assinatura
+    const nowIso = new Date().toISOString();
+    const trialEndIso = new Date(dueDate).toISOString();
+
+    const profileData: Record<string, any> = {
+      email: normalizedEmail,
+      name: name.trim(),
+      full_name: name.trim(),
+      phone: phone || "",
+      current_plan: isTrial ? "flow" : (plan || "flow"),
+      subscription_status: isTrial ? "trialing" : "active",
+      trial_started_at: isTrial ? nowIso : null,
+      trial_ends_at: isTrial ? trialEndIso : null,
+      next_billing_at: trialEndIso,
+      asaas_customer_id: asaasCustomerId,
+      payment_id: paymentId,
+      updated_at: nowIso,
+    };
+
+    // 3. Atualizar/Inserir na tabela 'profiles'
+    const { data: existingProfiles } = await supabaseAdmin
+      .from("profiles")
+      .select("id")
+      .eq("email", normalizedEmail)
+      .limit(1);
+
+    if (existingProfiles && existingProfiles.length > 0) {
+      const profileId = existingProfiles[0].id;
+      await supabaseAdmin
+        .from("profiles")
+        .update(profileData)
+        .eq("id", profileId);
+      console.log("[SUPABASE] Tabela 'profiles' atualizada para:", normalizedEmail);
+    } else {
+      const insertPayload = authUserId ? { id: authUserId, ...profileData } : profileData;
+      const { error: profileInsertError } = await supabaseAdmin
+        .from("profiles")
+        .insert(insertPayload);
+
+      if (profileInsertError) {
+        console.warn("[SUPABASE] Aviso ao inserir em 'profiles', tentando fallback na tabela 'users':", profileInsertError.message);
+        const { data: existingUsers } = await supabaseAdmin
+          .from("users")
+          .select("id")
+          .eq("email", normalizedEmail)
+          .limit(1);
+
+        if (existingUsers && existingUsers.length > 0) {
+          await supabaseAdmin
+            .from("users")
+            .update(profileData)
+            .eq("id", existingUsers[0].id);
+          console.log("[SUPABASE] Tabela 'users' atualizada para:", normalizedEmail);
+        } else {
+          await supabaseAdmin.from("users").insert(insertPayload);
+          console.log("[SUPABASE] Tabela 'users' inserida para:", normalizedEmail);
+        }
+      } else {
+        console.log("[SUPABASE] Registro em 'profiles' criado com sucesso para:", normalizedEmail);
+      }
+    }
+  } catch (err) {
+    console.error("[SUPABASE SYNC ERROR] Falha ao sincronizar usuário no Supabase:", err);
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as CheckoutPayload;
@@ -169,18 +326,45 @@ export async function POST(req: Request) {
       );
     }
 
+    const dueDate = getNextDueDate(body.isTrial);
+
+    const paymentPayload: Record<string, any> = {
+      customer: customerResult.customerId,
+      billingType,
+      value: amount,
+      dueDate,
+      installmentCount: isAnnualCardInstallment ? pricing.installmentCount : undefined,
+      installmentValue: isAnnualCardInstallment ? pricing.installmentValue : undefined,
+      description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})${body.isTrial ? " [Trial 5 Dias]" : ""}`,
+      externalReference: `kynesia-${body.plan}-${Date.now()}`,
+    };
+
+    if (billingType === "CREDIT_CARD" && body.creditCard) {
+      const expYear = body.creditCard.expiryYear?.trim() || "";
+      const fullYear = expYear.length === 2 ? `20${expYear}` : expYear;
+
+      paymentPayload.creditCard = {
+        holderName: body.creditCard.holderName,
+        number: onlyDigits(body.creditCard.number),
+        expiryMonth: body.creditCard.expiryMonth?.trim(),
+        expiryYear: fullYear,
+        ccv: onlyDigits(body.creditCard.ccv),
+      };
+      paymentPayload.creditCardHolderInfo = {
+        name: body.customer.name,
+        email: body.customer.email,
+        cpfCnpj: onlyDigits(body.customer.cpfCnpj),
+        postalCode: onlyDigits(body.customer.postalCode),
+        addressNumber: body.customer.addressNumber,
+        addressComplement: body.customer.complement || undefined,
+        phone: onlyDigits(body.customer.mobilePhone),
+        mobilePhone: onlyDigits(body.customer.mobilePhone),
+      };
+    }
+
     const paymentResult = await asaasRequest<AsaasPayment>("/payments", {
       method: "POST",
-      body: JSON.stringify({
-        customer: customerResult.customerId,
-        billingType,
-        value: amount,
-        dueDate: getNextDueDate(body.isTrial),
-        installmentCount: isAnnualCardInstallment ? pricing.installmentCount : undefined,
-        installmentValue: isAnnualCardInstallment ? pricing.installmentValue : undefined,
-        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})${body.isTrial ? " [Trial 5 Dias]" : ""}`,
-        externalReference: `kynesia-${body.plan}-${Date.now()}`,
-      }),
+      body: JSON.stringify(paymentPayload),
     });
 
     if (!paymentResult.ok) {
@@ -216,12 +400,29 @@ export async function POST(req: Request) {
       }
     }
 
+    // Sincronizar criação/atualização do usuário e plano no Supabase
+    await syncUserInSupabase({
+      name: body.customer.name,
+      email: body.customer.email,
+      phone: body.customer.mobilePhone,
+      cpfCnpj: body.customer.cpfCnpj,
+      plan: body.plan,
+      isTrial: body.isTrial,
+      asaasCustomerId: customerResult.customerId,
+      paymentId: paymentResult.data.id,
+      dueDate,
+    });
+
+    // Enviar e-mail de boas-vindas imediatamente
+    void sendWelcomeNotification(body.customer.email, body.customer.name, body.isTrial, body.plan);
+
     return NextResponse.json({
       ok: true,
       paymentId: paymentResult.data.id,
       billingType,
       billingCycle,
       totalValue: amount,
+      redirectUrl: "https://kynesia-app.vercel.app",
       checkoutUrl: paymentResult.data.invoiceUrl ?? paymentResult.data.bankSlipUrl ?? null,
       pix: pixPayload,
     });

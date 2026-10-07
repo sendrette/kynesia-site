@@ -24,6 +24,7 @@ export default function StartFreePageClient() {
 
     const trimmedName = name.trim();
     const trimmedEmail = email.trim();
+    const trimmedPhone = phone.trim();
 
     if (!trimmedName) {
       setError("Informe seu nome.");
@@ -45,7 +46,7 @@ export default function StartFreePageClient() {
         body: JSON.stringify({
           name: trimmedName,
           email: trimmedEmail,
-          phone: phone.trim(),
+          phone: trimmedPhone,
           profession,
           source: "free-plan",
           plan: "start",
@@ -60,9 +61,19 @@ export default function StartFreePageClient() {
       }
 
       setSuccessMessage("Redirecionando para o cadastro seguro...");
+      const params = new URLSearchParams({
+        plan: "flow",
+        trial: "true",
+        name: trimmedName,
+        email: trimmedEmail,
+      });
+      if (trimmedPhone) {
+        params.set("phone", trimmedPhone);
+      }
+
       setTimeout(() => {
-        window.location.href = `/checkout?plan=flow&trial=true`;
-      }, 1200);
+        window.location.href = `/checkout?${params.toString()}`;
+      }, 800);
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Erro inesperado.");
     } finally {
@@ -75,7 +86,6 @@ export default function StartFreePageClient() {
       <SiteHeader />
 
       <div className="mx-auto w-full max-w-5xl px-6 py-10">
-
         <section className="mx-auto w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] md:p-9">
           <h1 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">
             5 dias grátis no Kynesia

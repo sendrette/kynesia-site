@@ -6,7 +6,7 @@ export default function SuccessPage() {
   useEffect(() => {
     const redirectTimer = setTimeout(() => {
       window.location.href = 'https://kynesia-app.vercel.app';
-    }, 5000);
+    }, 2500);
 
     return () => clearTimeout(redirectTimer);
   }, []);
@@ -49,7 +49,7 @@ export default function SuccessPage() {
 
         {/* Redirect Message */}
         <p className="mb-10 text-sm text-gray-500">
-          Você será redirecionado automaticamente para o painel em alguns segundos...
+          Você será redirecionado automaticamente para o aplicativo em instantes...
         </p>
 
         {/* Action Button */}
@@ -57,7 +57,7 @@ export default function SuccessPage() {
           href="https://kynesia-app.vercel.app"
           className="mb-6 inline-block rounded-lg bg-teal-600 px-8 py-3 font-semibold text-white transition duration-200 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
         >
-          Aceder ao Painel Agora
+          Entrar no App Kynesia
         </a>
 
         {/* Support Message */}
