@@ -16,11 +16,22 @@ type AsaasWebhookPayload = {
     id?: string;
     status?: string;
     customer?: string;
+    subscription?: string;
     value?: number;
     billingType?: string;
     description?: string;
     externalReference?: string;
     dueDate?: string;
+  };
+  subscription?: {
+    id?: string;
+    status?: string;
+    customer?: string;
+    value?: number;
+    billingType?: string;
+    description?: string;
+    externalReference?: string;
+    nextDueDate?: string;
   };
 };
 
@@ -109,8 +120,8 @@ async function sendExpirationEmail(email: string, firstName?: string) {
 }
 
 async function handlePaymentReceived(payload: AsaasWebhookPayload) {
-  const paymentId = payload.payment?.id;
-  const customerId = payload.payment?.customer;
+  const paymentId = payload.payment?.id || payload.subscription?.id;
+  const customerId = payload.payment?.customer || payload.subscription?.customer;
 
   if (!paymentId || !customerId) {
     return;
@@ -150,16 +161,24 @@ async function handlePaymentReceived(payload: AsaasWebhookPayload) {
 async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWebhookPayload) {
   const event = payload.event;
   const payment = payload.payment;
+  const subscription = payload.subscription;
   
   if (!customerEmail) return;
 
+  const customerId = payment?.customer || subscription?.customer;
+  const asaasSubscriptionId = subscription?.id || payment?.subscription;
+  const paymentId = payment?.id || subscription?.id;
+  const description = payment?.description || subscription?.description;
+  const dueDate = payment?.dueDate || subscription?.nextDueDate;
+
   const updateData: any = {
-    asaas_customer_id: payment?.customer,
-    payment_id: payment?.id,
+    asaas_customer_id: customerId,
+    asaas_subscription_id: asaasSubscriptionId,
+    payment_id: paymentId,
   };
 
-  const isTrial = payment?.description?.includes("[Trial 5 Dias]");
-  const planInDescription = payment?.description?.toLowerCase().includes("elite") ? "elite" : "flow";
+  const isTrial = description?.includes("[Trial 5 Dias]");
+  const planInDescription = description?.toLowerCase().includes("elite") ? "elite" : "flow";
 
   if (event === "PAYMENT_CONFIRMED" || event === "PAYMENT_RECEIVED") {
     updateData.current_plan = isTrial ? "flow" : planInDescription;
@@ -176,32 +195,35 @@ async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWeb
       nextMonth.setMonth(nextMonth.getMonth() + 1);
       updateData.next_billing_at = nextMonth.toISOString();
     }
-  } else if (event === "PAYMENT_CREATED" && isTrial) {
-    // Activating 5 days free trial immediately upon checkout
+  } else if ((event === "PAYMENT_CREATED" || event === "SUBSCRIPTION_CREATED") && isTrial) {
+    // Ativação imediata dos 5 dias de teste grátis no app
     updateData.current_plan = "flow";
     updateData.subscription_status = "trialing";
     updateData.trial_started_at = new Date().toISOString();
     
-    if (payment?.dueDate) {
-      const dueDate = new Date(payment.dueDate);
-      updateData.trial_ends_at = dueDate.toISOString();
-      updateData.next_billing_at = dueDate.toISOString();
+    if (dueDate) {
+      const targetDate = new Date(dueDate);
+      updateData.trial_ends_at = targetDate.toISOString();
+      updateData.next_billing_at = targetDate.toISOString();
     }
-  } else if (event === "PAYMENT_OVERDUE" || event === "PAYMENT_DELETED") {
+  } else if (event === "SUBSCRIPTION_CREATED" && !isTrial) {
+    updateData.current_plan = planInDescription;
+    updateData.subscription_status = "active";
+  } else if (event === "PAYMENT_OVERDUE" || event === "PAYMENT_DELETED" || event === "SUBSCRIPTION_DELETED") {
     updateData.subscription_status = "past_due";
     updateData.current_plan = "start";
     
-    // Send expiration email
+    // Enviar e-mail de expiração
     if (customerEmail) {
-      const firstName = customerEmail.split("@")[0]; // Fallback to email prefix if name is not easily available here
+      const firstName = customerEmail.split("@")[0];
       await sendExpirationEmail(customerEmail, firstName);
     }
   } else {
-    // Event not relevant for updating plan
+    // Evento não relevante para atualização do plano
     return;
   }
   
-  // Try updating `profiles` table first
+  // 1. Tentar atualizar tabela 'profiles'
   let { data: profiles, error: selectError } = await supabaseAdmin
     .from("profiles")
     .select("id")
@@ -209,7 +231,7 @@ async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWeb
     .limit(1);
     
   if (selectError || !profiles || profiles.length === 0) {
-    // Fallback to "users" table if profiles is not found
+    // 2. Fallback na tabela 'users'
     const { data: users, error: selectUsersError } = await supabaseAdmin
       .from("users")
       .select("id")
@@ -293,44 +315,40 @@ export async function POST(req: Request) {
 
     // Buscar o email do cliente para atualizar o Supabase
     let customerEmailForSupabase = "";
-    if (payload.payment?.customer) {
-      const customerResult = await asaasGet<AsaasCustomer>(`/customers/${payload.payment.customer}`);
+    const customerId = payload.payment?.customer || payload.subscription?.customer;
+    if (customerId) {
+      const customerResult = await asaasGet<AsaasCustomer>(`/customers/${customerId}`);
       if (customerResult.ok && customerResult.data.email) {
         customerEmailForSupabase = customerResult.data.email;
       }
     }
 
-    // Eventos de cobrança (ex.: PAYMENT_CREATED, PAYMENT_CONFIRMED, PAYMENT_RECEIVED, PAYMENT_OVERDUE)
+    // Eventos de cobrança e assinatura
     switch (payload.event) {
       case "PAYMENT_RECEIVED":
         await handlePaymentReceived(payload);
         if (customerEmailForSupabase) {
           await updateUserPlanInSupabase(customerEmailForSupabase, payload);
         }
-        console.log("[ASAAS WEBHOOK]", {
-          event: payload.event,
-          id: payload.id,
-          paymentId: payload.payment?.id,
-          status: payload.payment?.status,
-          billingType: payload.payment?.billingType,
-          value: payload.payment?.value,
-        });
         break;
       case "PAYMENT_CONFIRMED":
       case "PAYMENT_CREATED":
       case "PAYMENT_OVERDUE":
       case "PAYMENT_DELETED":
       case "PAYMENT_RESTORED":
+      case "SUBSCRIPTION_CREATED":
+      case "SUBSCRIPTION_UPDATED":
+      case "SUBSCRIPTION_DELETED":
         if (customerEmailForSupabase) {
           await updateUserPlanInSupabase(customerEmailForSupabase, payload);
         }
         console.log("[ASAAS WEBHOOK]", {
           event: payload.event,
           id: payload.id,
-          paymentId: payload.payment?.id,
-          status: payload.payment?.status,
-          billingType: payload.payment?.billingType,
-          value: payload.payment?.value,
+          paymentId: payload.payment?.id || payload.subscription?.id,
+          status: payload.payment?.status || payload.subscription?.status,
+          billingType: payload.payment?.billingType || payload.subscription?.billingType,
+          value: payload.payment?.value || payload.subscription?.value,
         });
         break;
       default:

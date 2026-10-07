@@ -40,6 +40,16 @@ type AsaasCustomer = {
   id: string;
 };
 
+type AsaasSubscription = {
+  id: string;
+  customer?: string;
+  value?: number;
+  nextDueDate?: string;
+  cycle?: string;
+  status?: string;
+  description?: string;
+};
+
 type AsaasPayment = {
   id: string;
   invoiceUrl?: string;
@@ -186,6 +196,7 @@ async function syncUserInSupabase({
   plan,
   isTrial,
   asaasCustomerId,
+  subscriptionId,
   paymentId,
   dueDate,
 }: {
@@ -196,7 +207,8 @@ async function syncUserInSupabase({
   plan: string;
   isTrial?: boolean;
   asaasCustomerId: string;
-  paymentId: string;
+  subscriptionId?: string;
+  paymentId?: string;
   dueDate: string;
 }) {
   const normalizedEmail = email.trim().toLowerCase();
@@ -237,7 +249,8 @@ async function syncUserInSupabase({
       trial_ends_at: isTrial ? trialEndIso : null,
       next_billing_at: trialEndIso,
       asaas_customer_id: asaasCustomerId,
-      payment_id: paymentId,
+      asaas_subscription_id: subscriptionId || paymentId || null,
+      payment_id: paymentId || subscriptionId || null,
       updated_at: nowIso,
     };
 
@@ -306,7 +319,7 @@ export async function POST(req: Request) {
     }
 
     const pricing = getPlanPricing(body.plan, billingCycle);
-    const amount = pricing.totalPrice;
+    const amount = billingCycle === "annual" ? pricing.totalPrice : pricing.monthlyPrice;
 
     if (amount <= 0) {
       return NextResponse.json(
@@ -316,7 +329,6 @@ export async function POST(req: Request) {
     }
 
     const billingType: BillingType = body.paymentMethod === "pix" ? "PIX" : "CREDIT_CARD";
-    const isAnnualCardInstallment = billingType === "CREDIT_CARD" && billingCycle === "annual";
 
     const customerResult = await findOrCreateCustomer(body.customer);
     if (!customerResult.ok) {
@@ -328,43 +340,96 @@ export async function POST(req: Request) {
 
     const dueDate = getNextDueDate(body.isTrial);
 
-    const paymentPayload: Record<string, any> = {
-      customer: customerResult.customerId,
-      billingType,
-      value: amount,
-      dueDate,
-      installmentCount: isAnnualCardInstallment ? pricing.installmentCount : undefined,
-      installmentValue: isAnnualCardInstallment ? pricing.installmentValue : undefined,
-      description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})${body.isTrial ? " [Trial 5 Dias]" : ""}`,
-      externalReference: `kynesia-${body.plan}-${Date.now()}`,
-    };
+    // FLUXO CARTÃO DE CRÉDITO (ASSINATURA COM RETENÇÃO DE DADOS E COBRANÇA APÓS 5 DIAS GRÁTIS)
+    if (billingType === "CREDIT_CARD") {
+      if (!body.creditCard?.number || !body.creditCard?.holderName) {
+        return NextResponse.json(
+          { ok: false, error: "Preencha todos os dados do cartão de crédito." },
+          { status: 400 },
+        );
+      }
 
-    if (billingType === "CREDIT_CARD" && body.creditCard) {
       const expYear = body.creditCard.expiryYear?.trim() || "";
       const fullYear = expYear.length === 2 ? `20${expYear}` : expYear;
 
-      paymentPayload.creditCard = {
-        holderName: body.creditCard.holderName,
-        number: onlyDigits(body.creditCard.number),
-        expiryMonth: body.creditCard.expiryMonth?.trim(),
-        expiryYear: fullYear,
-        ccv: onlyDigits(body.creditCard.ccv),
+      const subscriptionPayload = {
+        customer: customerResult.customerId,
+        billingType: "CREDIT_CARD" as const,
+        value: amount,
+        nextDueDate: dueDate,
+        cycle: billingCycle === "annual" ? ("YEARLY" as const) : ("MONTHLY" as const),
+        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})${body.isTrial ? " [Trial 5 Dias]" : ""}`,
+        externalReference: `kynesia-${body.plan}-${Date.now()}`,
+        creditCard: {
+          holderName: body.creditCard.holderName,
+          number: onlyDigits(body.creditCard.number),
+          expiryMonth: body.creditCard.expiryMonth?.trim(),
+          expiryYear: fullYear,
+          ccv: onlyDigits(body.creditCard.ccv),
+        },
+        creditCardHolderInfo: {
+          name: body.customer.name,
+          email: body.customer.email,
+          cpfCnpj: onlyDigits(body.customer.cpfCnpj),
+          postalCode: onlyDigits(body.customer.postalCode),
+          addressNumber: body.customer.addressNumber,
+          addressComplement: body.customer.complement || undefined,
+          phone: onlyDigits(body.customer.mobilePhone),
+          mobilePhone: onlyDigits(body.customer.mobilePhone),
+        },
       };
-      paymentPayload.creditCardHolderInfo = {
+
+      // Criar a assinatura no Asaas com os dados do cartão (validação imediata, débito SOMENTE após o trial)
+      const subscriptionResult = await asaasRequest<AsaasSubscription>("/subscriptions", {
+        method: "POST",
+        body: JSON.stringify(subscriptionPayload),
+      });
+
+      if (!subscriptionResult.ok) {
+        return NextResponse.json(
+          { ok: false, error: subscriptionResult.error },
+          { status: subscriptionResult.status },
+        );
+      }
+
+      // Sincronizar criação/atualização do usuário e plano no Supabase
+      await syncUserInSupabase({
         name: body.customer.name,
         email: body.customer.email,
-        cpfCnpj: onlyDigits(body.customer.cpfCnpj),
-        postalCode: onlyDigits(body.customer.postalCode),
-        addressNumber: body.customer.addressNumber,
-        addressComplement: body.customer.complement || undefined,
-        phone: onlyDigits(body.customer.mobilePhone),
-        mobilePhone: onlyDigits(body.customer.mobilePhone),
-      };
+        phone: body.customer.mobilePhone,
+        cpfCnpj: body.customer.cpfCnpj,
+        plan: body.plan,
+        isTrial: body.isTrial,
+        asaasCustomerId: customerResult.customerId,
+        subscriptionId: subscriptionResult.data.id,
+        dueDate,
+      });
+
+      // Enviar e-mail de boas-vindas imediatamente
+      void sendWelcomeNotification(body.customer.email, body.customer.name, body.isTrial, body.plan);
+
+      return NextResponse.json({
+        ok: true,
+        subscriptionId: subscriptionResult.data.id,
+        billingType,
+        billingCycle,
+        totalValue: amount,
+        nextDueDate: dueDate,
+        redirectUrl: "https://kynesia-app.vercel.app",
+      });
     }
 
+    // FLUXO PIX (Cobrança direta com QR Code)
     const paymentResult = await asaasRequest<AsaasPayment>("/payments", {
       method: "POST",
-      body: JSON.stringify(paymentPayload),
+      body: JSON.stringify({
+        customer: customerResult.customerId,
+        billingType: "PIX",
+        value: amount,
+        dueDate,
+        description: `Assinatura Kynesia - Plano ${body.plan.toUpperCase()} (${billingCycle === "annual" ? "anual" : "mensal"})`,
+        externalReference: `kynesia-${body.plan}-${Date.now()}`,
+      }),
     });
 
     if (!paymentResult.ok) {
@@ -382,22 +447,20 @@ export async function POST(req: Request) {
         }
       | undefined;
 
-    if (billingType === "PIX") {
-      const pixResult = await asaasRequest<{
-        encodedImage?: string;
-        payload?: string;
-        expirationDate?: string;
-      }>(`/payments/${paymentResult.data.id}/pixQrCode`, {
-        method: "GET",
-      });
+    const pixResult = await asaasRequest<{
+      encodedImage?: string;
+      payload?: string;
+      expirationDate?: string;
+    }>(`/payments/${paymentResult.data.id}/pixQrCode`, {
+      method: "GET",
+    });
 
-      if (pixResult.ok) {
-        pixPayload = {
-          qrCodeImage: pixResult.data.encodedImage,
-          payload: pixResult.data.payload,
-          expirationDate: pixResult.data.expirationDate,
-        };
-      }
+    if (pixResult.ok) {
+      pixPayload = {
+        qrCodeImage: pixResult.data.encodedImage,
+        payload: pixResult.data.payload,
+        expirationDate: pixResult.data.expirationDate,
+      };
     }
 
     // Sincronizar criação/atualização do usuário e plano no Supabase
