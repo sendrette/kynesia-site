@@ -130,11 +130,11 @@ export default function EscalasQuestionariosFisioterapiaPage() {
         </p>
 
         <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Por que a mensuração objetiva de resultados é essencial?</h2>
-        
+
         <p className="mb-5 leading-relaxed text-gray-700">
           Questionários e escalas focadas nos desfechos relatados pelos pacientes (conhecidos internacionalmente como PROMs - <em>Patient-Reported Outcome Measures</em>) avaliam o impacto de uma condição de saúde e de seu tratamento sob a perspectiva direta do paciente.
         </p>
-        
+
         <p className="mb-8 leading-relaxed text-gray-700">
           Ao mensurar a funcionalidade, a intensidade dolorosa e os aspectos emocionais relacionados à reabilitação de forma padronizada, o clínico obtém diversos benefícios importantes:
         </p>
@@ -220,7 +220,7 @@ export default function EscalasQuestionariosFisioterapiaPage() {
         </div>
 
         <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Como interpretar clinicamente os resultados?</h2>
-        
+
         <p className="mb-5 leading-relaxed text-gray-700">
           Apenas aplicar o questionário e obter uma pontuação não é o bastante. O fisioterapeuta precisa saber como interpretar a variação dos scores para tomar decisões seguras na conduta clínica. Para isso, a ciência psicométrica define dois conceitos essenciais:
         </p>
@@ -239,7 +239,7 @@ export default function EscalasQuestionariosFisioterapiaPage() {
         </p>
 
         <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Implementação Prática e Tecnológica no Consultório</h2>
-        
+
         <p className="mb-5 leading-relaxed text-gray-700">
           Coletar dados de escalas em fichas impressas, calcular as pontuações manualmente de forma aritmética e registrar tudo em pastas físicas é um processo lento que desestimula a equipe. Na rotina corrida da clínica, as escalas acabam sendo deixadas de lado.
         </p>
@@ -264,7 +264,7 @@ export default function EscalasQuestionariosFisioterapiaPage() {
         </div>
 
         <h2 className="mb-4 mt-12 text-2xl font-bold text-gray-900">Conclusão: Fisioterapia Baseada em Dados</h2>
-        
+
         <p className="mb-5 leading-relaxed text-gray-700">
           O uso de escalas validadas na fisioterapia eleva o status científico da profissão. Em vez de depender do empirismo de avaliações subjetivas, os fisioterapeutas ganham a capacidade de quantificar a dor, a funcionalidade e os aspectos biopsicossociais com total clareza assistencial.
         </p>
@@ -301,7 +301,7 @@ export default function EscalasQuestionariosFisioterapiaPage() {
         {/* CTA do Kit de Avaliação Funcional */}
         <div className="my-12 rounded-3xl border border-teal-200 bg-gradient-to-b from-teal-50/70 to-white p-8 shadow-sm">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Leve isso para a prática: Kit Completo de Avaliação Funcional</h3>
-          
+
           <p className="mb-6 leading-relaxed text-gray-700">
             Os questionários que você viu neste artigo são ótimos para entender os conceitos — mas na correria do consultório, o que realmente economiza tempo é ter tudo isso já formatado, impresso e pronto para aplicar.
           </p>
@@ -346,7 +346,7 @@ export default function EscalasQuestionariosFisioterapiaPage() {
               <span className="text-2xl font-extrabold text-gray-900">R$ 39,90</span>
             </div>
             <a
-              href="https://www.asaas.com/c/r44c3lpv26772prz"
+              href="https://www.asaas.com/000/c/yozx0smqsi2z4x0e"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex rounded-xl bg-teal-600 px-8 py-4 font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-700 text-center shadow-md shadow-teal-150"
