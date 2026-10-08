@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "81",
+    slug: "teste-de-lachman-como-fazer-interpretar-evitar-erros-lca",
+    title: "Teste de Lachman: Como Fazer, Interpretar e Evitar Erros na Avaliação do LCA",
+    excerpt:
+      "Aprenda o passo a passo técnico, a precisão diagnóstica baseada em evidências, a interpretação do end-feel e como evitar os principais erros no Teste de Lachman.",
+    category: "Avaliação",
+    image: "/blog/teste-de-lachman-avaliacao-lca.png",
+    readTime: "13 min",
+    date: "08 Out 2026",
+  },
+  {
     id: "80",
     slug: "como-reduzir-tempo-evolucao-fisioterapeutica-sem-perder-qualidade",
     title: "Como Reduzir o Tempo Gasto com Evolução Fisioterapêutica sem Perder Qualidade",
