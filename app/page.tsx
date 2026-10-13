@@ -377,7 +377,7 @@ export default function Home() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {categorias.map((category, index) => {
               const getIcon = () => {
-                switch(index) {
+                switch (index) {
                   case 0:
                     return (
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-teal-500">
@@ -606,9 +606,9 @@ export default function Home() {
             Fale com nosso time para dúvidas comerciais e implantação da plataforma.
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <a className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50" href="mailto:contato@kynesia.com.br">
+            <a className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50" href="mailto:kynesia.fisio@gmail.com">
               <p className="text-sm text-gray-500">Email</p>
-              <p className="text-sm font-medium text-gray-900 md:text-base">contato@kynesia.com.br</p>
+              <p className="text-sm font-medium text-gray-900 md:text-base">kynesia.fisio@gmail.com</p>
             </a>
             <a
               className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50"
