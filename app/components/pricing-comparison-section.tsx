@@ -322,9 +322,12 @@ export default function PricingComparisonSection({
               >
                 {selectedPlan.key === "start" ? "Começar grátis" : `Assinar ${selectedMeta.name}`}
               </Link>
-              <p className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-600">
-                Clique em outro card para atualizar este painel com os detalhes do plano escolhido.
-              </p>
+              <div className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-600 flex items-center justify-between flex-wrap gap-2">
+                <span>Clique em outro card para atualizar os detalhes do plano escolhido.</span>
+                <Link href="/cancelar-assinatura" className="text-xs font-semibold text-teal-700 underline hover:text-teal-900">
+                  Já é assinante? Gerenciar ou cancelar assinatura →
+                </Link>
+              </div>
             </div>
           </div>
         </Reveal>

@@ -17,7 +17,7 @@ async function getBlogRoutes(): Promise<string[]> {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogRoutes = await getBlogRoutes();
 
-  const staticRoutes = ["/", "/blog", "/checkout", "/planos", "/start-free", "/sucesso"];
+  const staticRoutes = ["/", "/blog", "/checkout", "/planos", "/start-free", "/sucesso", "/cancelar-assinatura"];
   const allRoutes = [...new Set([...staticRoutes, ...blogRoutes])];
 
   return allRoutes.map((route) => ({

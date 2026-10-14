@@ -653,7 +653,9 @@ export default function Home() {
       <footer className="border-t border-gray-200 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center text-sm text-gray-600">
           <p>© {new Date().getFullYear()} Kynesia. Todos os direitos reservados.</p>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap justify-center gap-5">
+            <Link href="/planos" className="hover:text-gray-900">Planos</Link>
+            <Link href="/cancelar-assinatura" className="hover:text-gray-900">Cancelar Assinatura</Link>
             <a href="#" className="hover:text-gray-900">Termos</a>
             <a href="#" className="hover:text-gray-900">Privacidade</a>
             <a href="#contato" className="hover:text-gray-900">Contato</a>

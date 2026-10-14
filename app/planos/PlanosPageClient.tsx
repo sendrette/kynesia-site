@@ -10,11 +10,15 @@ import type { BillingCycle } from "../lib/pricing";
 const quickFaq = [
   {
     q: "Posso cancelar quando quiser?",
-    a: "Sim. Não há fidelidade e o cancelamento pode ser feito a qualquer momento.",
+    a: "Sim. Não há fidelidade e o cancelamento pode ser feito a qualquer momento diretamente pelo site, em nossa página de cancelamento, de forma 100% online.",
+  },
+  {
+    q: "Como funcionam os 5 dias grátis?",
+    a: "Você inicia o teste do plano Flow sem pagar nada hoje. Se você cancelar antes do término dos 5 dias, seu cartão não será cobrado e sua conta migra para o plano gratuito Start.",
   },
   {
     q: "Preciso de cartão para começar?",
-    a: "Você pode iniciar no período grátis e contratar no momento ideal para sua clínica.",
+    a: "Para usufruir dos 5 dias grátis com todos os recursos liberados, o cartão é cadastrado para validação inicial de segurança, mas a cobrança só ocorre no 6º dia caso você não cancele antes.",
   },
   {
     q: "Funciona no celular?",
@@ -22,7 +26,7 @@ const quickFaq = [
   },
   {
     q: "Meus dados estão seguros?",
-    a: "Sim. Segurança com boas práticas de proteção e conformidade com LGPD.",
+    a: "Sim. Segurança com boas práticas de proteção e conformidade com LGPD. Seus dados nunca são perdidos mesmo em caso de cancelamento.",
   },
 ];
 
@@ -77,9 +81,27 @@ export default function PlanosPageClient() {
       </section>
 
       <section className="px-6 py-16 md:py-20">
-        <Reveal className="mx-auto max-w-4xl rounded-2xl border border-teal-100 bg-teal-50/70 p-8 text-center">
-          <p className="text-lg font-medium text-gray-800">Sem fidelidade. Cancele quando quiser.</p>
-          <p className="mt-2 text-gray-600">Seus dados protegidos com segurança e conformidade com LGPD.</p>
+        <Reveal className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-8 md:p-10 text-center shadow-sm">
+          <span className="inline-flex rounded-full bg-teal-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-teal-700">
+            Transparência Total
+          </span>
+          <h2 className="mt-3 text-2xl font-bold text-gray-900 md:text-3xl">
+            Sem fidelidade. Cancele quando quiser em 1 clique.
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-base text-gray-600">
+            Está utilizando os <strong>5 dias gratuitos</strong> e não quer que seja cobrado? Ou já é assinante e deseja encerrar seu plano? Cancele online a qualquer momento com apenas seu e-mail ou CPF, sem burocracia.
+          </p>
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/cancelar-assinatura"
+              className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900 shadow-sm"
+            >
+              Gerenciar ou Cancelar Assinatura
+            </Link>
+          </div>
+          <p className="mt-4 text-xs text-gray-500">
+            🔒 Seus dados e pacientes continuam protegidos e salvos na sua conta gratuita mesmo após o cancelamento.
+          </p>
         </Reveal>
       </section>
 
