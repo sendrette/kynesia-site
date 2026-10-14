@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "82",
+    slug: "abordagem-biopsicossocial-dor-cronica",
+    title: "Abordagem Biopsicossocial da Dor Crônica na Fisioterapia: Guia Clínico Completo",
+    excerpt:
+      "Entenda como integrar fatores biológicos, psicológicos e sociais no tratamento da dor crônica na fisioterapia, superando o modelo biomédico tradicional com evidências.",
+    category: "Dor",
+    image: "/blog/abordagem-biopsicossocial-dor-cronica.png",
+    readTime: "15 min",
+    date: "14 Out 2026",
+  },
+  {
     id: "81",
     slug: "teste-de-lachman-como-fazer-interpretar-evitar-erros-lca",
     title: "Teste de Lachman: Como Fazer, Interpretar e Evitar Erros na Avaliação do LCA",
