@@ -365,6 +365,12 @@ function CheckoutContent() {
                 No Pix, a cobrança será única com o valor anual total.
               </div>
             ) : null}
+
+            {plan.monthlyPrice > 0 ? (
+              <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50/80 p-3.5 text-xs text-emerald-950">
+                <span className="font-semibold text-emerald-800">🎁 Bônus incluso:</span> O link seguro para download do <em>Kit Completo de Avaliação Funcional (PDF com 9 instrumentos)</em> será enviado diretamente para seu e-mail após a confirmação do primeiro pagamento.
+              </div>
+            ) : null}
           </aside>
 
           <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">

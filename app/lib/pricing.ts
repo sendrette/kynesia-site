@@ -56,12 +56,18 @@ export const planCatalog: Record<
       "IA completa para evolução clínica",
       "Gestão financeira",
       "Relatórios avançados",
+      "Bônus: Kit de Avaliação Funcional (PDF)",
     ],
   },
   elite: {
     name: "Elite",
     monthlyPrice: ORIGINAL_PRICES.elite,
-    benefits: ["Tudo do Flow + recursos avançados", "Suporte prioritário", "Prioridade em novidades"],
+    benefits: [
+      "Tudo do Flow + recursos avançados",
+      "Suporte prioritário",
+      "Prioridade em novidades",
+      "Bônus: Kit de Avaliação Funcional (PDF)",
+    ],
   },
 };
 
@@ -105,6 +111,11 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
       {
         label: "Laudos via IA",
         note: "Geração instantânea de laudos profissionais e padronizados.",
+        status: "locked",
+      },
+      {
+        label: "Bônus: Kit de Avaliação Funcional",
+        note: "Exclusivo como bônus gratuito na assinatura dos planos Flow e Elite.",
         status: "locked",
       },
     ],
@@ -164,6 +175,11 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
       {
         label: "Suporte Prioritário",
         note: "Atendimento agilizado para garantir sua produtividade.",
+        status: "included",
+      },
+      {
+        label: "Bônus: Kit de Avaliação Funcional (PDF)",
+        note: "9 instrumentos ortopédicos entregues no seu e-mail após a confirmação da assinatura.",
         status: "included",
       },
       {
@@ -247,6 +263,11 @@ export const pricingComparisonCards: PricingComparisonCard[] = [
       {
         label: "Suporte VIP dedicado",
         note: "Acompanhamento premium para sua operação clínica.",
+        status: "included",
+      },
+      {
+        label: "Bônus: Kit de Avaliação Funcional (PDF)",
+        note: "9 instrumentos ortopédicos entregues no seu e-mail após a confirmação da assinatura.",
         status: "included",
       },
     ],

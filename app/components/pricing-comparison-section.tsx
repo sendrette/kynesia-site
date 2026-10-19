@@ -5,7 +5,6 @@ import { useMemo, useRef, useState } from "react";
 import Reveal from "./reveal";
 import {
   formatCurrencyBRL,
-  getPromoEndDateLabel,
   getPlanPricing,
   planCatalog,
   pricingComparisonCards,
@@ -328,6 +327,144 @@ export default function PricingComparisonSection({
                   Já é assinante? Gerenciar ou cancelar assinatura →
                 </Link>
               </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Bloco de Bônus Exclusivo de Assinatura: Kit Completo de Avaliação Funcional */}
+        <Reveal>
+          <div className="mt-14 overflow-hidden rounded-3xl border border-teal-200/90 bg-gradient-to-br from-teal-50/70 via-white to-sky-50/40 p-6 md:p-10 shadow-sm">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-teal-100 pb-6">
+              <div className="max-w-3xl">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-800">
+                  <span>🎁</span> Bônus Exclusivo para Assinantes
+                </span>
+                <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+                  Ganhe o Kit Completo de Avaliação Funcional em seu e-mail
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">
+                  Ao assinar o Kynesia nos planos <strong>Flow</strong> ou <strong>Elite</strong>, você recebe gratuitamente no seu e-mail um link seguro para baixar o <strong>Kit Completo de Avaliação Funcional em Fisioterapia Ortopédica</strong> (material autoral em PDF com 23 páginas, vendido avulso por R$ 39,90).
+                </p>
+              </div>
+
+              <div className="shrink-0 self-start md:self-center rounded-2xl border border-teal-200 bg-white px-5 py-4 text-center shadow-xs">
+                <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500">Valor Avulso</span>
+                <span className="text-xl font-bold text-slate-400 line-through">R$ 39,90</span>
+                <span className="block text-sm font-extrabold text-emerald-600">100% Grátis na Assinatura</span>
+              </div>
+            </div>
+
+            {/* Apresentação das 9 Avaliações presentes no Kit */}
+            <div className="mt-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800">
+                  Os 9 Instrumentos Clínicos Inclusos no Kit:
+                </h4>
+                <span className="text-xs text-slate-500">
+                  Formulários prontos para impressão · 10 itens cada · Cálculo de escore e tabela de evolução
+                </span>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {[
+                  {
+                    sigla: "AFL",
+                    titulo: "Avaliação Funcional da Coluna Lombar",
+                    desc: "Mede o impacto da dor lombar nas atividades funcionais, postura sentada, flexão de tronco e sono.",
+                    tag: "Coluna",
+                  },
+                  {
+                    sigla: "AFC",
+                    titulo: "Avaliação Funcional da Coluna Cervical",
+                    desc: "Identifica limitações por dor e rigidez cervical, movimentos de rotação ao dirigir e trabalho no computador.",
+                    tag: "Coluna",
+                  },
+                  {
+                    sigla: "AFO",
+                    titulo: "Avaliação do Ombro e Membro Superior",
+                    desc: "Investiga disfunções em tarefas acima da cabeça, alcance atrás das costas, empurrar peso e higiene pessoal.",
+                    tag: "Membros Superiores",
+                  },
+                  {
+                    sigla: "AFJ",
+                    titulo: "Avaliação Funcional do Joelho",
+                    desc: "Mensura limitação funcional em escadas, agachamento, ajoelhar e rastreia sensação de instabilidade ou falseio.",
+                    tag: "Membros Inferiores",
+                  },
+                  {
+                    sigla: "AFQ",
+                    titulo: "Avaliação Funcional do Quadril",
+                    desc: "Rastreia restrições ao calçar meias/sapatos, cruzar as pernas, transferências e impacto no padrão de marcha.",
+                    tag: "Membros Inferiores",
+                  },
+                  {
+                    sigla: "AFTP",
+                    titulo: "Avaliação de Tornozelo e Pé",
+                    desc: "Avalia limitações decorrentes de entorses, apoio na ponta dos pés, superfícies irregulares e estabilidade.",
+                    tag: "Membros Inferiores",
+                  },
+                  {
+                    sigla: "AEF",
+                    titulo: "Escala de Equilíbrio Funcional",
+                    desc: "Rastreia risco de quedas e dificuldades de equilíbrio estático/dinâmico (ideal para idosos e geriatria).",
+                    tag: "Equilíbrio & Geriatria",
+                  },
+                  {
+                    sigla: "EMEM",
+                    titulo: "Escala de Medo-Evitação ao Movimento",
+                    desc: "Identifica crenças psicossociais, medo de movimentação e cinesiofobia em condições musculoesqueléticas crônicas.",
+                    tag: "Psicossocial & Dor",
+                  },
+                  {
+                    sigla: "QDQV",
+                    titulo: "Questionário Geral de Dor e Qualidade de Vida",
+                    desc: "Visão global do impacto da dor na rotina cotidiana, disposição física, humor, trabalho e convívio social.",
+                    tag: "Avaliação Global",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.sigla}
+                    className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-4.5 transition duration-200 hover:border-teal-300 hover:shadow-xs"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-mono text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-md border border-teal-100">
+                          {item.sigla}
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <h5 className="mt-2.5 text-sm font-bold text-slate-900 leading-snug">{item.titulo}</h5>
+                      <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{item.desc}</p>
+                    </div>
+
+                    <div className="mt-3.5 border-t border-slate-100 pt-2 flex items-center justify-between text-[11px] text-slate-600">
+                      <span>✓ 10 itens objetivos</span>
+                      <span>✓ Tabela evolutiva</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Aviso de como é feito o envio */}
+            <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-2xl border border-teal-200/80 bg-white/90 p-4.5 text-xs text-slate-700">
+              <div className="flex items-start sm:items-center gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-600 text-white font-bold text-xs shadow-xs">
+                  ✓
+                </span>
+                <p className="leading-relaxed">
+                  <strong>Como você recebe:</strong> O link seguro para download do PDF (com validade de 30 dias) é enviado automaticamente para o seu e-mail de cadastro assim que o primeiro pagamento da sua assinatura for confirmado pelo sistema.
+                </p>
+              </div>
+
+              <Link
+                href={`/checkout?plan=${selectedPlan.key === "start" ? "flow" : selectedPlan.key}&cycle=${billingCycle}`}
+                className="shrink-0 inline-flex items-center justify-center rounded-xl bg-teal-600 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-teal-700 transition"
+              >
+                Assinar plano {selectedPlan.key === "start" ? "Flow" : selectedMeta.name} e garantir o Kit →
+              </Link>
             </div>
           </div>
         </Reveal>
