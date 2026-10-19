@@ -18,6 +18,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "83",
+    slug: "dinamometria-na-fisioterapia-avaliacao-forca-muscular",
+    title: "Dinamometria na Fisioterapia: Como Avaliar a Força Muscular e Interpretar os Resultados",
+    excerpt:
+      "Guia completo sobre dinamometria na fisioterapia: padronização dos testes isométricos, cálculo de torque e força relativa ao peso corporal e interpretação clínica baseada em evidências.",
+    category: "Avaliação",
+    image: "/blog/dinamometria-na-fisioterapia-avaliacao-forca-muscular.jpg",
+    readTime: "15 min",
+    date: "19 Out 2026",
+  },
+  {
     id: "82",
     slug: "abordagem-biopsicossocial-dor-cronica",
     title: "Abordagem Biopsicossocial da Dor Crônica na Fisioterapia: Guia Clínico Completo",
