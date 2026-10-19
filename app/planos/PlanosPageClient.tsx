@@ -49,6 +49,15 @@ export default function PlanosPageClient() {
           <p className="mx-auto mt-5 max-w-3xl text-lg text-gray-600 md:text-xl">
             Comece grátis e evolua conforme sua necessidade. Sem complicações.
           </p>
+
+          <div className="mt-8 flex justify-center">
+            <div className="inline-flex items-center gap-2.5 rounded-2xl border border-emerald-300 bg-white/90 px-5 py-3 shadow-xs">
+              <span className="text-base">🎁</span>
+              <span className="text-xs sm:text-sm font-bold text-teal-950">
+                Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
+              </span>
+            </div>
+          </div>
         </Reveal>
       </section>
 

@@ -367,8 +367,18 @@ function CheckoutContent() {
             ) : null}
 
             {plan.monthlyPrice > 0 ? (
-              <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50/80 p-3.5 text-xs text-emerald-950">
-                <span className="font-semibold text-emerald-800">🎁 Bônus incluso:</span> O link seguro para download do <em>Kit Completo de Avaliação Funcional (PDF com 9 instrumentos)</em> será enviado diretamente para seu e-mail após a confirmação do primeiro pagamento.
+              <div className="mt-5 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 shadow-xs text-emerald-950">
+                <div className="flex items-start gap-2.5">
+                  <span className="text-xl leading-none">🎁</span>
+                  <div>
+                    <p className="text-xs sm:text-sm font-bold text-teal-950 leading-snug">
+                      Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
+                    </p>
+                    <p className="mt-1 text-xs text-slate-600">
+                      O link seguro para download do PDF com 9 instrumentos clínicos será enviado diretamente para seu e-mail após a confirmação do pagamento.
+                    </p>
+                  </div>
+                </div>
               </div>
             ) : null}
           </aside>

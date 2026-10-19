@@ -267,6 +267,16 @@ export default function Home() {
               Ver planos
             </Link>
           </div>
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/planos"
+              className="inline-flex items-center gap-2.5 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 px-5 py-3 text-xs sm:text-sm font-bold text-teal-950 shadow-xs transition hover:border-emerald-400 hover:shadow-sm"
+            >
+              <span className="text-base">🎁</span>
+              <span>Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!</span>
+            </Link>
+          </div>
         </Reveal>
       </section>
 

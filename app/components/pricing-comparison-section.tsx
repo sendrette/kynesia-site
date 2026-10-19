@@ -104,9 +104,16 @@ export default function PricingComparisonSection({
           <p className="mt-4 text-sm font-medium text-teal-700">
             Assinatura anual com 15% de desconto.
           </p>
+
+          <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 shadow-xs">
+            <p className="text-sm font-bold text-teal-950 flex items-center justify-center gap-2 text-center">
+              <span className="text-base">🎁</span>
+              <span>Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!</span>
+            </p>
+          </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {pricingComparisonCards.map((plan, index) => {
             const meta = planCatalog[plan.key];
             const pricing = getPlanPricing(plan.key, billingCycle);
@@ -215,6 +222,22 @@ export default function PricingComparisonSection({
                   <div className="mt-4 flex-1 rounded-xl border border-slate-100 bg-white/70 px-3 py-2 text-sm text-slate-600">
                     Veja as vantagens completas ao clicar em <span className="font-semibold text-slate-800">Ver detalhes</span>.
                   </div>
+
+                  {plan.key !== "start" ? (
+                    <div className="mt-4 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50/90 to-teal-50/90 p-3 text-xs shadow-xs">
+                      <div className="flex items-start gap-2 text-left">
+                        <span className="text-base leading-none">🎁</span>
+                        <div>
+                          <p className="font-bold text-emerald-950 leading-snug">
+                            Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
+                          </p>
+                          <p className="mt-0.5 text-[11px] text-slate-600">
+                            9 instrumentos clínicos em PDF inclusos grátis.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
 
                   <button
                     type="button"
@@ -340,7 +363,7 @@ export default function PricingComparisonSection({
                   <span>🎁</span> Bônus Exclusivo para Assinantes
                 </span>
                 <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-                  Ganhe o Kit Completo de Avaliação Funcional em seu e-mail
+                  Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">
                   Ao assinar o Kynesia nos planos <strong>Flow</strong> ou <strong>Elite</strong>, você recebe gratuitamente no seu e-mail um link seguro para baixar o <strong>Kit Completo de Avaliação Funcional em Fisioterapia Ortopédica</strong> (material autoral em PDF com 23 páginas, vendido avulso por R$ 39,90).

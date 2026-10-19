@@ -95,6 +95,20 @@ export default function StartFreePageClient() {
             Após o período de teste, será cobrado o valor do plano Flow caso você não cancele.
           </p>
 
+          <div className="mt-5 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 shadow-xs">
+            <div className="flex items-start gap-2.5">
+              <span className="text-xl leading-none">🎁</span>
+              <div>
+                <p className="text-xs sm:text-sm font-bold text-teal-950 leading-snug">
+                  Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
+                </p>
+                <p className="mt-1 text-xs text-slate-600">
+                  9 instrumentos clínicos ortopédicos completos em PDF com cálculo de escore e tabelas de evolução.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="mt-7 space-y-4">
             <input
               required
