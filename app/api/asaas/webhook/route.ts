@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createElement } from "react";
-import WelcomeEmail from "@/email-templates/WelcomeEmail";
+import BonusPdfEmail from "@/email-templates/BonusPdfEmail";
 import ExpirationEmail from "@/email-templates/ExpirationEmail";
 import { supabaseAdmin } from "../../../lib/supabase";
 
 export const runtime = "nodejs";
-
-const sentWelcomeForPaymentIds = new Set<string>();
 
 type AsaasWebhookPayload = {
   id?: string;
@@ -45,6 +43,15 @@ type AsaasError = {
   errors?: Array<{ code?: string; description?: string }>;
 };
 
+type UserLookupResult = {
+  table: "profiles" | "users";
+  id: string;
+  email?: string;
+  name?: string;
+  full_name?: string;
+  bonus_pdf_sent_at?: string | null;
+};
+
 function getAsaasBaseUrl() {
   return process.env.ASAAS_ENVIRONMENT?.toLowerCase() === "sandbox"
     ? "https://api-sandbox.asaas.com/v3"
@@ -79,31 +86,6 @@ async function asaasGet<T>(path: string): Promise<{ ok: true; data: T } | { ok: 
   return { ok: true, data };
 }
 
-async function sendWelcomeEmail(email: string, firstName?: string) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-
-  if (!apiKey || !from) {
-    console.warn("[ASAAS WEBHOOK] Envio de e-mail ignorado: RESEND_API_KEY/RESEND_FROM_EMAIL ausentes.");
-    return;
-  }
-
-  const resend = new Resend(apiKey);
-  const result = await resend.emails.send({
-    from,
-    to: [email],
-    subject: "Bem-vindo(a) à Kynesia 🎉",
-    react: createElement(WelcomeEmail, {
-      firstName,
-      loginUrl: "https://kynesia-app.vercel.app",
-    }),
-  });
-
-  if (result.error) {
-    throw new Error(result.error.message);
-  }
-}
-
 async function sendExpirationEmail(email: string, firstName?: string) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
@@ -119,51 +101,77 @@ async function sendExpirationEmail(email: string, firstName?: string) {
   });
 }
 
-async function handlePaymentReceived(payload: AsaasWebhookPayload) {
-  const paymentId = payload.payment?.id || payload.subscription?.id;
-  const customerId = payload.payment?.customer || payload.subscription?.customer;
+/**
+ * Localiza o usuário no Supabase respeitando a ordem de prioridade:
+ * 1. asaas_subscription_id
+ * 2. asaas_customer_id
+ * 3. email
+ * Verifica primeiro na tabela 'profiles' e em seguida na tabela 'users' (fallback).
+ */
+async function findUserRecord({
+  subscriptionId,
+  customerId,
+  email,
+}: {
+  subscriptionId?: string;
+  customerId?: string;
+  email?: string;
+}): Promise<UserLookupResult | null> {
+  const tables: Array<"profiles" | "users"> = ["profiles", "users"];
 
-  if (!paymentId || !customerId) {
-    return;
+  for (const table of tables) {
+    // 1. Tentar por asaas_subscription_id
+    if (subscriptionId) {
+      const { data, error } = await supabaseAdmin
+        .from(table)
+        .select("id, email, name, full_name, bonus_pdf_sent_at")
+        .eq("asaas_subscription_id", subscriptionId)
+        .limit(1);
+      if (!error && data && data.length > 0) {
+        return { table, ...data[0] };
+      }
+    }
+
+    // 2. Tentar por asaas_customer_id
+    if (customerId) {
+      const { data, error } = await supabaseAdmin
+        .from(table)
+        .select("id, email, name, full_name, bonus_pdf_sent_at")
+        .eq("asaas_customer_id", customerId)
+        .limit(1);
+      if (!error && data && data.length > 0) {
+        return { table, ...data[0] };
+      }
+    }
+
+    // 3. Reserva: tentar por email
+    if (email) {
+      const normalizedEmail = email.trim().toLowerCase();
+      const { data, error } = await supabaseAdmin
+        .from(table)
+        .select("id, email, name, full_name, bonus_pdf_sent_at")
+        .eq("email", normalizedEmail)
+        .limit(1);
+      if (!error && data && data.length > 0) {
+        return { table, ...data[0] };
+      }
+    }
   }
 
-  if (sentWelcomeForPaymentIds.has(paymentId)) {
-    return;
-  }
-
-  const customerResult = await asaasGet<AsaasCustomer>(`/customers/${customerId}`);
-
-  if (!customerResult.ok) {
-    console.warn("[ASAAS WEBHOOK] Não foi possível buscar cliente para e-mail:", customerResult.error);
-    return;
-  }
-
-  const customerEmail = customerResult.data.email;
-  const customerName = customerResult.data.name;
-
-  if (!customerEmail) {
-    console.warn("[ASAAS WEBHOOK] Cliente sem e-mail. Envio ignorado.", {
-      customerId,
-      paymentId,
-    });
-    return;
-  }
-
-  const firstName = customerName?.trim().split(" ")[0];
-  await sendWelcomeEmail(customerEmail, firstName);
-
-  sentWelcomeForPaymentIds.add(paymentId);
-  if (sentWelcomeForPaymentIds.size > 5000) {
-    sentWelcomeForPaymentIds.clear();
-  }
+  return null;
 }
 
-async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWebhookPayload) {
+/**
+ * Atualiza o plano do usuário no Supabase.
+ * Retorna o registro localizado do usuário para reutilização em operações subsequentes.
+ */
+async function updateUserPlanInSupabase(
+  customerEmail: string,
+  payload: AsaasWebhookPayload,
+): Promise<UserLookupResult | null> {
   const event = payload.event;
   const payment = payload.payment;
   const subscription = payload.subscription;
-  
-  if (!customerEmail) return;
 
   const customerId = payment?.customer || subscription?.customer;
   const asaasSubscriptionId = subscription?.id || payment?.subscription;
@@ -171,7 +179,7 @@ async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWeb
   const description = payment?.description || subscription?.description;
   const dueDate = payment?.dueDate || subscription?.nextDueDate;
 
-  const updateData: any = {
+  const updateData: Record<string, unknown> = {
     asaas_customer_id: customerId,
     asaas_subscription_id: asaasSubscriptionId,
     payment_id: paymentId,
@@ -183,7 +191,7 @@ async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWeb
   if (event === "PAYMENT_CONFIRMED" || event === "PAYMENT_RECEIVED") {
     updateData.current_plan = isTrial ? "flow" : planInDescription;
     updateData.subscription_status = "active";
-    
+
     if (isTrial) {
       updateData.trial_started_at = new Date().toISOString();
       const trialEnds = new Date();
@@ -196,11 +204,10 @@ async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWeb
       updateData.next_billing_at = nextMonth.toISOString();
     }
   } else if ((event === "PAYMENT_CREATED" || event === "SUBSCRIPTION_CREATED") && isTrial) {
-    // Ativação imediata dos 5 dias de teste grátis no app
     updateData.current_plan = "flow";
     updateData.subscription_status = "trialing";
     updateData.trial_started_at = new Date().toISOString();
-    
+
     if (dueDate) {
       const targetDate = new Date(dueDate);
       updateData.trial_ends_at = targetDate.toISOString();
@@ -212,50 +219,164 @@ async function updateUserPlanInSupabase(customerEmail: string, payload: AsaasWeb
   } else if (event === "PAYMENT_OVERDUE" || event === "PAYMENT_DELETED" || event === "SUBSCRIPTION_DELETED") {
     updateData.subscription_status = "past_due";
     updateData.current_plan = "start";
-    
-    // Enviar e-mail de expiração
+
     if (customerEmail) {
       const firstName = customerEmail.split("@")[0];
       await sendExpirationEmail(customerEmail, firstName);
     }
   } else {
     // Evento não relevante para atualização do plano
-    return;
+    return null;
   }
-  
-  // 1. Tentar atualizar tabela 'profiles'
-  let { data: profiles, error: selectError } = await supabaseAdmin
-    .from("profiles")
-    .select("id")
-    .eq("email", customerEmail)
-    .limit(1);
-    
-  if (selectError || !profiles || profiles.length === 0) {
-    // 2. Fallback na tabela 'users'
-    const { data: users, error: selectUsersError } = await supabaseAdmin
-      .from("users")
-      .select("id")
-      .eq("email", customerEmail)
-      .limit(1);
-      
-    if (!selectUsersError && users && users.length > 0) {
-       await supabaseAdmin.from("users").update(updateData).eq("email", customerEmail);
-       console.log("[SUPABASE] Atualizado plano do usuário na tabela 'users' para", customerEmail);
-       return;
-    }
-    console.warn("[SUPABASE] Usuário não encontrado no Supabase (nem em profiles, nem em users):", customerEmail);
-    return;
+
+  // Localizar o registro do usuário
+  const userRecord = await findUserRecord({
+    subscriptionId: asaasSubscriptionId,
+    customerId,
+    email: customerEmail,
+  });
+
+  if (!userRecord) {
+    console.warn("[SUPABASE] Usuário não encontrado no Supabase (nem em profiles, nem em users):", {
+      customerId,
+      subscriptionId: asaasSubscriptionId,
+      email: customerEmail ? customerEmail.replace(/(.{2})(.*)(@.*)/, "$1***$3") : "não informado",
+    });
+    return null;
   }
-  
+
   const { error: updateError } = await supabaseAdmin
-    .from("profiles")
+    .from(userRecord.table)
     .update(updateData)
-    .eq("email", customerEmail);
-    
+    .eq("id", userRecord.id);
+
   if (updateError) {
     console.error("[SUPABASE] Erro ao atualizar plano no Supabase:", updateError);
   } else {
-    console.log("[SUPABASE] Plano atualizado com sucesso no Supabase para", customerEmail, "Event:", event);
+    console.log("[SUPABASE] Plano atualizado com sucesso na tabela", userRecord.table, "Event:", event);
+  }
+
+  return userRecord;
+}
+
+/**
+ * Dispara o envio do PDF Bônus (Kit de Avaliação) com reserva atômica no Supabase.
+ * - Garante que apenas 1 e-mail seja enviado, mesmo com webhooks concorrentes ou repetidos.
+ * - Falha no envio reverte a reserva e nunca trava a resposta do webhook para o Asaas.
+ */
+async function handleBonusPdfDispatch({
+  payload,
+  userRecord,
+  customerEmail,
+  customerName,
+}: {
+  payload: AsaasWebhookPayload;
+  userRecord: UserLookupResult | null;
+  customerEmail: string;
+  customerName?: string;
+}) {
+  const paymentId = payload.payment?.id || payload.subscription?.id || "desconhecido";
+  const customerId = payload.payment?.customer || payload.subscription?.customer;
+
+  // 1. Diferenciação: se usuário não encontrado, registrar aviso sem dados sensíveis
+  if (!userRecord) {
+    console.warn(`[BONUS PDF] Usuário não encontrado no Supabase para envio do bônus. Payment ID: ${paymentId}.`);
+    return;
+  }
+
+  // 2. Se já foi enviado anteriormente, encerra em silêncio
+  if (userRecord.bonus_pdf_sent_at) {
+    console.log(`[BONUS PDF] Bônus já enviado anteriormente para o usuário ${userRecord.id}. Encerrando.`);
+    return;
+  }
+
+  // 3. Reserva atômica: UPDATE ... SET bonus_pdf_sent_at = now() WHERE id = :id AND bonus_pdf_sent_at IS NULL
+  const nowIso = new Date().toISOString();
+  const { data: reservedRows, error: reserveError } = await supabaseAdmin
+    .from(userRecord.table)
+    .update({ bonus_pdf_sent_at: nowIso })
+    .eq("id", userRecord.id)
+    .is("bonus_pdf_sent_at", null)
+    .select("id, bonus_pdf_sent_at");
+
+  if (reserveError) {
+    console.error("[BONUS PDF] Erro na reserva atômica de bonus_pdf_sent_at:", reserveError.message);
+    return;
+  }
+
+  // Se afetou 0 linhas e o usuário existe, outro webhook concorrente acabou de reservar
+  if (!reservedRows || reservedRows.length === 0) {
+    console.log(`[BONUS PDF] Concorrência detectada ou bônus já reservado para o usuário ${userRecord.id}. Encerrando.`);
+    return;
+  }
+
+  // 4. Reserva conquistada com sucesso: gerar URL assinada e disparar e-mail único
+  try {
+    const { data: signedData, error: signedError } = await supabaseAdmin
+      .storage
+      .from("bonus-materials")
+      .createSignedUrl("kit-avaliacao-funcional-fisioterapia.pdf", 60 * 60 * 24 * 30);
+
+    if (signedError || !signedData?.signedUrl) {
+      throw new Error(`Falha ao gerar link assinado do PDF no Storage: ${signedError?.message || "URL vazia"}`);
+    }
+
+    const apiKey = process.env.RESEND_API_KEY;
+    const from = process.env.RESEND_FROM_EMAIL;
+
+    if (!apiKey || !from) {
+      throw new Error("Credenciais do Resend ausentes (RESEND_API_KEY / RESEND_FROM_EMAIL).");
+    }
+
+    const recipientEmail = userRecord.email || customerEmail;
+    if (!recipientEmail) {
+      throw new Error("Destinatário sem e-mail cadastrado.");
+    }
+
+    const fullName = (userRecord.name || userRecord.full_name || customerName || "").trim();
+    const firstName = fullName ? fullName.split(" ")[0] : undefined;
+
+    const resend = new Resend(apiKey);
+    const emailResult = await resend.emails.send({
+      from,
+      to: [recipientEmail.trim().toLowerCase()],
+      subject: "Obrigado por assinar o Kynesia! Seu bônus chegou",
+      react: createElement(BonusPdfEmail, {
+        firstName,
+        downloadUrl: signedData.signedUrl,
+        loginUrl: process.env.NEXT_PUBLIC_APP_URL || "https://kynesia-app.vercel.app",
+      }),
+    });
+
+    if (emailResult.error) {
+      throw new Error(emailResult.error.message);
+    }
+
+    console.log(`[BONUS PDF] E-mail com o Kit de Avaliação enviado com sucesso para o usuário ${userRecord.id}.`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Erro desconhecido ao enviar e-mail com bônus";
+    console.error(`[BONUS PDF] Falha no envio do e-mail. Revertendo reserva atômica. Payment ID: ${paymentId}. Motivo: ${message}`);
+
+    // Reverter a reserva atômica (volta para NULL para permitir reenvio futuro)
+    await supabaseAdmin
+      .from(userRecord.table)
+      .update({ bonus_pdf_sent_at: null })
+      .eq("id", userRecord.id);
+
+    // Gravar erro em log persistente no banco de dados para consulta e reenvio manual
+    try {
+      await supabaseAdmin
+        .from("bonus_dispatch_errors")
+        .insert({
+          payment_id: paymentId,
+          customer_id: customerId,
+          user_id: userRecord.id,
+          user_email: userRecord.email || customerEmail,
+          error_message: message,
+        });
+    } catch (dbErr) {
+      console.error("[BONUS PDF] Falha ao persistir erro na tabela bonus_dispatch_errors:", dbErr);
+    }
   }
 }
 
@@ -313,25 +434,60 @@ export async function POST(req: Request) {
         .insert({ event_id: payload.id, event_type: payload.event });
     }
 
-    // Buscar o email do cliente para atualizar o Supabase
+    // Identificar se o pagamento está associado a uma assinatura
+    const subscriptionId = payload.payment?.subscription || payload.subscription?.id;
+
+    // Se for uma compra avulsa (ex: Kit vendido a R$ 39,90 no blog, sem vínculo com assinatura),
+    // ignoramos operações de plano e envio de bônus para não quebrar a venda avulsa.
+    if (!subscriptionId) {
+      console.log("[ASAAS WEBHOOK] Pagamento avulso recebido (sem assinatura vinculada). Ignorando alteração de plano e envio de bônus.", {
+        paymentId: payload.payment?.id,
+        value: payload.payment?.value,
+        event: payload.event,
+      });
+      return NextResponse.json({ ok: true, message: "Pagamento avulso processado sem alteração de assinatura." }, { status: 200 });
+    }
+
+    // Buscar dados do cliente no Asaas para suporte à localização
     let customerEmailForSupabase = "";
+    let customerNameForSupabase = "";
     const customerId = payload.payment?.customer || payload.subscription?.customer;
     if (customerId) {
       const customerResult = await asaasGet<AsaasCustomer>(`/customers/${customerId}`);
-      if (customerResult.ok && customerResult.data.email) {
-        customerEmailForSupabase = customerResult.data.email;
+      if (customerResult.ok) {
+        if (customerResult.data.email) {
+          customerEmailForSupabase = customerResult.data.email;
+        }
+        if (customerResult.data.name) {
+          customerNameForSupabase = customerResult.data.name;
+        }
       }
     }
 
     // Eventos de cobrança e assinatura
     switch (payload.event) {
-      case "PAYMENT_RECEIVED":
-        await handlePaymentReceived(payload);
-        if (customerEmailForSupabase) {
-          await updateUserPlanInSupabase(customerEmailForSupabase, payload);
-        }
-        break;
       case "PAYMENT_CONFIRMED":
+      case "PAYMENT_RECEIVED": {
+        // 1. Atualizar o plano no Supabase
+        const userRecord = await updateUserPlanInSupabase(customerEmailForSupabase, payload);
+
+        // 2. Disparar envio único do e-mail com o PDF bônus (somente se pagamento já caiu diretamente no Asaas)
+        await handleBonusPdfDispatch({
+          payload,
+          userRecord,
+          customerEmail: customerEmailForSupabase,
+          customerName: customerNameForSupabase,
+        });
+
+        console.log("[ASAAS WEBHOOK] Pagamento confirmado/recebido processado:", {
+          event: payload.event,
+          id: payload.id,
+          paymentId: payload.payment?.id,
+          subscriptionId,
+        });
+        break;
+      }
+
       case "PAYMENT_CREATED":
       case "PAYMENT_OVERDUE":
       case "PAYMENT_DELETED":
@@ -339,20 +495,17 @@ export async function POST(req: Request) {
       case "SUBSCRIPTION_CREATED":
       case "SUBSCRIPTION_UPDATED":
       case "SUBSCRIPTION_DELETED":
-        if (customerEmailForSupabase) {
-          await updateUserPlanInSupabase(customerEmailForSupabase, payload);
-        }
-        console.log("[ASAAS WEBHOOK]", {
+        await updateUserPlanInSupabase(customerEmailForSupabase, payload);
+        console.log("[ASAAS WEBHOOK] Evento de assinatura processado:", {
           event: payload.event,
           id: payload.id,
           paymentId: payload.payment?.id || payload.subscription?.id,
           status: payload.payment?.status || payload.subscription?.status,
-          billingType: payload.payment?.billingType || payload.subscription?.billingType,
-          value: payload.payment?.value || payload.subscription?.value,
         });
         break;
+
       default:
-        console.log("[ASAAS WEBHOOK] Evento ignorado", {
+        console.log("[ASAAS WEBHOOK] Evento ignorado:", {
           event: payload.event,
           id: payload.id,
         });
