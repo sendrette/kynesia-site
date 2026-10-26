@@ -165,7 +165,7 @@ export default function DorNaColunaMitosCrencasPage() {
 
         {/* Resposta Rápida (Featured Snippet) */}
         <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6 shadow-sm">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-teal-600 mb-2">Resposta Rápida — Featured Snippet</h2>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-teal-600 mb-2"></h2>
           <p className="text-gray-900 leading-relaxed font-medium">
             Dor na coluna não significa necessariamente que exista uma lesão grave ou que todos os movimentos devam ser evitados. Na maioria dos casos, manter atividades toleráveis, adaptar temporariamente os esforços e retomar os movimentos de forma progressiva pode fazer parte da recuperação, após considerar os sinais de alerta e as características de cada pessoa.
           </p>
