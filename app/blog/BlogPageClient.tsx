@@ -21,6 +21,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "84",
+    slug: "dor-na-coluna-mitos-crencas-o-que-fazer",
+    title: "Dor na Coluna: Mitos, Crenças e o Que Você Pode Fazer",
+    excerpt:
+      "O que as evidências científicas revelam sobre movimento, repouso, coluna travada, exercícios com hérnia de disco, catastrofização e cinesiofobia.",
+    category: "Dor",
+    image: "/blog/dor-na-coluna-mitos-crencas-o-que-fazer.jpg",
+    readTime: "16 min",
+    date: "26 Out 2026",
+  },
+  {
     id: "83",
     slug: "dinamometria-na-fisioterapia-avaliacao-forca-muscular",
     title: "Dinamometria na Fisioterapia: Como Avaliar a Força Muscular e Interpretar os Resultados",
