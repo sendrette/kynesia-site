@@ -1,36 +1,47 @@
+import Image from "next/image";
 import Link from "next/link";
 
 type SiteHeaderProps = {
   showCta?: boolean;
 };
 
+const navItems = [
+  { href: "/#funcionalidades", label: "Funcionalidades" },
+  { href: "/#ia", label: "IA" },
+  { href: "/#planos", label: "Planos" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
+  { href: "/#contato", label: "Contato" },
+];
+
 export default function SiteHeader({ showCta = true }: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto max-w-7xl px-4 py-2 md:px-6">
-        <div className="flex h-12 items-center justify-between">
-          <Link href="/" aria-label="Kynesia" className="text-sm font-semibold tracking-wide text-slate-800 md:text-base">
-            Kynesia
-          </Link>
+    <header className="k-hdr">
+      <div className="k-wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-3 py-4 md:gap-x-8">
+        <Link href="/" aria-label="Kynesia, início" className="block">
+          <Image
+            src="/brand/kynesia-logo-horizontal.svg"
+            alt="Kynesia"
+            width={1636}
+            height={456}
+            priority
+            style={{ display: "block", height: 40, width: "auto" }}
+          />
+        </Link>
 
-          {showCta ? (
-            <Link
-              href="/start-free"
-              className="rounded-md bg-teal-500 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-teal-600 md:px-4 md:py-2 md:text-sm"
-            >
-              Começar grátis
+        <nav aria-label="Principal" className="order-3 flex w-full flex-wrap items-center gap-x-6 gap-y-1 md:order-none md:w-auto md:gap-x-7">
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href} className="k-nl py-1">
+              {item.label}
             </Link>
-          ) : null}
-        </div>
-
-        <nav className="-mx-1 mt-1 flex gap-4 overflow-x-auto px-1 pb-1 text-[13px] font-medium text-slate-600 md:mx-0 md:mt-0 md:justify-center md:gap-7 md:px-0 md:pb-0 md:text-sm">
-          <Link href="/#funcionalidades" className="whitespace-nowrap hover:text-slate-900">Funcionalidades</Link>
-          <Link href="/#ia" className="whitespace-nowrap hover:text-slate-900">IA</Link>
-          <Link href="/#planos" className="whitespace-nowrap hover:text-slate-900">Planos</Link>
-          <Link href="/#faq" className="whitespace-nowrap hover:text-slate-900">FAQ</Link>
-          <Link href="/blog" className="whitespace-nowrap hover:text-slate-900">Blog</Link>
-          <Link href="/#contato" className="whitespace-nowrap hover:text-slate-900">Contato</Link>
+          ))}
         </nav>
+
+        {showCta ? (
+          <Link href="/start-free" className="k-btn k-btn-p" style={{ minHeight: 44, padding: "0 22px", fontSize: 15 }}>
+            Começar grátis
+          </Link>
+        ) : null}
       </div>
     </header>
   );

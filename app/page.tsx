@@ -4,6 +4,8 @@ import Link from "next/link";
 import Reveal from "./components/reveal";
 import HomePricingSection from "./components/home-pricing-section";
 import SiteHeader from "./components/site-header";
+import SiteFooter from "./components/site-footer";
+import { ArrowIcon, CheckIcon, GiftIcon, PathIcon, PlusIcon } from "./components/icons";
 
 export const metadata: Metadata = {
   title: "kynesia - Gestão Clínica para Fisioterapeutas",
@@ -11,72 +13,86 @@ export const metadata: Metadata = {
     "Sistema de gestão clínica para fisioterapeutas com prontuário eletrônico, inteligência clínica baseada em evidências, controle financeiro e organização completa da rotina.",
 };
 
+const ICONS = {
+  database: "M3 5c0-1.7 4-3 9-3s9 1.3 9 3-4 3-9 3-9-1.3-9-3Z M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5 M3 12c0 1.7 4 3 9 3s9-1.3 9-3",
+  clock: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z M12 6v6l4 2",
+  clip: "M9 2h6a1 1 0 0 1 1 1v2H8V3a1 1 0 0 1 1-1Z M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2 M9 13h6 M9 17h4",
+  brief: "M3 7h18v13H3Z M8 7V4h8v3 M3 13h18",
+  spark: "M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9Z M19 3v4 M21 5h-4",
+  folder: "M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z",
+  zap: "M13 2 3 14h9l-1 8 10-12h-9Z",
+  file: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8",
+  cal: "M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z",
+  coin: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z M12 6v12 M15 9.5a3 3 0 0 0-3-1.5c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2a3 3 0 0 1-3-1.5",
+  users: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z M22 21v-2a4 4 0 0 0-3-3.9 M16 3.1a4 4 0 0 1 0 7.8",
+  gift: "M20 12v10H4V12 M2 7h20v5H2Z M12 22V7 M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7Z M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z M9 12l2 2 4-4",
+  mic: "M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z M19 10v2a7 7 0 0 1-14 0v-2 M12 19v3",
+};
+
 const dores = [
   {
-    icon: "shuffle",
+    icon: ICONS.database,
     title: "Desorganização de pacientes",
     description: "Dados espalhados em planilhas, papéis e WhatsApp sem controle.",
   },
   {
-    icon: "clock",
+    icon: ICONS.clock,
     title: "Evoluções demoradas",
     description: "Perda de tempo escrevendo evoluções repetitivas manualmente.",
   },
   {
-    icon: "file-alert",
+    icon: ICONS.clip,
     title: "Falta de padronização",
     description: "Cada profissional documenta de um jeito, sem padrão clínico.",
   },
   {
-    icon: "triangle-alert",
+    icon: ICONS.brief,
     title: "Tempo perdido com tarefas administrativas",
     description: "Horas gastas com burocracia ao invés de atender pacientes.",
   },
-] as const;
+];
 
-function PainIcon({ type }: { type: (typeof dores)[number]["icon"] }) {
-  const classes = "h-7 w-7 text-red-500";
+const pilares = [
+  {
+    icon: ICONS.spark,
+    title: "Inteligência Clínica",
+    description:
+      "Sugestões de condutas baseadas em evidências científicas para apoiar sua tomada de decisão. Você no controle, com o melhor da ciência ao seu lado.",
+  },
+  {
+    icon: ICONS.folder,
+    title: "Organização Total",
+    description:
+      "Prontuários, agenda, pacientes e financeiro em um só lugar. Tudo organizado e acessível, para você focar no que importa.",
+  },
+  {
+    icon: ICONS.zap,
+    title: "Produtividade",
+    description:
+      "Automatize tarefas repetitivas e foque no que importa: seus pacientes. Mais tempo clínico, menos tempo administrativo.",
+  },
+];
 
-  if (type === "shuffle") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={classes} aria-hidden>
-        <path d="M16 3h5v5" />
-        <path d="M4 20l7-7" />
-        <path d="M21 3l-7 7" />
-        <path d="M4 4h5l10 10" />
-        <path d="M16 16h5v5" />
-      </svg>
-    );
-  }
+const diferenciais = [
+  { icon: ICONS.clock, title: "Economia de tempo", description: "Evoluções clínicas em segundos. Menos burocracia, mais pacientes." },
+  { icon: ICONS.shield, title: "Padronização clínica", description: "Documentação consistente e alinhada com as melhores práticas." },
+  { icon: ICONS.spark, title: "Melhor tomada de decisão", description: "Insights diagnósticos baseados em evidência e análise inteligente." },
+];
 
-  if (type === "clock") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={classes} aria-hidden>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3 2" />
-      </svg>
-    );
-  }
+const confianca = [
+  "5 dias grátis com todos os recursos",
+  "Cancelamento online, sem fidelidade",
+  "Celular, tablet e computador",
+];
 
-  if (type === "file-alert") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={classes} aria-hidden>
-        <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7z" />
-        <path d="M14 2v5h5" />
-        <path d="M9.5 16.5l5-5" />
-        <path d="M14.5 16.5l-5-5" />
-      </svg>
-    );
-  }
+const agendaExemplo = [
+  { hora: "08:00", nome: "Ana Souza", status: "Confirmado" },
+  { hora: "09:30", nome: "Carlos Lima", status: "Em atendimento" },
+  { hora: "11:00", nome: "Marina Costa", status: "Aguardando" },
+];
 
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={classes} aria-hidden>
-      <path d="M12 9v4" />
-      <path d="M12 17h.01" />
-      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-    </svg>
-  );
-}
+const ondaVoz = [10, 22, 14, 30, 18, 34, 16, 26, 12, 20, 8];
 
 const faqs = [
   {
@@ -140,7 +156,7 @@ const faqs = [
 const categorias = [
   {
     title: "Inteligência Artificial & Clínica",
-    icon: "🧠",
+    icon: ICONS.spark,
     items: [
       "Evolução com IA por voz ou texto",
       "IA diagnóstica com clusters",
@@ -151,7 +167,7 @@ const categorias = [
   },
   {
     title: "Gestão de Prontuários & Pacientes",
-    icon: "📋",
+    icon: ICONS.file,
     items: [
       "Prontuário eletrônico ilimitado",
       "Anamnese estruturada",
@@ -162,7 +178,7 @@ const categorias = [
   },
   {
     title: "Organização & Fluxo de Trabalho",
-    icon: "📅",
+    icon: ICONS.cal,
     items: [
       "Agenda inteligente",
       "Controle de presença",
@@ -172,7 +188,7 @@ const categorias = [
   },
   {
     title: "Ecossistema de Benefícios",
-    icon: "🎁",
+    icon: ICONS.gift,
     items: [
       "Clube de benefícios Kynesia",
       "Vouchers para pacientes",
@@ -182,7 +198,7 @@ const categorias = [
   },
   {
     title: "Gestão Financeira",
-    icon: "💳",
+    icon: ICONS.coin,
     items: [
       "Controle de faturamento",
       "Gestão de pagamentos",
@@ -191,7 +207,7 @@ const categorias = [
   },
   {
     title: "Portal do Paciente",
-    icon: "👥",
+    icon: ICONS.users,
     items: [
       "Área exclusiva do paciente",
       "Prescrição de exercícios",
@@ -200,110 +216,161 @@ const categorias = [
   },
 ];
 
-const depoimentos = [
-  {
-    text: '"O Kynesia revolucionou minha rotina clínica. A inteligência artificial economiza horas do meu dia."',
-    name: "Fisioterapeuta",
-    credential: "CREFITO verificado",
-    photo: "",
-  },
-  {
-    text: '"O Kynesia revolucionou minha rotina clínica. A inteligência artificial economiza horas do meu dia."',
-    name: "Fisioterapeuta",
-    credential: "CREFITO verificado",
-    photo: "",
-  },
-  {
-    text: '"O Kynesia revolucionou minha rotina clínica. A inteligência artificial economiza horas do meu dia."',
-    name: "Fisioterapeuta",
-    credential: "CREFITO verificado",
-    photo: "",
-  },
-];
-
 export default function Home() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="k-page">
       <SiteHeader />
 
-      <section className="relative overflow-hidden bg-slate-50 px-6 py-20 md:px-10 md:py-24">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-0 flex items-center justify-center overflow-hidden">
-          <Image
-            src="/kynesia-logo-centro.svg"
-            alt=""
-            width={900}
-            height={900}
-            priority={false}
-            className="select-none opacity-[0.035] blur-[1px] w-[90vw] max-w-[1600px] h-auto md:w-[82vw] lg:w-[78vw]"
-          />
+      {/* HERO */}
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "radial-gradient(900px 520px at 88% 8%, #dcebe6 0%, rgba(246,250,248,0) 70%)" }}
+      >
+        <Image
+          src="/brand/kynesia-simbolo.svg"
+          alt=""
+          aria-hidden="true"
+          width={1010}
+          height={821}
+          className="pointer-events-none absolute"
+          style={{ right: -140, top: 30, width: "min(70vmin, 640px)", height: "auto", opacity: 0.07 }}
+        />
+        <div className="k-wrap relative flex flex-wrap items-center gap-x-12 gap-y-14 pb-24 pt-14">
+          <div className="k-hin min-w-0" style={{ flex: "1 1 500px" }}>
+            <div
+              className="inline-flex items-center gap-2 rounded-full border bg-white py-[7px] pl-2.5 pr-4 text-sm font-bold text-brand"
+              style={{ borderColor: "#d5e7e1" }}
+            >
+              <PathIcon d={ICONS.spark} size={18} stroke="#2a6168" strokeWidth={2} />
+              Gerenciamento clínico para fisioterapeutas
+            </div>
+
+            <h1 className="mt-[22px] text-[clamp(34px,4.6vw,56px)] font-extrabold leading-[1.06] tracking-[-0.03em] text-deep">
+              O sistema completo para fisioterapeutas que querem mais{" "}
+              <span className="text-brand">organização, produtividade e inteligência clínica</span>
+            </h1>
+
+            <p className="mt-6 max-w-[34rem] text-lg leading-relaxed text-muted">
+              Gerencie pacientes, evoluções e atendimentos com o apoio de inteligência artificial em um único lugar.
+            </p>
+
+            <div className="flex flex-wrap gap-3.5 pt-1" style={{ marginTop: 28 }}>
+              <Link href="/start-free" className="k-btn k-btn-p">
+                Começar grátis
+                <ArrowIcon size={18} />
+              </Link>
+              <Link href="/planos" className="k-btn k-btn-g">
+                Ver planos
+              </Link>
+            </div>
+
+            <Link
+              href="/planos"
+              className="mt-[30px] flex max-w-[520px] items-center gap-3.5 rounded-[20px] border bg-white px-[18px] py-3.5 no-underline"
+              style={{ borderColor: "#d5e7e1", boxShadow: "0 10px 30px rgba(22,54,58,.06)" }}
+            >
+              <span className="flex h-[46px] w-[46px] flex-none items-center justify-center rounded-[14px] bg-brand">
+                <GiftIcon size={24} stroke="#fff" />
+              </span>
+              <span className="text-[15px] font-bold leading-[1.45] text-ink">
+                Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
+              </span>
+            </Link>
+
+            <ul className="mt-7 flex list-none flex-wrap gap-x-7 gap-y-3 p-0 text-[14.5px] font-semibold text-[#35565b]">
+              {confianca.map((item) => (
+                <li key={item} className="flex items-center gap-2">
+                  <CheckIcon size={18} stroke="#2a6168" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mockup ilustrativo do app */}
+          <div className="k-float relative min-w-0" style={{ flex: "1 1 460px" }} aria-hidden="true">
+            <div
+              className="relative overflow-hidden rounded-[28px] border bg-white"
+              style={{ borderColor: "#ddeae6", boxShadow: "0 40px 80px rgba(22,54,58,.16), 0 6px 16px rgba(22,54,58,.06)" }}
+            >
+              <div className="flex items-center gap-[7px] border-b px-5 py-4" style={{ borderColor: "#e7f0ed", background: "#fafcfb" }}>
+                <span className="h-[11px] w-[11px] rounded-full" style={{ background: "#d5e7e1" }} />
+                <span className="h-[11px] w-[11px] rounded-full" style={{ background: "#d5e7e1" }} />
+                <span className="h-[11px] w-[11px] rounded-full" style={{ background: "#d5e7e1" }} />
+                <span className="ml-2.5 text-[13px] font-bold text-muted">Kynesia · Hoje</span>
+              </div>
+              <div className="flex flex-col gap-[18px] px-[22px] pb-6 pt-[22px]">
+                <div>
+                  <div className="mb-2.5 text-xs font-extrabold uppercase tracking-[0.08em] text-muted">Agenda do dia</div>
+                  <div className="flex flex-col gap-2">
+                    {agendaExemplo.map((a) => (
+                      <div key={a.hora} className="flex items-center gap-3 rounded-[14px] px-3 py-2.5" style={{ background: "#f4f9f7" }}>
+                        <span className="rounded-[10px] border bg-white px-[9px] py-[5px] text-[13px] font-extrabold text-brand" style={{ borderColor: "#d5e7e1" }}>
+                          {a.hora}
+                        </span>
+                        <span className="flex-1 text-[14.5px] font-bold text-ink">{a.nome}</span>
+                        <span className="rounded-full bg-mist-2 px-2.5 py-1 text-xs font-bold text-brand">{a.status}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-[18px] border border-line p-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-brand">
+                      <PathIcon d={ICONS.mic} size={20} stroke="#fff" strokeWidth={2} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-sm font-bold text-ink">Evolução por voz</div>
+                      <div className="mt-0.5 flex h-[26px] items-center gap-1">
+                        {ondaVoz.map((h, i) => (
+                          <span key={i} className="w-1 rounded-sm bg-sage" style={{ height: h }} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex flex-col gap-[7px]">
+                    <span className="h-2 rounded bg-[#e7f0ed]" style={{ width: "96%" }} />
+                    <span className="h-2 rounded bg-[#e7f0ed]" style={{ width: "82%" }} />
+                    <span className="h-2 rounded bg-[#e7f0ed]" style={{ width: "64%" }} />
+                  </div>
+                </div>
+
+                <div className="rounded-[18px] p-4" style={{ background: "linear-gradient(135deg,#e4f1ed,#d4e8e1)" }}>
+                  <div className="flex items-center gap-2 text-[13px] font-extrabold text-brand">
+                    <PathIcon d={ICONS.spark} size={17} stroke="#2a6168" strokeWidth={2} />
+                    Sugestão clínica
+                  </div>
+                  <p className="mt-2 text-sm leading-[1.55] text-ink">
+                    Considere os testes ortopédicos indicados para a queixa e reavalie a amplitude de movimento na próxima sessão.
+                  </p>
+                </div>
+                <div className="text-center text-[11.5px] text-muted">Exemplo ilustrativo</div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <Reveal className="relative z-10 mx-auto max-w-5xl text-center">
-          <p className="mx-auto inline-flex rounded-full bg-teal-100 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-teal-700 md:text-sm">
-            Gerenciamento clínico para fisioterapeutas
-          </p>
-
-          <h1 className="mt-7 text-4xl font-bold leading-[1.04] tracking-tight text-[#122a5a] md:text-6xl">
-            O sistema completo para fisioterapeutas que querem mais
-            <span className="text-teal-500"> organização, produtividade e inteligência clínica</span>
-          </h1>
-
-          <p className="mx-auto mt-8 max-w-4xl text-lg leading-relaxed text-slate-500 md:text-xl">
-            Gerencie pacientes, evoluções e atendimentos com o apoio de inteligência
-            artificial em um único lugar.
-          </p>
-
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/start-free"
-              className="rounded-2xl bg-teal-500 px-10 py-3 text-base font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-teal-600"
-            >
-              Começar grátis
-            </Link>
-            <Link
-              href="/planos"
-              className="rounded-2xl border border-slate-300 bg-white px-10 py-3 text-base font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-slate-100"
-            >
-              Ver planos
-            </Link>
-          </div>
-
-          <div className="mt-8 flex justify-center">
-            <Link
-              href="/planos"
-              className="inline-flex items-center gap-2.5 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 px-5 py-3 text-xs sm:text-sm font-bold text-teal-950 shadow-xs transition hover:border-emerald-400 hover:shadow-sm"
-            >
-              <span className="text-base">🎁</span>
-              <span>Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!</span>
-            </Link>
-          </div>
-        </Reveal>
       </section>
 
-      <section className="bg-slate-50 px-6 py-20 md:py-24" id="funcionalidades">
-        <div className="mx-auto max-w-7xl">
-          <Reveal className="text-center">
-            <h2 className="mx-auto max-w-4xl text-3xl font-bold leading-tight text-[#122a5a] md:text-5xl">
-              Você ainda enfrenta esses problemas?
-            </h2>
-            <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-slate-500 md:text-lg">
+      {/* PROBLEMAS */}
+      <section style={{ padding: "24px 0 96px" }}>
+        <div className="k-wrap">
+          <Reveal className="max-w-[680px]">
+            <p className="k-eyebrow">O problema</p>
+            <h2 className="k-h2">Você ainda enfrenta esses problemas?</h2>
+            <p className="k-lead mt-4">
               A maioria dos fisioterapeutas perde tempo e qualidade por falta de ferramentas adequadas.
             </p>
           </Reveal>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-11 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-5">
             {dores.map((item, index) => (
-              <Reveal key={item.title} delay={index * 90}>
-                <article className="group h-full rounded-3xl border border-slate-200 bg-slate-50 p-7 text-center shadow-sm transition-all duration-300 ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-[0_18px_42px_-22px_rgba(15,23,42,0.45)] active:-translate-y-1 active:shadow-[0_16px_40px_-24px_rgba(15,23,42,0.4)]">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-red-100/70">
-                    <PainIcon type={item.icon} />
-                  </div>
-                  <h3 className="mt-6 text-lg font-semibold leading-tight text-slate-900">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-slate-500">
-                    {item.description}
-                  </p>
+              <Reveal key={item.title} delay={index * 80} className="h-full">
+                <article className="k-card k-lift h-full p-7">
+                  <span className="k-icon-box">
+                    <PathIcon d={item.icon} size={24} stroke="#2a6168" />
+                  </span>
+                  <h3 className="mb-2 mt-5 text-[19px] font-extrabold text-deep">{item.title}</h3>
+                  <p className="text-[15.5px] leading-[1.6] text-muted">{item.description}</p>
                 </article>
               </Reveal>
             ))}
@@ -311,283 +378,146 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24" id="ia">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center">
-            <h2 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">
-              O Kynesia centraliza toda sua rotina clínica
-            </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-500 md:text-lg">
-              em uma <span className="text-teal-500 font-semibold">única plataforma inteligente</span>
+      {/* SOLUÇÃO */}
+      <section className="relative overflow-hidden" style={{ background: "var(--k-deep)", color: "#fff" }}>
+        <Image
+          src="/brand/kynesia-simbolo.svg"
+          alt=""
+          aria-hidden="true"
+          width={1010}
+          height={821}
+          className="pointer-events-none absolute"
+          style={{ left: -160, bottom: -120, width: 520, height: "auto", opacity: 0.06 }}
+        />
+        <div className="k-wrap relative py-24">
+          <Reveal className="max-w-[720px]">
+            <p className="k-eyebrow" style={{ color: "var(--k-mint)" }}>A solução</p>
+            <h2 className="k-h2" style={{ color: "#fff" }}>O Kynesia centraliza toda sua rotina clínica</h2>
+            <p className="mt-4 text-[17px] leading-[1.65]" style={{ color: "#c9e0d9" }}>
+              em uma <strong className="font-extrabold text-white">única plataforma inteligente</strong>
             </p>
           </Reveal>
-
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            <Reveal delay={0}>
-              <article className="h-full rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm transition-all duration-300 ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-[0_18px_42px_-22px_rgba(15,23,42,0.45)]">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-teal-100/70">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-10 w-10 text-teal-500" aria-hidden>
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-lg font-semibold leading-tight text-slate-900">
-                  Inteligência Clínica
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-slate-500">
-                  Sugestões de condutas baseadas em evidências científicas para apoiar sua tomada de decisão. Você no controle, com o melhor da ciência ao seu lado.
-                </p>
-              </article>
-            </Reveal>
-
-            <Reveal delay={90}>
-              <article className="h-full rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm transition-all duration-300 ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-[0_18px_42px_-22px_rgba(15,23,42,0.45)]">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-teal-100/70">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-10 w-10 text-teal-500" aria-hidden>
-                    <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6z" />
-                    <path d="M4 10h16M8 6v12M16 6v12" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-lg font-semibold leading-tight text-slate-900">
-                  Organização Total
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-slate-500">
-                  Prontuários, agenda, pacientes e financeiro em um só lugar. Tudo organizado e acessível, para você focar no que importa.
-                </p>
-              </article>
-            </Reveal>
-
-            <Reveal delay={180}>
-              <article className="h-full rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm transition-all duration-300 ease-out will-change-transform hover:-translate-y-1.5 hover:shadow-[0_18px_42px_-22px_rgba(15,23,42,0.45)]">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-teal-100/70">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-10 w-10 text-teal-500" aria-hidden>
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-lg font-semibold leading-tight text-slate-900">
-                  Produtividade
-                </h3>
-                <p className="mt-4 text-sm leading-relaxed text-slate-500">
-                  Automatize tarefas repetitivas e foque no que importa: seus pacientes. Mais tempo clínico, menos tempo administrativo.
-                </p>
-              </article>
-            </Reveal>
+          <div className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
+            {pilares.map((item, index) => (
+              <Reveal key={item.title} delay={index * 80} className="h-full">
+                <article className="h-full rounded-3xl border p-8" style={{ background: "rgba(255,255,255,.06)", borderColor: "rgba(255,255,255,.12)" }}>
+                  <span className="flex h-[52px] w-[52px] items-center justify-center rounded-2xl bg-brand">
+                    <PathIcon d={item.icon} size={26} stroke="#cfe8e0" />
+                  </span>
+                  <h3 className="mb-2.5 mt-[22px] text-[21px] font-extrabold">{item.title}</h3>
+                  <p className="text-base leading-[1.6]" style={{ color: "#e3f1ec" }}>{item.description}</p>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center">
-            <h2 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">Funcionalidades completas para</h2>
-            <h2 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">gestão clínica em fisioterapia</h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-500 md:text-lg">
+      {/* FUNCIONALIDADES */}
+      <section id="funcionalidades" style={{ padding: "104px 0 96px" }}>
+        <div className="k-wrap">
+          <Reveal className="max-w-[680px]">
+            <p className="k-eyebrow">Funcionalidades</p>
+            <h2 className="k-h2">Funcionalidades completas para gestão clínica em fisioterapia</h2>
+            <p className="k-lead mt-4">
               Tudo o que você precisa para gerenciar sua clínica de fisioterapia com eficiência.
             </p>
           </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {categorias.map((category, index) => {
-              const getIcon = () => {
-                switch (index) {
-                  case 0:
-                    return (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-teal-500">
-                        <circle cx="12" cy="12" r="1" />
-                        <circle cx="12" cy="5" r="1" />
-                        <circle cx="12" cy="19" r="1" />
-                        <circle cx="5" cy="12" r="1" />
-                        <circle cx="19" cy="12" r="1" />
-                        <path d="M12 6v6M12 12v6" />
-                        <path d="M6 12h6M12 12h6" />
-                      </svg>
-                    );
-                  case 1:
-                    return (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-slate-400">
-                        <path d="M4 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
-                        <path d="M8 8h8M8 12h8M8 16h4" />
-                      </svg>
-                    );
-                  case 2:
-                    return (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-teal-500">
-                        <rect x="3" y="4" width="18" height="18" rx="2" />
-                        <path d="M16 2v4M8 2v4M3 10h18" />
-                      </svg>
-                    );
-                  case 3:
-                    return (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-slate-400">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                      </svg>
-                    );
-                  case 4:
-                    return (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-teal-500">
-                        <circle cx="12" cy="12" r="1" />
-                        <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24" />
-                      </svg>
-                    );
-                  default:
-                    return (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-6 w-6 text-slate-400">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                      </svg>
-                    );
-                }
-              };
-
-              return (
-                <Reveal key={category.title} delay={index * 80}>
-                  <article className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md">
-                    {category.title === "Ecossistema de Benefícios" && (
-                      <span className="absolute top-4 right-4 inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+          <div className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] gap-5">
+            {categorias.map((category, index) => (
+              <Reveal key={category.title} delay={index * 80} className="h-full">
+                <article className="k-card k-lift h-full p-8">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="k-icon-box" style={{ width: 52, height: 52, borderRadius: 16 }}>
+                      <PathIcon d={category.icon} size={26} stroke="#2a6168" />
+                    </span>
+                    {category.title === "Ecossistema de Benefícios" ? (
+                      <span
+                        className="rounded-full px-3 py-[5px] text-xs font-extrabold tracking-[0.04em]"
+                        style={{ color: "var(--k-soon-fg)", background: "var(--k-soon-bg)" }}
+                      >
                         EM BREVE
                       </span>
-                    )}
-                    <h3 className="text-base font-semibold text-slate-900 text-center">{category.title}</h3>
-                    <ul className="mt-5 space-y-3">
-                      {category.items.map((item) => (
-                        <li key={item} className="flex items-center gap-3 text-sm text-slate-600">
-                          <div className="flex-shrink-0">
-                            {getIcon()}
-                          </div>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                </Reveal>
-              );
-            })}
+                    ) : null}
+                  </div>
+                  <h3 className="mb-3.5 mt-[22px] text-[21px] font-extrabold text-deep">{category.title}</h3>
+                  <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
+                    {category.items.map((item) => (
+                      <li key={item} className="flex gap-2.5 text-[15.5px] leading-normal text-muted">
+                        <CheckIcon size={18} stroke="#2a6168" className="mt-0.5 flex-none" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-gradient-to-r from-[#071a45] to-[#162e61] px-6 py-20 md:py-24">
-        <div className="mx-auto max-w-6xl">
-          <Reveal className="text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-400 md:text-sm">Diferencial</p>
-            <h2 className="mx-auto mt-4 max-w-4xl text-4xl font-bold leading-tight text-white md:text-5xl">
-              A inteligência artificial que <span className="text-teal-400">trabalha junto com você</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base text-slate-300 md:text-lg">
-              Tecnologia de ponta integrada à sua prática clínica diária.
-            </p>
+      {/* DIFERENCIAL IA */}
+      <section id="ia" style={{ padding: "0 0 96px" }}>
+        <div className="k-wrap">
+          <Reveal>
+            <div
+              className="relative overflow-hidden rounded-[36px] text-white"
+              style={{ background: "linear-gradient(135deg,#1b4448 0%,#2a6168 60%,#3b7a80 100%)", padding: "clamp(32px,5vw,72px)" }}
+            >
+              <Image
+                src="/brand/kynesia-simbolo.svg"
+                alt=""
+                aria-hidden="true"
+                width={1010}
+                height={821}
+                className="pointer-events-none absolute"
+                style={{ right: -90, top: -70, width: 440, height: "auto", opacity: 0.08 }}
+              />
+              <div className="relative max-w-[700px]">
+                <span className="inline-block rounded-full px-3.5 py-1.5 text-[13px] font-extrabold" style={{ background: "rgba(255,255,255,.14)", color: "#cfe8e0" }}>
+                  Diferencial
+                </span>
+                <h2 className="mt-4 text-[clamp(28px,3.6vw,44px)] font-extrabold leading-[1.1] tracking-[-0.025em]">
+                  A inteligência artificial que trabalha junto com você
+                </h2>
+                <p className="mt-4 text-lg leading-[1.6]" style={{ color: "#d6ebe5" }}>
+                  Tecnologia de ponta integrada à sua prática clínica diária.
+                </p>
+              </div>
+              <div className="relative mt-11 grid grid-cols-[repeat(auto-fit,minmax(min(100%,250px),1fr))] gap-[18px]">
+                {diferenciais.map((item) => (
+                  <article key={item.title} className="rounded-[22px] border p-7" style={{ background: "rgba(255,255,255,.09)", borderColor: "rgba(255,255,255,.16)" }}>
+                    <span className="flex h-[46px] w-[46px] items-center justify-center rounded-[14px]" style={{ background: "rgba(255,255,255,.14)" }}>
+                      <PathIcon d={item.icon} size={24} stroke="#cfe8e0" />
+                    </span>
+                    <h3 className="mb-2 mt-[18px] text-xl font-extrabold">{item.title}</h3>
+                    <p className="text-[15.5px] leading-[1.6]" style={{ color: "#d6ebe5" }}>{item.description}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
           </Reveal>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            <Reveal delay={0}>
-              <article className="rounded-3xl border border-white/15 bg-white/5 p-8 text-center shadow-[0_16px_40px_-24px_rgba(2,8,23,0.7)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white/10">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-500/20">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-7 w-7 text-teal-300" aria-hidden>
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M12 7v5l3 2" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-xl font-semibold text-white md:text-2xl">Economia de tempo</h3>
-                <p className="mx-auto mt-4 max-w-xs text-base leading-relaxed text-slate-300 md:text-lg">
-                  Evoluções clínicas em segundos. Menos burocracia, mais pacientes.
-                </p>
-              </article>
-            </Reveal>
-
-            <Reveal delay={90}>
-              <article className="rounded-3xl border border-white/15 bg-white/5 p-8 text-center shadow-[0_16px_40px_-24px_rgba(2,8,23,0.7)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white/10">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-500/20">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-7 w-7 text-teal-300" aria-hidden>
-                    <circle cx="12" cy="12" r="8" />
-                    <circle cx="12" cy="12" r="4" />
-                    <circle cx="12" cy="12" r="1" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-xl font-semibold text-white md:text-2xl">Padronização clínica</h3>
-                <p className="mx-auto mt-4 max-w-xs text-base leading-relaxed text-slate-300 md:text-lg">
-                  Documentação consistente e alinhada com as melhores práticas.
-                </p>
-              </article>
-            </Reveal>
-
-            <Reveal delay={180}>
-              <article className="rounded-3xl border border-white/15 bg-white/5 p-8 text-center shadow-[0_16px_40px_-24px_rgba(2,8,23,0.7)] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white/10">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-500/20">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-7 w-7 text-teal-300" aria-hidden>
-                    <path d="M6 15l5-5 3 3 4-4" />
-                    <path d="M14 9h4v4" />
-                  </svg>
-                </div>
-                <h3 className="mt-6 text-xl font-semibold text-white md:text-2xl">Melhor tomada de decisão</h3>
-                <p className="mx-auto mt-4 max-w-xs text-base leading-relaxed text-slate-300 md:text-lg">
-                  Insights diagnósticos baseados em evidência e análise inteligente.
-                </p>
-              </article>
-            </Reveal>
-          </div>
         </div>
       </section>
 
       <HomePricingSection />
 
-      {/* Seção de depoimentos ocultada - será reativada quando houver dados reais */}
-      {/* <section className="px-6 py-20 md:py-24" id="faq">
-        <div className="mx-auto max-w-6xl">
+      {/* FAQ */}
+      <section id="faq" style={{ padding: "0 0 104px" }}>
+        <div className="k-wrap" style={{ maxWidth: 860 }}>
           <Reveal className="text-center">
-            <h2 className="mx-auto max-w-4xl text-3xl font-bold leading-tight text-[#122a5a] md:text-5xl">
-              Desenvolvido por profissionais da área da saúde
-            </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-500 md:text-lg">
-              O Kynesia é construído por quem entende a realidade da fisioterapia no dia a dia.
-            </p>
+            <p className="k-eyebrow">Perguntas frequentes</p>
+            <h2 className="k-h2">FAQ</h2>
           </Reveal>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {depoimentos.map((item, index) => (
-              <Reveal key={`${item.name}-${index}`} delay={index * 90}>
-                <article className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-10 w-10 text-teal-300" aria-hidden>
-                    <path d="M10 7H6a2 2 0 0 0-2 2v5a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3V9a2 2 0 0 0-2-2z" />
-                    <path d="M20 7h-4a2 2 0 0 0-2 2v5a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3V9a2 2 0 0 0-2-2z" />
-                  </svg>
-
-                  <p className="mt-4 text-[1.7rem] leading-relaxed text-slate-500 italic md:text-[2rem]">
-                    {item.text}
-                  </p>
-
-                  <div className="mt-8 flex items-center gap-4">
-                    <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-full bg-teal-50 ring-1 ring-teal-100">
-                      {item.photo ? (
-                        <img src={item.photo} alt={`Foto de ${item.name}`} className="h-full w-full object-cover" />
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-7 w-7 text-teal-500" aria-hidden>
-                          <circle cx="12" cy="8" r="4" />
-                          <path d="M6 20a6 6 0 0 1 12 0" />
-                        </svg>
-                      )}
-                    </div>
-
-                    <div className="text-left">
-                      <p className="text-[1.9rem] font-semibold leading-tight text-slate-900 md:text-[2.2rem]">{item.name}</p>
-                      <p className="mt-1 text-[1.5rem] text-slate-500 md:text-[1.7rem]">{item.credential}</p>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      <section className="px-6 py-20 md:py-24">
-        <div className="mx-auto max-w-4xl">
-          <Reveal className="text-center">
-            <h2 className="text-2xl font-semibold md:text-3xl">FAQ</h2>
-          </Reveal>
-          <div className="mt-12 space-y-4">
+          <div className="mt-11 flex flex-col gap-3">
             {faqs.map((item, index) => (
-              <Reveal key={item.q} delay={index * 75}>
-                <details className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                  <summary className="cursor-pointer list-none text-base font-medium">{item.q}</summary>
-                  <p className="mt-3 leading-relaxed text-sm text-gray-600">{item.a}</p>
+              <Reveal key={item.q} delay={Math.min(index, 5) * 80}>
+                <details className="k-faq">
+                  <summary>
+                    {item.q}
+                    <PlusIcon />
+                  </summary>
+                  <p className="pb-[22px] text-base leading-[1.7] text-muted">{item.a}</p>
                 </details>
               </Reveal>
             ))}
@@ -595,83 +525,39 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24">
-        <Reveal className="mx-auto max-w-6xl rounded-3xl bg-gray-900 px-8 py-12 text-center text-white md:py-16">
-          <h2 className="text-2xl font-semibold md:text-3xl">
-            Comece a transformar sua rotina clínica hoje
-          </h2>
-          <Link
-            href="/start-free"
-            className="mt-7 inline-flex rounded-xl bg-teal-500 px-7 py-3 text-sm font-medium text-white transition hover:-translate-y-0.5 hover:bg-teal-400"
-          >
-            Testar grátis
-          </Link>
-        </Reveal>
-      </section>
-
-      <section id="contato" className="px-6 py-20 md:py-24">
-        <Reveal className="mx-auto max-w-6xl rounded-2xl border border-gray-200 bg-white p-8 text-center shadow-sm">
-          <h2 className="text-2xl font-semibold md:text-3xl">Contato</h2>
-          <p className="mx-auto mt-3 max-w-3xl text-sm text-gray-600 md:text-base">
-            Fale com nosso time para dúvidas comerciais e implantação da plataforma.
-          </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            <a className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50" href="mailto:kynesia.fisio@gmail.com">
-              <p className="text-sm text-gray-500">Email</p>
-              <p className="text-sm font-medium text-gray-900 md:text-base">kynesia.fisio@gmail.com</p>
-            </a>
-            <a
-              className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50"
-              href="https://wa.me/5512996304111?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20Kynesia"
-              target="_blank"
-              rel="noreferrer"
+      {/* CTA FINAL */}
+      <section style={{ padding: "0 0 96px" }}>
+        <div className="k-wrap">
+          <Reveal>
+            <div
+              className="relative overflow-hidden rounded-[36px] text-center text-white"
+              style={{ background: "linear-gradient(135deg,#16363a 0%,#2a6168 100%)", padding: "clamp(48px,7vw,88px) 24px" }}
             >
-              <p className="text-sm text-gray-500">WhatsApp</p>
-              <p className="text-sm font-medium text-gray-900 md:text-base">(12) 99630-4111</p>
-            </a>
-            <a
-              className="rounded-xl border border-gray-200 p-4 text-center transition hover:bg-gray-50"
-              href="https://www.instagram.com/kynesia.fisio/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Abrir perfil do Instagram da Kynesia"
-            >
-              <p className="text-sm text-gray-500">Instagram</p>
-              <div className="mt-1 flex items-center justify-center gap-2">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  className="h-5 w-5 shrink-0 text-gray-900"
-                  fill="none"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.8" />
-                  <circle cx="12" cy="12" r="4.2" stroke="currentColor" strokeWidth="1.8" />
-                  <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" />
-                </svg>
-                <p className="text-sm font-medium text-gray-900 md:text-base">Kynesia</p>
+              <Image
+                src="/brand/kynesia-simbolo.svg"
+                alt=""
+                aria-hidden="true"
+                width={1010}
+                height={821}
+                className="pointer-events-none absolute"
+                style={{ right: -80, top: -60, width: 420, height: "auto", opacity: 0.08 }}
+              />
+              <div className="relative">
+                <h2 className="mx-auto max-w-[720px] text-[clamp(30px,4vw,48px)] font-extrabold leading-[1.1] tracking-[-0.025em]">
+                  Comece a transformar sua rotina clínica hoje
+                </h2>
+                <div className="mt-[34px] flex flex-wrap justify-center gap-3.5">
+                  <Link href="/start-free" className="k-btn k-btn-l k-on-dark">
+                    Testar grátis
+                  </Link>
+                </div>
               </div>
-              <p className="mt-1 text-xs text-gray-500">@kynesia.fisio</p>
-            </a>
-            <div className="rounded-xl border border-gray-200 p-4 text-center">
-              <p className="text-sm text-gray-500">Atendimento</p>
-              <p className="text-sm font-medium text-gray-900 md:text-base">Seg a Sex, 09h às 18h</p>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
       </section>
 
-      <footer className="border-t border-gray-200 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center text-sm text-gray-600">
-          <p>© {new Date().getFullYear()} Kynesia. Todos os direitos reservados.</p>
-          <div className="flex flex-wrap justify-center gap-5">
-            <Link href="/planos" className="hover:text-gray-900">Planos</Link>
-            <Link href="/cancelar-assinatura" className="hover:text-gray-900">Cancelar Assinatura</Link>
-            <a href="#" className="hover:text-gray-900">Termos</a>
-            <a href="#" className="hover:text-gray-900">Privacidade</a>
-            <a href="#contato" className="hover:text-gray-900">Contato</a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

@@ -3,45 +3,286 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --k-brand: #2a6168;
+  --k-brand-hover: #235259;
+  --k-deep: #16363a;
+  --k-sage: #7cb3a2;
+  --k-mint: #8cc2b1;
+  --k-paper: #f6faf8;
+  --k-mist: #eaf3f0;
+  --k-mist-2: #dcebe6;
+  --k-ink: #1e3a3d;
+  --k-muted: #46646a;
+  --k-line: #e1ede9;
+  --k-soon-fg: #8a5a12;
+  --k-soon-bg: #fcebc8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
+
+  --color-brand: var(--k-brand);
+  --color-deep: var(--k-deep);
+  --color-sage: var(--k-sage);
+  --color-mint: var(--k-mint);
+  --color-paper: var(--k-paper);
+  --color-mist: var(--k-mist);
+  --color-mist-2: var(--k-mist-2);
+  --color-ink: var(--k-ink);
+  --color-muted: var(--k-muted);
+  --color-line: var(--k-line);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), system-ui, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  filter: blur(1px);
-  transition-property: opacity, transform, filter;
-  transition-duration: 700ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+/* ---------- Redesign: base ---------- */
+.k-page {
+  background: var(--k-paper);
+  color: var(--k-ink);
+  overflow-x: clip;
 }
 
+.k-wrap {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+.k-eyebrow {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--k-brand);
+}
+
+.k-h2 {
+  margin: 12px 0 0;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  color: var(--k-deep);
+}
+
+.k-lead {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--k-muted);
+}
+
+/* ---------- Buttons ---------- */
+.k-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  box-sizing: border-box;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
+}
+.k-btn-p {
+  background: var(--k-brand);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(42, 97, 104, 0.3);
+}
+.k-btn-p:hover {
+  background: var(--k-brand-hover);
+  transform: translateY(-1px);
+}
+.k-btn-g {
+  background: #fff;
+  color: var(--k-brand);
+  border: 1.5px solid #c6ddd6;
+}
+.k-btn-g:hover {
+  border-color: var(--k-brand);
+}
+.k-btn-l {
+  background: #fff;
+  color: var(--k-deep);
+}
+.k-btn-l:hover {
+  background: #eef6f3;
+  transform: translateY(-1px);
+}
+.k-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+:where(.k-page) a:focus-visible,
+:where(.k-page) button:focus-visible,
+:where(.k-page) summary:focus-visible,
+:where(.k-page) input:focus-visible,
+:where(.k-page) select:focus-visible,
+:where(.k-page) textarea:focus-visible {
+  outline: 3px solid var(--k-brand);
+  outline-offset: 3px;
+}
+.k-on-dark:focus-visible,
+.k-footer a:focus-visible {
+  outline-color: #fff;
+}
+
+/* ---------- Cards ---------- */
+.k-card {
+  background: #fff;
+  border: 1px solid var(--k-line);
+  border-radius: 24px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.k-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(22, 54, 58, 0.1);
+}
+
+.k-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--k-mist);
+  flex: none;
+}
+
+/* ---------- FAQ ---------- */
+.k-faq {
+  background: #fff;
+  border: 1px solid var(--k-line);
+  border-radius: 18px;
+  padding: 0 24px;
+}
+.k-faq summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--k-ink);
+}
+.k-faq summary::-webkit-details-marker {
+  display: none;
+}
+.k-faq[open] {
+  border-color: var(--k-sage);
+}
+.k-faq[open] .k-plus {
+  transform: rotate(45deg);
+}
+.k-plus {
+  transition: transform 0.2s;
+  flex: none;
+}
+
+/* ---------- Header / footer ---------- */
+.k-hdr {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(246, 250, 248, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(207, 224, 218, 0.6);
+}
+.k-nl {
+  font-size: 15px;
+  font-weight: 600;
+  color: #35565b;
+  text-decoration: none;
+}
+.k-nl:hover {
+  color: var(--k-brand);
+}
+.k-fl {
+  color: #c9e0d9;
+  text-decoration: none;
+  font-size: 15px;
+}
+.k-fl:hover {
+  color: #fff;
+}
+
+/* ---------- Motion ---------- */
+@keyframes k-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes k-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.k-hin > * {
+  animation: k-rise 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.k-hin > *:nth-child(2) { animation-delay: 0.08s; }
+.k-hin > *:nth-child(3) { animation-delay: 0.16s; }
+.k-hin > *:nth-child(4) { animation-delay: 0.24s; }
+.k-hin > *:nth-child(5) { animation-delay: 0.32s; }
+.k-hin > *:nth-child(6) { animation-delay: 0.4s; }
+.k-float {
+  animation: k-float 6s ease-in-out infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition-property: opacity, transform;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .reveal {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .k-hin > *,
+  .k-float {
+    animation: none !important;
+  }
+  .k-lift:hover {
+    transform: none;
   }
 }

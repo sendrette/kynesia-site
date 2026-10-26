@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import Reveal from "./reveal";
+import { ArrowIcon, CheckIcon, GiftIcon, LockIcon } from "./icons";
+import { kitInstruments } from "../lib/kit";
 import {
   formatCurrencyBRL,
   getPlanPricing,
@@ -12,25 +14,6 @@ import {
   type PlanKey,
 } from "../lib/pricing";
 
-function CheckIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-4 w-4 shrink-0 text-emerald-500">
-      <path d="M16.25 5.75 8.5 13.5l-4.25-4.25" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-400">
-      <path d="M6.5 8.5V6.75a3.5 3.5 0 1 1 7 0V8.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <rect x="4" y="8.5" width="12" height="8" rx="2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M10 11.5v2.25" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-
 type PricingComparisonSectionProps = {
   showHeader?: boolean;
   title?: string;
@@ -38,6 +21,8 @@ type PricingComparisonSectionProps = {
   billingCycle?: BillingCycle;
   onBillingCycleChange?: (cycle: BillingCycle) => void;
 };
+
+const KIT_BANNER = "Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!";
 
 export default function PricingComparisonSection({
   showHeader = true,
@@ -69,51 +54,80 @@ export default function PricingComparisonSection({
     }
   }
 
+
   return (
-    <section className="px-6 py-20 md:py-24" id="planos">
-      <div className="mx-auto max-w-7xl">
+    <section className="py-0 pb-[104px]" id="planos">
+      <div className="k-wrap">
         {showHeader ? (
-          <Reveal className="text-center">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-900 md:text-5xl">{title}</h2>
-            <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-slate-600 md:text-lg">{description}</p>
+          <Reveal className="mx-auto max-w-[680px] text-center">
+            <p className="k-eyebrow">Planos</p>
+            <h2 className="k-h2">{title}</h2>
+            <p className="k-lead mx-auto mt-4">{description}</p>
           </Reveal>
         ) : null}
 
-        <Reveal className={showHeader ? "mt-8 text-center" : "text-center"}>
-          <div className="inline-flex rounded-2xl border border-slate-200 bg-white p-1 shadow-sm shadow-slate-200/70">
+        <Reveal className={`${showHeader ? "mt-8" : ""} text-center`}>
+          <div
+            role="group"
+            aria-label="Ciclo de cobrança"
+            className="inline-flex items-center gap-1.5 rounded-full border bg-white p-[5px]"
+            style={{ borderColor: "#ddeae6" }}
+          >
             <button
               type="button"
+              aria-pressed={billingCycle === "monthly"}
               onClick={() => setBillingCycle("monthly")}
-              className={`rounded-xl px-5 py-3 text-sm font-semibold transition ${
-                billingCycle === "monthly" ? "bg-teal-600 text-white shadow-sm" : "text-slate-600 hover:bg-slate-50"
-              }`}
+              className="k-btn"
+              style={{
+                minHeight: 44,
+                padding: "0 22px",
+                fontSize: 15,
+                background: billingCycle === "monthly" ? "var(--k-brand)" : "transparent",
+                color: billingCycle === "monthly" ? "#fff" : "#35565b",
+              }}
             >
               Mensal
             </button>
             <button
               type="button"
+              aria-pressed={billingCycle === "annual"}
               onClick={() => setBillingCycle("annual")}
-              className={`rounded-xl px-5 py-3 text-sm font-semibold transition ${
-                billingCycle === "annual" ? "bg-teal-600 text-white shadow-sm" : "text-slate-600 hover:bg-slate-50"
-              }`}
+              className="k-btn"
+              style={{
+                minHeight: 44,
+                padding: "0 18px 0 22px",
+                fontSize: 15,
+                background: billingCycle === "annual" ? "var(--k-brand)" : "transparent",
+                color: billingCycle === "annual" ? "#fff" : "#35565b",
+              }}
             >
-              Anual -15%
+              Anual
+              <span
+                className="rounded-full px-[9px] py-0.5 text-xs font-extrabold"
+                style={{
+                  background: billingCycle === "annual" ? "var(--k-mint)" : "var(--k-mist-2)",
+                  color: billingCycle === "annual" ? "var(--k-deep)" : "var(--k-brand)",
+                }}
+              >
+                -15%
+              </span>
             </button>
           </div>
 
-          <p className="mt-4 text-sm font-medium text-teal-700">
-            Assinatura anual com 15% de desconto.
-          </p>
+          <p className="mt-4 text-sm font-semibold text-brand">Assinatura anual com 15% de desconto.</p>
 
-          <div className="mx-auto mt-6 max-w-2xl rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 shadow-xs">
-            <p className="text-sm font-bold text-teal-950 flex items-center justify-center gap-2 text-center">
-              <span className="text-base">🎁</span>
-              <span>Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!</span>
-            </p>
+          <div
+            className="mx-auto mt-6 flex max-w-2xl items-center justify-center gap-3 rounded-[20px] border bg-white px-[18px] py-3.5 text-left"
+            style={{ borderColor: "#d5e7e1", boxShadow: "0 10px 30px rgba(22,54,58,.06)" }}
+          >
+            <span className="flex h-[46px] w-[46px] flex-none items-center justify-center rounded-[14px] bg-brand">
+              <GiftIcon size={24} stroke="#fff" />
+            </span>
+            <p className="text-[15px] font-bold leading-[1.45] text-ink">{KIT_BANNER}</p>
           </div>
         </Reveal>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(290px,1fr))] items-stretch gap-5">
           {pricingComparisonCards.map((plan, index) => {
             const meta = planCatalog[plan.key];
             const pricing = getPlanPricing(plan.key, billingCycle);
@@ -121,78 +135,87 @@ export default function PricingComparisonSection({
             const isFeatured = plan.featured;
             const isSelected = selectedPlan.key === plan.key;
 
+            const strong = isFeatured ? "text-white" : "text-deep";
+            const soft = isFeatured ? "text-[#c9e0d9]" : "text-muted";
+            const box = isFeatured ? "bg-white/10 border-white/15" : "bg-mist border-line";
+
             return (
-              <Reveal key={plan.key} delay={index * 90}>
+              <Reveal key={plan.key} delay={index * 80} className="h-full">
                 <article
-                  className={`flex h-full flex-col rounded-3xl border bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                  className={`relative flex h-full flex-col rounded-3xl p-8 transition duration-200 hover:-translate-y-1 motion-reduce:hover:translate-y-0 ${
                     isFeatured
-                      ? "border-teal-400 bg-gradient-to-b from-teal-50/90 to-white shadow-teal-100 ring-1 ring-teal-200"
-                      : "border-slate-200"
-                  } ${isSelected ? "ring-2 ring-teal-500/40" : ""}`}
+                      ? "bg-deep text-white shadow-[0_30px_60px_rgba(22,54,58,.28)]"
+                      : "border border-line bg-white hover:shadow-[0_18px_40px_rgba(22,54,58,.10)]"
+                  } ${isSelected ? (isFeatured ? "outline outline-[3px] outline-offset-2 outline-mint" : "outline outline-[3px] outline-offset-2 outline-brand/40") : ""}`}
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  {isFeatured ? (
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-mint px-4 py-1.5 text-[13px] font-extrabold text-deep">
+                      Mais escolhido
+                    </span>
+                  ) : null}
+
+                  <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{plan.tagline}</p>
-                      <h3 className="mt-2 text-xl font-semibold tracking-tight text-slate-900">{meta.name}</h3>
+                      <p className={`text-[13px] font-extrabold uppercase tracking-[0.08em] ${isFeatured ? "text-mint" : "text-muted"}`}>
+                        {plan.tagline}
+                      </p>
+                      <h3 className={`mt-1.5 text-[22px] font-extrabold ${strong}`}>{meta.name}</h3>
                     </div>
-
-                    <div className="flex flex-col items-end gap-2">
-                      {isFeatured ? (
-                        <span className="inline-flex items-center rounded-full bg-teal-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white whitespace-nowrap">
-                          Mais escolhido
-                        </span>
-                      ) : null}
-
-                      {pricing.isPromoActive ? (
-                        <span className="inline-flex items-center rounded-full bg-rose-600 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white whitespace-nowrap">
-                          {pricing.promoDiscountPercent}% OFF
-                        </span>
-                      ) : null}
-                    </div>
+                    {pricing.isPromoActive ? (
+                      <span className="whitespace-nowrap rounded-full bg-rose-700 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-white">
+                        {pricing.promoDiscountPercent}% OFF
+                      </span>
+                    ) : null}
                   </div>
 
-                  <div className="mt-5 rounded-3xl border border-slate-100 bg-slate-50/80 p-5">
+                  <div className="mt-5">
                     {meta.monthlyPrice > 0 ? (
                       billingCycle === "annual" ? (
                         <>
-                          <p className="text-xs font-semibold uppercase tracking-wide text-teal-700">Cobrança anual em 12x</p>
+                          <p className={`text-xs font-extrabold uppercase tracking-wide ${isFeatured ? "text-mint" : "text-brand"}`}>
+                            Cobrança anual em 12x
+                          </p>
                           {pricing.isPromoActive ? (
-                            <p className="mt-1 text-sm font-medium text-slate-500 line-through">
+                            <p className={`mt-1 text-sm font-medium line-through ${soft}`}>
                               12x {formatCurrencyBRL(pricing.originalInstallmentValue)}
                             </p>
                           ) : null}
-                          <p className="mt-1 text-4xl font-bold tracking-tight text-slate-900">
+                          <p className={`mt-1 text-[40px] font-extrabold leading-none tracking-[-0.03em] ${strong}`}>
                             12x {formatCurrencyBRL(pricing.installmentValue)}
                           </p>
                           {pricing.isPromoActive ? (
-                            <p className="mt-0.5 text-xs text-slate-500 line-through">
+                            <p className={`mt-2 text-xs line-through ${soft}`}>
                               Total de {formatCurrencyBRL(pricing.originalTotalPrice)}/ano
                             </p>
                           ) : null}
-                          <p className="mt-0.5 text-xs text-slate-600">Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
-                          <p className="mt-0.5 text-xs font-medium text-emerald-600">Economia de {formatCurrencyBRL(pricing.savings)}</p>
+                          <p className={`mt-0.5 text-xs ${soft}`}>Total de {formatCurrencyBRL(pricing.totalPrice)}/ano</p>
+                          <p className={`mt-0.5 text-xs font-bold ${isFeatured ? "text-mint" : "text-emerald-700"}`}>
+                            Economia de {formatCurrencyBRL(pricing.savings)}
+                          </p>
                         </>
                       ) : (
                         <>
                           {pricing.isPromoActive ? (
-                            <p className="text-lg font-medium text-slate-500 line-through">
+                            <p className={`text-lg font-medium line-through ${soft}`}>
                               {formatCurrencyBRL(pricing.originalMonthlyPrice)}
-                              <span className="text-base font-medium text-slate-500">/mês</span>
+                              <span className="text-base font-medium">/mês</span>
                             </p>
                           ) : null}
-                          <p className="text-5xl font-bold tracking-tight text-slate-900">
+                          <p className={`text-5xl font-extrabold leading-none tracking-[-0.03em] ${strong}`}>
                             {formatCurrencyBRL(pricing.monthlyPrice)}
-                            <span className="text-2xl font-medium text-slate-500">/mês</span>
+                            <span className={`text-[15px] font-medium tracking-normal ${soft}`}>/mês</span>
                           </p>
-                          <p className="mt-2 text-base text-slate-600">{plan.summary}</p>
+                          <p className={`mt-3 text-[14.5px] leading-snug ${soft}`}>{plan.summary}</p>
                           {plan.key !== "start" ? (
-                            <div className="mt-4 space-y-1 rounded-2xl border border-teal-100 bg-teal-50/50 p-3 text-xs text-teal-800">
-                              <p className="font-semibold text-teal-900 uppercase tracking-wider text-[10px]">Opção Anual:</p>
+                            <div className={`mt-4 space-y-1 rounded-2xl border p-3 text-xs ${box} ${isFeatured ? "text-[#e3f1ec]" : "text-muted"}`}>
+                              <p className={`text-[10px] font-extrabold uppercase tracking-wider ${isFeatured ? "text-mint" : "text-brand"}`}>
+                                Opção Anual:
+                              </p>
                               <p>
-                                <span className="font-bold text-slate-950">{formatCurrencyBRL(annualPricing.installmentValue)}/mês</span>{" "}
+                                <span className={`font-extrabold ${strong}`}>{formatCurrencyBRL(annualPricing.installmentValue)}/mês</span>{" "}
                                 (cobrado {formatCurrencyBRL(annualPricing.totalPrice)}/ano)
                               </p>
-                              <p className="font-semibold text-emerald-600">
+                              <p className={`font-bold ${isFeatured ? "text-mint" : "text-emerald-700"}`}>
                                 Economize {formatCurrencyBRL(annualPricing.savings)} por ano
                               </p>
                             </div>
@@ -201,60 +224,53 @@ export default function PricingComparisonSection({
                       )
                     ) : (
                       <>
-                        <p className="text-5xl font-bold tracking-tight text-slate-900">Gratuito</p>
-                        <p className="mt-2 text-base text-slate-600">{plan.summary}</p>
+                        <p className={`text-5xl font-extrabold leading-none tracking-[-0.03em] ${strong}`}>Gratuito</p>
+                        <p className={`mt-3 text-[14.5px] leading-snug ${soft}`}>{plan.summary}</p>
                       </>
                     )}
                   </div>
 
+                  {plan.key === "start" ? (
+                    <p className="mt-4 inline-flex self-start rounded-full bg-mist px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-brand">
+                      Teste todos os recursos por 5 dias grátis
+                    </p>
+                  ) : null}
+
                   {billingCycle === "annual" && meta.monthlyPrice > 0 ? (
-                    <p className="mt-3 rounded-lg border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">
+                    <p className={`mt-4 rounded-xl border px-3 py-2 text-xs ${box} ${isFeatured ? "text-[#e3f1ec]" : "text-muted"}`}>
                       Desconto anual de 15% aplicado {pricing.isPromoActive ? `+ ${pricing.promoDiscountPercent}% OFF promocional.` : "."}
                     </p>
                   ) : null}
 
                   {pricing.isPromoActive ? (
-                    <p className="mt-3 rounded-lg border border-rose-100 bg-rose-50 px-3 py-2 text-xs font-medium text-rose-700">
+                    <p className={`mt-3 rounded-xl border px-3 py-2 text-xs font-semibold ${isFeatured ? "border-white/15 bg-white/10 text-white" : "border-rose-100 bg-rose-50 text-rose-800"}`}>
                       Promoção por tempo limitado.
                     </p>
                   ) : null}
 
-                  <div className="mt-4 flex-1 rounded-xl border border-slate-100 bg-white/70 px-3 py-2 text-sm text-slate-600">
-                    Veja as vantagens completas ao clicar em <span className="font-semibold text-slate-800">Ver detalhes</span>.
-                  </div>
+                  <p className={`mt-4 flex-1 rounded-xl border px-3 py-2 text-sm ${box} ${isFeatured ? "text-[#e3f1ec]" : "text-muted"}`}>
+                    Veja as vantagens completas ao clicar em <span className={`font-bold ${strong}`}>Ver detalhes</span>.
+                  </p>
 
                   {plan.key !== "start" ? (
-                    <div className="mt-4 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50/90 to-teal-50/90 p-3 text-xs shadow-xs">
-                      <div className="flex items-start gap-2 text-left">
-                        <span className="text-base leading-none">🎁</span>
-                        <div>
-                          <p className="font-bold text-emerald-950 leading-snug">
-                            Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
-                          </p>
-                          <p className="mt-0.5 text-[11px] text-slate-600">
-                            9 instrumentos clínicos em PDF inclusos grátis.
-                          </p>
-                        </div>
+                    <div className={`mt-4 flex items-start gap-2.5 rounded-2xl border p-3 text-xs ${box}`}>
+                      <GiftIcon size={18} stroke={isFeatured ? "#8cc2b1" : "#2a6168"} className="mt-0.5 flex-none" />
+                      <div>
+                        <p className={`font-bold leading-snug ${strong}`}>{KIT_BANNER}</p>
+                        <p className={`mt-0.5 text-[11px] ${soft}`}>9 instrumentos clínicos em PDF inclusos grátis.</p>
                       </div>
                     </div>
                   ) : null}
 
                   <button
                     type="button"
+                    aria-controls="plano-detalhes"
+                    aria-pressed={isSelected}
                     onClick={() => handleDetailsClick(plan.key)}
-                    className={`mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition ${
-                      isFeatured
-                        ? "bg-teal-600 text-white shadow-sm shadow-teal-200 hover:bg-teal-700"
-                        : "border border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
-                    }`}
+                    className={`k-btn mt-6 w-full ${isFeatured ? "k-btn-l" : "k-btn-g"}`}
                   >
                     Ver detalhes
                   </button>
-                        {plan.key === "start" ? (
-                          <span className="mb-3 inline-flex rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-700">
-                            Teste todos os recursos por 5 dias grátis
-                          </span>
-                        ) : null}
                 </article>
               </Reveal>
             );
@@ -262,91 +278,97 @@ export default function PricingComparisonSection({
         </div>
 
         <Reveal>
-          <div ref={detailsRef} className="mt-12 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+          <div
+            id="plano-detalhes"
+            ref={detailsRef}
+            className="mt-12 scroll-mt-28 rounded-[32px] border bg-white p-6 md:p-10"
+            style={{ borderColor: "#ddeae6", boxShadow: "0 24px 60px rgba(22,54,58,.07)" }}
+          >
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-teal-700">Detalhes do plano selecionado</p>
-                <h3 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+                <p className="k-eyebrow">Detalhes do plano selecionado</p>
+                <h3 className="mt-2 text-3xl font-extrabold tracking-[-0.025em] text-deep md:text-4xl">
                   {selectedMeta.name} — {selectedPlan.tagline}
                 </h3>
-                <p className="mt-3 text-base leading-relaxed text-slate-600">{selectedPlan.summary}</p>
+                <p className="k-lead mt-3">{selectedPlan.summary}</p>
               </div>
 
-              <div className="rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-left lg:text-right">
+              <div className="rounded-2xl border border-line bg-paper px-5 py-4 text-left lg:text-right">
+                <p className="text-sm font-extrabold uppercase tracking-wide text-brand">Plano ativo</p>
                 {selectedMeta.monthlyPrice > 0 ? (
                   billingCycle === "annual" ? (
                     <>
-                      <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
                       {selectedPricing.isPromoActive ? (
-                        <p className="mt-1 text-base text-slate-500 line-through">
+                        <p className="mt-1 text-base text-muted line-through">
                           12x {formatCurrencyBRL(selectedPricing.originalInstallmentValue)}
                         </p>
                       ) : null}
-                      <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                      <p className="mt-1 text-3xl font-extrabold tracking-tight text-deep">
                         12x {formatCurrencyBRL(selectedPricing.installmentValue)}
                       </p>
                       {selectedPricing.isPromoActive ? (
-                        <p className="mt-1 text-sm text-slate-500 line-through">Total de {formatCurrencyBRL(selectedPricing.originalTotalPrice)}/ano</p>
+                        <p className="mt-1 text-sm text-muted line-through">Total de {formatCurrencyBRL(selectedPricing.originalTotalPrice)}/ano</p>
                       ) : null}
-                      <p className="mt-1 text-sm text-slate-600">Total de {formatCurrencyBRL(selectedPricing.totalPrice)}/ano</p>
+                      <p className="mt-1 text-sm text-muted">Total de {formatCurrencyBRL(selectedPricing.totalPrice)}/ano</p>
                     </>
                   ) : (
                     <>
-                      <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
                       {selectedPricing.isPromoActive ? (
-                        <p className="mt-1 text-base text-slate-500 line-through">
+                        <p className="mt-1 text-base text-muted line-through">
                           {formatCurrencyBRL(selectedPricing.originalMonthlyPrice)}
-                          <span className="text-sm font-medium text-slate-500">/mês</span>
+                          <span className="text-sm font-medium">/mês</span>
                         </p>
                       ) : null}
-                      <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">
+                      <p className="mt-1 text-3xl font-extrabold tracking-tight text-deep">
                         {formatCurrencyBRL(selectedPricing.monthlyPrice)}
-                        <span className="text-base font-medium text-slate-500">/mês</span>
+                        <span className="text-base font-medium text-muted">/mês</span>
                       </p>
                     </>
                   )
                 ) : (
-                  <>
-                    <p className="text-sm font-semibold uppercase tracking-wide text-teal-700">Plano ativo</p>
-                    <p className="mt-1 text-3xl font-bold tracking-tight text-slate-900">Gratuito</p>
-                  </>
+                  <p className="mt-1 text-3xl font-extrabold tracking-tight text-deep">Gratuito</p>
                 )}
               </div>
             </div>
 
-            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <ul className="mt-8 grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-4">
               {selectedPlan.features.map((feature) => (
-                <div
+                <li
                   key={`${selectedPlan.key}-${feature.label}`}
                   className={`rounded-2xl border px-4 py-4 ${
-                    feature.status === "included"
-                      ? "border-emerald-100 bg-emerald-50/40"
-                      : "border-slate-200 bg-slate-50"
+                    feature.status === "included" ? "border-line bg-mist" : "border-line bg-paper"
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    {feature.status === "included" ? <CheckIcon /> : <LockIcon />}
+                    {feature.status === "included" ? (
+                      <CheckIcon size={18} stroke="#2a6168" className="mt-0.5 flex-none" />
+                    ) : (
+                      <LockIcon size={18} stroke="#46646a" className="mt-0.5 flex-none" />
+                    )}
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">{feature.label}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                      <p className="text-[15px] font-bold text-ink">
+                        {feature.label}
+                        {feature.status !== "included" ? <span className="sr-only"> (não incluso neste plano)</span> : null}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-muted">
                         {feature.note ?? "Recurso disponível neste plano."}
                       </p>
                     </div>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href={selectedPlan.key === "start" ? "/start-free" : `/checkout?plan=${selectedPlan.key}&cycle=${billingCycle}`}
-                className="inline-flex items-center justify-center rounded-2xl bg-teal-600 px-6 py-3.5 text-sm font-semibold text-white shadow-sm shadow-teal-200 transition hover:bg-teal-700"
+                className="k-btn k-btn-p"
               >
                 {selectedPlan.key === "start" ? "Começar grátis" : `Assinar ${selectedMeta.name}`}
               </Link>
-              <div className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-600 flex items-center justify-between flex-wrap gap-2">
+              <div className="flex flex-1 flex-wrap items-center justify-between gap-2 rounded-2xl border border-line bg-paper px-4 py-3 text-sm leading-relaxed text-muted">
                 <span>Clique em outro card para atualizar os detalhes do plano escolhido.</span>
-                <Link href="/cancelar-assinatura" className="text-xs font-semibold text-teal-700 underline hover:text-teal-900">
+                <Link href="/cancelar-assinatura" className="text-sm font-bold text-brand underline hover:text-deep">
                   Já é assinante? Gerenciar ou cancelar assinatura →
                 </Link>
               </div>
@@ -354,139 +376,82 @@ export default function PricingComparisonSection({
           </div>
         </Reveal>
 
-        {/* Bloco de Bônus Exclusivo de Assinatura: Kit Completo de Avaliação Funcional */}
+        {/* Bônus exclusivo de assinatura: Kit Completo de Avaliação Funcional */}
         <Reveal>
-          <div className="mt-14 overflow-hidden rounded-3xl border border-teal-200/90 bg-gradient-to-br from-teal-50/70 via-white to-sky-50/40 p-6 md:p-10 shadow-sm">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-teal-100 pb-6">
+          <div
+            id="kit"
+            className="mt-14 rounded-[32px] border bg-white p-6 md:p-12"
+            style={{ borderColor: "#ddeae6", boxShadow: "0 24px 60px rgba(22,54,58,.07)" }}
+          >
+            <div className="flex flex-col justify-between gap-6 border-b border-line pb-6 md:flex-row md:items-center">
               <div className="max-w-3xl">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-800">
-                  <span>🎁</span> Bônus Exclusivo para Assinantes
+                <span className="inline-flex items-center gap-2 rounded-full bg-mist py-[7px] pl-2.5 pr-3.5 text-[13px] font-extrabold text-brand">
+                  <GiftIcon size={16} stroke="#2a6168" /> Bônus Exclusivo para Assinantes
                 </span>
-                <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
-                  Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
+                <h3 className="mt-4 text-[clamp(26px,3vw,38px)] font-extrabold leading-[1.14] tracking-[-0.025em] text-deep">
+                  {KIT_BANNER}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">
+                <p className="mt-4 text-base leading-[1.65] text-muted">
                   Ao assinar o Kynesia nos planos <strong>Flow</strong> ou <strong>Elite</strong>, você recebe gratuitamente no seu e-mail um link seguro para baixar o <strong>Kit Completo de Avaliação Funcional em Fisioterapia Ortopédica</strong> (material autoral em PDF com 23 páginas, vendido avulso por R$ 39,90).
                 </p>
               </div>
 
-              <div className="shrink-0 self-start md:self-center rounded-2xl border border-teal-200 bg-white px-5 py-4 text-center shadow-xs">
-                <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500">Valor Avulso</span>
-                <span className="text-xl font-bold text-slate-400 line-through">R$ 39,90</span>
-                <span className="block text-sm font-extrabold text-emerald-600">100% Grátis na Assinatura</span>
+              <div className="shrink-0 self-start rounded-2xl border border-line bg-paper px-5 py-4 text-center md:self-center">
+                <span className="block text-[11px] font-extrabold uppercase tracking-wider text-muted">Valor Avulso</span>
+                <span className="text-xl font-extrabold text-muted line-through">R$ 39,90</span>
+                <span className="block text-sm font-extrabold text-brand">100% Grátis na Assinatura</span>
               </div>
             </div>
 
-            {/* Apresentação das 9 Avaliações presentes no Kit */}
             <div className="mt-8">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
-                <h4 className="text-sm font-bold uppercase tracking-wider text-slate-800">
+              <div className="mb-5 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                <h4 className="text-sm font-extrabold uppercase tracking-wider text-deep">
                   Os 9 Instrumentos Clínicos Inclusos no Kit:
                 </h4>
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-muted">
                   Formulários prontos para impressão · 10 itens cada · Cálculo de escore e tabela de evolução
                 </span>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {[
-                  {
-                    sigla: "AFL",
-                    titulo: "Avaliação Funcional da Coluna Lombar",
-                    desc: "Mede o impacto da dor lombar nas atividades funcionais, postura sentada, flexão de tronco e sono.",
-                    tag: "Coluna",
-                  },
-                  {
-                    sigla: "AFC",
-                    titulo: "Avaliação Funcional da Coluna Cervical",
-                    desc: "Identifica limitações por dor e rigidez cervical, movimentos de rotação ao dirigir e trabalho no computador.",
-                    tag: "Coluna",
-                  },
-                  {
-                    sigla: "AFO",
-                    titulo: "Avaliação do Ombro e Membro Superior",
-                    desc: "Investiga disfunções em tarefas acima da cabeça, alcance atrás das costas, empurrar peso e higiene pessoal.",
-                    tag: "Membros Superiores",
-                  },
-                  {
-                    sigla: "AFJ",
-                    titulo: "Avaliação Funcional do Joelho",
-                    desc: "Mensura limitação funcional em escadas, agachamento, ajoelhar e rastreia sensação de instabilidade ou falseio.",
-                    tag: "Membros Inferiores",
-                  },
-                  {
-                    sigla: "AFQ",
-                    titulo: "Avaliação Funcional do Quadril",
-                    desc: "Rastreia restrições ao calçar meias/sapatos, cruzar as pernas, transferências e impacto no padrão de marcha.",
-                    tag: "Membros Inferiores",
-                  },
-                  {
-                    sigla: "AFTP",
-                    titulo: "Avaliação de Tornozelo e Pé",
-                    desc: "Avalia limitações decorrentes de entorses, apoio na ponta dos pés, superfícies irregulares e estabilidade.",
-                    tag: "Membros Inferiores",
-                  },
-                  {
-                    sigla: "AEF",
-                    titulo: "Escala de Equilíbrio Funcional",
-                    desc: "Rastreia risco de quedas e dificuldades de equilíbrio estático/dinâmico (ideal para idosos e geriatria).",
-                    tag: "Equilíbrio & Geriatria",
-                  },
-                  {
-                    sigla: "EMEM",
-                    titulo: "Escala de Medo-Evitação ao Movimento",
-                    desc: "Identifica crenças psicossociais, medo de movimentação e cinesiofobia em condições musculoesqueléticas crônicas.",
-                    tag: "Psicossocial & Dor",
-                  },
-                  {
-                    sigla: "QDQV",
-                    titulo: "Questionário Geral de Dor e Qualidade de Vida",
-                    desc: "Visão global do impacto da dor na rotina cotidiana, disposição física, humor, trabalho e convívio social.",
-                    tag: "Avaliação Global",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.sigla}
-                    className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-4.5 transition duration-200 hover:border-teal-300 hover:shadow-xs"
-                  >
+              <ul className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-3">
+                {kitInstruments.map((item) => (
+                  <li key={item.sigla} className="flex flex-col justify-between rounded-2xl border border-line bg-paper p-4 transition duration-200 hover:border-sage">
                     <div>
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-mono text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-md border border-teal-100">
+                        <span className="rounded-lg border border-line bg-white px-2.5 py-0.5 text-[13px] font-extrabold tracking-[0.06em] text-brand">
                           {item.sigla}
                         </span>
-                        <span className="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
-                          {item.tag}
-                        </span>
+                        <span className="rounded-md bg-mist-2 px-2 py-0.5 text-[11px] font-semibold text-muted">{item.tag}</span>
                       </div>
-                      <h5 className="mt-2.5 text-sm font-bold text-slate-900 leading-snug">{item.titulo}</h5>
-                      <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{item.desc}</p>
+                      <h4 className="mt-2.5 text-[14.5px] font-bold leading-snug text-ink">{item.titulo}</h4>
+                      <p className="mt-1.5 text-xs leading-relaxed text-muted">{item.desc}</p>
                     </div>
-
-                    <div className="mt-3.5 border-t border-slate-100 pt-2 flex items-center justify-between text-[11px] text-slate-600">
-                      <span>✓ 10 itens objetivos</span>
-                      <span>✓ Tabela evolutiva</span>
+                    <div className="mt-3.5 flex items-center justify-between border-t border-line pt-2 text-[11px] text-muted">
+                      <span className="inline-flex items-center gap-1"><CheckIcon size={12} stroke="#2a6168" /> 10 itens objetivos</span>
+                      <span className="inline-flex items-center gap-1"><CheckIcon size={12} stroke="#2a6168" /> Tabela evolutiva</span>
                     </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
 
-            {/* Aviso de como é feito o envio */}
-            <div className="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 rounded-2xl border border-teal-200/80 bg-white/90 p-4.5 text-xs text-slate-700">
-              <div className="flex items-start sm:items-center gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-600 text-white font-bold text-xs shadow-xs">
-                  ✓
+            <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-line bg-paper p-4 text-sm text-muted md:flex-row md:items-center">
+              <div className="flex items-start gap-3 sm:items-center">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand">
+                  <CheckIcon size={14} stroke="#fff" />
                 </span>
                 <p className="leading-relaxed">
-                  <strong>Como você recebe:</strong> O link seguro para download do PDF (com validade de 30 dias) é enviado automaticamente para o seu e-mail de cadastro assim que o primeiro pagamento da sua assinatura for confirmado pelo sistema.
+                  <strong className="text-ink">Como você recebe:</strong> O link seguro para download do PDF (com validade de 30 dias) é enviado automaticamente para o seu e-mail de cadastro assim que o primeiro pagamento da sua assinatura for confirmado pelo sistema.
                 </p>
               </div>
 
               <Link
                 href={`/checkout?plan=${selectedPlan.key === "start" ? "flow" : selectedPlan.key}&cycle=${billingCycle}`}
-                className="shrink-0 inline-flex items-center justify-center rounded-xl bg-teal-600 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-teal-700 transition"
+                className="k-btn k-btn-p shrink-0"
+                style={{ minHeight: 44, fontSize: 14, padding: "0 20px" }}
               >
-                Assinar plano {selectedPlan.key === "start" ? "Flow" : selectedMeta.name} e garantir o Kit →
+                Assinar plano {selectedPlan.key === "start" ? "Flow" : selectedMeta.name} e garantir o Kit
+                <ArrowIcon size={16} />
               </Link>
             </div>
           </div>
