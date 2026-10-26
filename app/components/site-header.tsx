@@ -10,6 +10,7 @@ type SiteHeaderProps = {
 const navItems = [
   { href: "/#funcionalidades", label: "Funcionalidades" },
   { href: "/#ia", label: "IA" },
+  { href: "/#como-funciona", label: "Como funciona" },
   { href: "/#planos", label: "Planos" },
   { href: "/#faq", label: "FAQ" },
   { href: "/blog", label: "Blog" },

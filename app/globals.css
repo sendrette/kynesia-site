@@ -399,3 +399,175 @@ html {
 }
 .kyn-article details[open] > summary::after { transform: rotate(45deg); }
 .kyn-article details > p { padding-bottom: 22px; }
+
+/* ---------- Seção "Como funciona" ---------- */
+.k-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 34px);
+  border-radius: 40px;
+  border: 1px solid #d5e7e1;
+  background: linear-gradient(160deg, #dcebe6, #eaf3f0);
+  box-shadow: 0 40px 80px rgba(22, 54, 58, 0.14), 0 6px 16px rgba(22, 54, 58, 0.06);
+}
+.k-phone {
+  position: relative;
+  display: block;
+  width: min(100%, 380px);
+  aspect-ratio: 2 / 3;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+.k-layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(26px) scale(0.97);
+  transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+.k-layer.on {
+  opacity: 1;
+  transform: none;
+}
+.k-layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 40px rgba(22, 54, 58, 0.22));
+}
+.k-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(22, 54, 58, 0.88);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  transform: translateX(-50%);
+  animation: k-pulse 2.4s ease-in-out infinite;
+}
+@keyframes k-pulse {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+.k-step {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  border: 1.5px solid var(--k-line);
+  border-radius: 22px;
+  background: #fff;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.k-step:hover {
+  border-color: var(--k-sage);
+}
+.k-step-n {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--k-mist);
+  color: var(--k-brand);
+  font-size: 14px;
+  font-weight: 800;
+  transition: background 0.2s, color 0.2s;
+}
+.k-step.on {
+  padding-top: 18px;
+  padding-bottom: 20px;
+  border-color: var(--k-brand);
+  box-shadow: 0 18px 40px rgba(22, 54, 58, 0.1);
+}
+.k-step.on .k-step-n {
+  background: var(--k-brand);
+  color: #fff;
+}
+.k-step-body {
+  display: block;
+  margin-top: 12px;
+  padding-left: 48px;
+}
+.k-step-body > * {
+  animation: k-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.k-step-body > *:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.k-ctl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid #c6ddd6;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--k-brand);
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.k-ctl:hover {
+  border-color: var(--k-brand);
+}
+.k-ctl-main {
+  border-color: var(--k-brand);
+  background: var(--k-brand);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(42, 97, 104, 0.28);
+}
+.k-ctl-main:hover {
+  background: var(--k-brand-hover);
+}
+.k-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.k-dots i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #c6ddd6;
+  transition: width 0.3s, background 0.3s;
+}
+.k-dots i.on {
+  width: 26px;
+  background: var(--k-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-layer {
+    transition: none;
+    transform: none;
+  }
+  .k-hint,
+  .k-step-body > * {
+    animation: none !important;
+  }
+}

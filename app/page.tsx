@@ -5,6 +5,7 @@ import Reveal from "./components/reveal";
 import HomePricingSection from "./components/home-pricing-section";
 import SiteHeader from "./components/site-header";
 import SiteFooter from "./components/site-footer";
+import ComoFunciona from "./components/como-funciona";
 import { ArrowIcon, CheckIcon, GiftIcon, PathIcon, PlusIcon } from "./components/icons";
 
 export const metadata: Metadata = {
@@ -499,6 +500,8 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      <ComoFunciona />
 
       <HomePricingSection />
 
