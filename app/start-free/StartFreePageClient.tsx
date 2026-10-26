@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import SiteHeader from "../components/site-header";
+import SiteFooter from "../components/site-footer";
+import { ArrowIcon, GiftIcon } from "../components/icons";
+
+const WHATSAPP_HREF =
+  "https://wa.me/5512996304111?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20Kynesia";
 
 type Profession = "" | "Fisioterapeuta" | "Estudante";
 
@@ -82,100 +89,145 @@ export default function StartFreePageClient() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-teal-50 to-blue-50">
+    <main className="k-page">
       <SiteHeader />
 
-      <div className="mx-auto w-full max-w-5xl px-6 py-10">
-        <section className="mx-auto w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-7 shadow-[0_18px_48px_-28px_rgba(15,23,42,0.35)] md:p-9">
-          <h1 className="text-3xl font-bold leading-tight text-[#122a5a] md:text-4xl">
-            5 dias grátis no Kynesia
-          </h1>
-          <p className="mt-3 text-slate-600">
-            Cadastre-se para começar. Você não será cobrado durante os 5 dias. 
-            Após o período de teste, será cobrado o valor do plano Flow caso você não cancele.
-          </p>
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "radial-gradient(900px 520px at 88% 8%, #dcebe6 0%, rgba(246,250,248,0) 70%)" }}
+      >
+        <Image
+          src="/brand/kynesia-simbolo.svg"
+          alt=""
+          aria-hidden="true"
+          width={1010}
+          height={821}
+          className="pointer-events-none absolute"
+          style={{ right: -140, top: 30, width: "min(70vmin, 640px)", height: "auto", opacity: 0.07 }}
+        />
+        <div className="k-wrap relative flex flex-wrap items-center gap-x-14 gap-y-10 pb-24 pt-14">
+          <div className="k-hin min-w-0" style={{ flex: "1 1 420px" }}>
+            <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-bold text-brand no-underline hover:underline">
+              ← Voltar para o início
+            </Link>
+            <h1 className="mt-[18px] text-[clamp(34px,4.6vw,56px)] font-extrabold leading-[1.06] tracking-[-0.03em] text-deep">
+              5 dias grátis no Kynesia
+            </h1>
+            <p className="mt-5 max-w-[34rem] text-[17.5px] leading-[1.65] text-muted">
+              Cadastre-se para começar. Você não será cobrado durante os 5 dias. Após o período de teste, será cobrado o valor do plano Flow caso você não cancele.
+            </p>
 
-          <div className="mt-5 rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 p-4 shadow-xs">
-            <div className="flex items-start gap-2.5">
-              <span className="text-xl leading-none">🎁</span>
+            <div
+              className="mt-8 flex max-w-[520px] items-start gap-3.5 rounded-[20px] border bg-white p-[18px]"
+              style={{ borderColor: "#d5e7e1", boxShadow: "0 10px 30px rgba(22,54,58,.06)" }}
+            >
+              <span className="flex h-[46px] w-[46px] flex-none items-center justify-center rounded-[14px] bg-brand">
+                <GiftIcon size={24} stroke="#fff" />
+              </span>
               <div>
-                <p className="text-xs sm:text-sm font-bold text-teal-950 leading-snug">
+                <p className="text-[17px] font-extrabold leading-[1.35] text-deep">
                   Assine o Kynesia e receba gratuitamente um kit de avaliação de 23 páginas no seu e-mail!
                 </p>
-                <p className="mt-1 text-xs text-slate-600">
+                <p className="mt-1.5 text-[15px] leading-[1.6] text-muted">
                   9 instrumentos clínicos ortopédicos completos em PDF com cálculo de escore e tabelas de evolução.
                 </p>
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-7 space-y-4">
-            <input
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Nome"
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
-            />
-
-            <input
-              required
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
-            />
-
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="WhatsApp (opcional)"
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
-            />
-
-            <select
-              value={profession}
-              onChange={(e) => setProfession(e.target.value as Profession)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-teal-500"
+          <div className="min-w-0" style={{ flex: "1 1 400px", maxWidth: 520 }}>
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-[28px] border bg-white"
+              style={{ borderColor: "#ddeae6", padding: "clamp(26px,3.4vw,40px)", boxShadow: "0 40px 80px rgba(22,54,58,.14), 0 6px 16px rgba(22,54,58,.06)" }}
             >
-              <option value="">Profissão (opcional)</option>
-              <option value="Fisioterapeuta">Fisioterapeuta</option>
-              <option value="Estudante">Estudante</option>
-            </select>
+              <h2 className="text-[22px] font-extrabold text-deep">Crie sua conta gratuita</h2>
+              <p className="mt-1.5 text-[15px] leading-normal text-muted">Leva menos de um minuto.</p>
 
-            <label className="flex items-center gap-2 text-sm text-slate-600">
-              <input
-                type="checkbox"
-                checked={wantsContent}
-                onChange={(e) => setWantsContent(e.target.checked)}
-                className="h-4 w-4 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
-              />
-              Quero receber conteúdos e novidades
-            </label>
+              <div className="mt-6 space-y-4">
+                <input
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Nome"
+                  aria-label="Nome"
+                  autoComplete="name"
+                  className="k-input"
+                />
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-6 py-3 text-base font-semibold text-white transition hover:-translate-y-0.5 hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {loading ? (
-                <>
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Processando...
-                </>
-              ) : (
-                "Continuar gratuitamente"
-              )}
-            </button>
+                <input
+                  required
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  aria-label="Email"
+                  autoComplete="email"
+                  className="k-input"
+                />
 
-            <div className="min-h-6 pt-1 text-sm">
-              {error ? <p className="text-red-600">{error}</p> : null}
-              {successMessage ? <p className="text-teal-700">{successMessage}</p> : null}
-            </div>
-          </form>
-        </section>
-      </div>
+                <input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="WhatsApp (opcional)"
+                  aria-label="WhatsApp (opcional)"
+                  autoComplete="tel"
+                  className="k-input"
+                />
+
+                <select
+                  value={profession}
+                  onChange={(e) => setProfession(e.target.value as Profession)}
+                  aria-label="Profissão (opcional)"
+                  className="k-input"
+                >
+                  <option value="">Profissão (opcional)</option>
+                  <option value="Fisioterapeuta">Fisioterapeuta</option>
+                  <option value="Estudante">Estudante</option>
+                </select>
+
+                <label className="flex items-center gap-3 text-[15px] text-ink">
+                  <input
+                    type="checkbox"
+                    checked={wantsContent}
+                    onChange={(e) => setWantsContent(e.target.checked)}
+                    className="h-5 w-5 flex-none accent-[#2a6168]"
+                  />
+                  Quero receber conteúdos e novidades
+                </label>
+
+                <button type="submit" disabled={loading} className="k-btn k-btn-p w-full" style={{ marginTop: 8 }}>
+                  {loading ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      Processando...
+                    </>
+                  ) : (
+                    <>
+                      Continuar gratuitamente
+                      <ArrowIcon size={18} />
+                    </>
+                  )}
+                </button>
+
+                <div className="min-h-6 text-sm" role="status" aria-live="polite">
+                  {error ? <p className="font-semibold text-red-700">{error}</p> : null}
+                  {successMessage ? <p className="font-semibold text-brand">{successMessage}</p> : null}
+                </div>
+              </div>
+
+              <div className="mt-2 border-t pt-5 text-center text-[14.5px] text-muted" style={{ borderColor: "#e7f0ed" }}>
+                Ficou com dúvida?{" "}
+                <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer" className="font-extrabold text-brand underline">
+                  Fale com a gente no WhatsApp
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }

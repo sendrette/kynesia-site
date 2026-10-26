@@ -286,3 +286,28 @@ html {
     transform: none;
   }
 }
+
+/* ---------- Forms ---------- */
+.k-input {
+  width: 100%;
+  min-height: 52px;
+  box-sizing: border-box;
+  padding: 0 18px;
+  border-radius: 16px;
+  border: 1.5px solid #c6ddd6;
+  background: #fff;
+  color: var(--k-ink);
+  font-family: inherit;
+  font-size: 16px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.k-input::placeholder {
+  color: #5d767b;
+}
+.k-input:hover {
+  border-color: var(--k-sage);
+}
+.k-input:focus {
+  border-color: var(--k-brand);
+  box-shadow: 0 0 0 3px rgba(42, 97, 104, 0.18);
+}
