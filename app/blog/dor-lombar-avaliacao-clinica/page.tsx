@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
@@ -18,8 +19,8 @@ export const metadata: Metadata = {
 
 export default function DorLombarPage() {
   return (
-    <main className="bg-white text-gray-900">
-      <SiteHeader />
+    <main className="k-page kyn-article">
+      <SiteHeader showProgress />
 
       <div className="bg-slate-50 px-6 py-4 text-sm text-gray-600">
         <div className="mx-auto max-w-6xl">
@@ -271,22 +272,7 @@ export default function DorLombarPage() {
 
       </article>
 
-      <footer className="border-t border-gray-200 px-6 py-8 mt-16">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center text-sm text-gray-600">
-          <p>© {new Date().getFullYear()} Kynesia. Todos os direitos reservados.</p>
-          <div className="flex gap-5">
-            <Link href="#" className="hover:text-gray-900">
-              Termos
-            </Link>
-            <Link href="#" className="hover:text-gray-900">
-              Privacidade
-            </Link>
-            <Link href="/#contato" className="hover:text-gray-900">
-              Contato
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

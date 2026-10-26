@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
@@ -38,10 +39,10 @@ const articleLdJson = {
 
 export default function MarketingParaFisioterapeutaPage() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="k-page kyn-article">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLdJson) }} />
 
-      <SiteHeader />
+      <SiteHeader showProgress />
 
       <div className="bg-slate-50 px-6 py-4 text-sm text-gray-600">
         <div className="mx-auto max-w-6xl">
@@ -216,6 +217,7 @@ export default function MarketingParaFisioterapeutaPage() {
           </p>
         </div>
       </article>
+      <SiteFooter />
     </main>
   );
 }

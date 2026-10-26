@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/dor-lombar-ao-acordar-causas-e-como-aliviar-rapido";
@@ -83,8 +84,8 @@ export const metadata: Metadata = {
 
 export default function DorLombarAoAcordarPage() {
   return (
-    <main className="bg-white text-gray-900">
-      <SiteHeader />
+    <main className="k-page kyn-article">
+      <SiteHeader showProgress />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -283,22 +284,7 @@ export default function DorLombarAoAcordarPage() {
         </div>
       </article>
 
-      <footer className="mt-16 border-t border-gray-200 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center text-sm text-gray-600">
-          <p>© {new Date().getFullYear()} Kynesia. Todos os direitos reservados.</p>
-          <div className="flex gap-5">
-            <Link href="#" className="hover:text-gray-900">
-              Termos
-            </Link>
-            <Link href="#" className="hover:text-gray-900">
-              Privacidade
-            </Link>
-            <Link href="/#contato" className="hover:text-gray-900">
-              Contato
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

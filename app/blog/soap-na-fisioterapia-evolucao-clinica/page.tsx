@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/soap-na-fisioterapia-evolucao-clinica";
@@ -81,8 +82,8 @@ export const metadata: Metadata = {
 
 export default function SOAPNaFisioterapiaPage() {
   return (
-    <main className="bg-white text-gray-900 animate-fadeIn">
-      <SiteHeader />
+    <main className="k-page kyn-article">
+      <SiteHeader showProgress />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -352,6 +353,7 @@ export default function SOAPNaFisioterapiaPage() {
       <PatientCTA />
 
       </article>
+      <SiteFooter />
     </main>
   );
 }

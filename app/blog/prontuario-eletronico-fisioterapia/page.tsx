@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/prontuario-eletronico-fisioterapia";
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 
 export default function ProntuarioEletronicoPage() {
   return (
-    <main className="bg-white text-gray-900">
-      <SiteHeader />
+    <main className="k-page kyn-article">
+      <SiteHeader showProgress />
 
       <header className="bg-gradient-to-b from-teal-50 via-blue-50 to-white px-6 py-16">
         <div className="mx-auto max-w-2xl">
@@ -72,6 +73,7 @@ export default function ProntuarioEletronicoPage() {
           </div>
         </div>
       </article>
+      <SiteFooter />
     </main>
   );
 }

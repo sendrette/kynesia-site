@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import ReadingProgress from "./reading-progress";
 
 type SiteHeaderProps = {
   showCta?: boolean;
+  showProgress?: boolean;
 };
 
 const navItems = [
@@ -14,7 +16,7 @@ const navItems = [
   { href: "/#contato", label: "Contato" },
 ];
 
-export default function SiteHeader({ showCta = true }: SiteHeaderProps) {
+export default function SiteHeader({ showCta = true, showProgress = false }: SiteHeaderProps) {
   return (
     <header className="k-hdr">
       <div className="k-wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-3 py-4 md:gap-x-8">
@@ -43,6 +45,7 @@ export default function SiteHeader({ showCta = true }: SiteHeaderProps) {
           </Link>
         ) : null}
       </div>
+      {showProgress ? <ReadingProgress /> : null}
     </header>
   );
 }

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "@/app/components/site-header";
+import SiteFooter from "@/app/components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl =
@@ -82,8 +83,8 @@ const faqSchema = {
 
 export default function DorOmbroBracoPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <SiteHeader />
+    <div className="k-page kyn-article min-h-screen">
+      <SiteHeader showProgress />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
@@ -430,6 +431,7 @@ export default function DorOmbroBracoPage() {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 }

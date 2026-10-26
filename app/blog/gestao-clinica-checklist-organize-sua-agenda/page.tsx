@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 export const metadata: Metadata = {
@@ -37,10 +38,10 @@ const articleLdJson = {
 
 export default function GestaoClinicaChecklistPage() {
   return (
-    <main className="bg-white text-gray-900">
+    <main className="k-page kyn-article">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLdJson) }} />
 
-      <SiteHeader />
+      <SiteHeader showProgress />
 
       <div className="bg-slate-50 px-6 py-4 text-sm text-gray-600">
         <div className="mx-auto max-w-6xl">
@@ -135,6 +136,7 @@ export default function GestaoClinicaChecklistPage() {
           <p className="text-gray-700">Conteúdo produzido pela Equipe Kynesia com foco em gestão clínica. Use este checklist para melhorar organização, reduzir faltas e aumentar a previsibilidade da sua rotina.</p>
         </div>
       </article>
+      <SiteFooter />
     </main>
   );
 }

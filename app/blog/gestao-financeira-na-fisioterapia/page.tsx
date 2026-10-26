@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteHeader from "../../components/site-header";
+import SiteFooter from "../../components/site-footer";
 import PatientCTA from "../../components/PatientCTA";
 
 const pageUrl = "https://kynesia.com.br/blog/gestao-financeira-na-fisioterapia";
@@ -68,8 +69,8 @@ export const metadata: Metadata = {
 
 export default function GestaoFinanceiraFisioterapiaPage() {
   return (
-    <main className="bg-white text-gray-900">
-      <SiteHeader />
+    <main className="k-page kyn-article">
+      <SiteHeader showProgress />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div className="bg-slate-50 px-6 py-4 text-sm text-gray-600"><div className="mx-auto max-w-2xl"><Link href="/blog" className="text-teal-600 hover:underline">Blog</Link>{" / "}<span className="font-medium text-teal-600">Gestão financeira na fisioterapia</span></div></div>
@@ -102,6 +103,7 @@ export default function GestaoFinanceiraFisioterapiaPage() {
       <PatientCTA />
 
       </article>
+      <SiteFooter />
     </main>
   );
 }
