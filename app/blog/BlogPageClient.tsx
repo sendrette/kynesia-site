@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import SiteHeader from "../components/site-header";
+import SiteFooter from "../components/site-footer";
+import Reveal from "../components/reveal";
+import { ArrowIcon } from "../components/icons";
 
 type BlogPost = {
   id: string;
@@ -1000,148 +1003,198 @@ export default function BlogPageClient() {
   }, [currentPage, totalPages]);
 
   return (
-    <main className="bg-white text-gray-900">
+    <main className="k-page">
       <SiteHeader />
 
-      <section className="relative overflow-hidden px-6 py-20 md:py-24">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-white via-teal-50 to-blue-50" />
-        <div className="pointer-events-none absolute -left-10 top-10 -z-10 h-56 w-56 rounded-full bg-teal-300/35 blur-3xl" />
-        <div className="pointer-events-none absolute -right-10 top-16 -z-10 h-64 w-64 rounded-full bg-sky-300/35 blur-3xl" />
-
-        <div className="mx-auto max-w-5xl text-center">
-          <h1 className="text-4xl font-bold leading-tight text-[#122a5a] md:text-6xl">
-            Conteúdo clínico para fisioterapeutas que buscam excelência
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "radial-gradient(900px 480px at 50% 0%, #dcebe6 0%, rgba(246,250,248,0) 70%)" }}
+      >
+        <Image
+          src="/brand/kynesia-simbolo.svg"
+          alt=""
+          aria-hidden="true"
+          width={1010}
+          height={821}
+          className="pointer-events-none absolute"
+          style={{ right: -120, top: -20, width: 520, height: "auto", opacity: 0.06 }}
+        />
+        <div className="k-wrap k-hin relative pb-10 pt-14 text-center" style={{ maxWidth: 900 }}>
+          <span
+            className="inline-block rounded-full border bg-white px-4 py-[7px] text-sm font-bold text-brand"
+            style={{ borderColor: "#d5e7e1" }}
+          >
+            Blog Kynesia
+          </span>
+          <h1 className="mt-[22px] text-[clamp(34px,4.8vw,58px)] font-extrabold leading-[1.05] tracking-[-0.03em] text-deep">
+            Conteúdo clínico para fisioterapeutas que buscam <span className="text-brand">excelência</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-lg text-gray-600 md:text-xl">
+          <p className="mx-auto mt-5 max-w-[640px] text-lg leading-[1.65] text-muted">
             Artigos sobre avaliação, diagnóstico, reabilitação e gestão clínica baseados na prática real da fisioterapia.
           </p>
 
-          <div className="mx-auto mt-10 max-w-2xl">
-            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="h-5 w-5 text-slate-400"
-                aria-hidden
-              >
+          <div className="mx-auto mt-9 max-w-2xl">
+            <label
+              className="flex items-center gap-3 rounded-full border bg-white px-5 py-1 focus-within:border-brand"
+              style={{ borderColor: "#c6ddd6", boxShadow: "0 10px 30px rgba(22,54,58,.06)" }}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="#46646a" strokeWidth="2" strokeLinecap="round" className="h-5 w-5 flex-none" aria-hidden>
                 <circle cx="11" cy="11" r="7" />
                 <path d="M20 20l-3.5-3.5" />
               </svg>
+              <span className="sr-only">Buscar artigos</span>
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Buscar por patologia, teste ou conduta clínica..."
-                className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+                className="min-h-[48px] w-full bg-transparent text-base text-ink outline-none placeholder:text-[#5d767b]"
               />
-            </div>
+            </label>
+          </div>
+
+          <div role="group" aria-label="Filtrar por categoria" className="mt-8 flex flex-wrap justify-center gap-2.5">
+            {allCategories.map((category) => {
+              const active = activeCategory === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setActiveCategory(category)}
+                  className="k-btn"
+                  style={{
+                    minHeight: 44,
+                    padding: "0 20px",
+                    fontSize: 15,
+                    background: active ? "var(--k-brand)" : "#fff",
+                    color: active ? "#fff" : "var(--k-brand)",
+                    border: active ? "1.5px solid var(--k-brand)" : "1.5px solid #c6ddd6",
+                  }}
+                >
+                  {category}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="px-6 pb-6">
-        <div className="mx-auto flex max-w-6xl flex-wrap gap-2">
-          {allCategories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setActiveCategory(category)}
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-                activeCategory === category
-                  ? "border-teal-600 bg-teal-600 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-teal-400 hover:text-teal-700"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+      <section style={{ padding: "24px 0 24px" }}>
+        <div className="k-wrap">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,330px),1fr))] gap-6">
+            {paginatedPosts.map((post, index) => (
+              <Reveal key={post.id} delay={(index % 3) * 80} className="h-full">
+                <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white transition duration-200 hover:-translate-y-1.5 hover:shadow-[0_18px_40px_rgba(22,54,58,.10)] motion-reduce:hover:translate-y-0">
+                  <div className="relative h-[210px] overflow-hidden bg-mist-2">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      width={1200}
+                      height={630}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06] motion-reduce:group-hover:scale-100"
+                    />
+                    <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3.5 py-1.5 text-[12.5px] font-extrabold text-brand">
+                      {post.category}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col px-[26px] pb-[26px] pt-6">
+                    <h2 className="text-xl font-extrabold leading-[1.3] tracking-[-0.01em] text-deep">{post.title}</h2>
+                    <p className="mt-3 flex-1 text-[15px] leading-[1.6] text-muted">{post.excerpt}</p>
+                    <div className="mt-[22px] flex flex-wrap items-center justify-between gap-3 border-t pt-[18px]" style={{ borderColor: "#e7f0ed" }}>
+                      <span className="text-[13.5px] font-semibold text-muted">
+                        {post.date} · {post.readTime} de leitura
+                      </span>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="inline-flex items-center gap-1.5 text-[14.5px] font-extrabold text-brand after:absolute after:inset-0 after:content-['']"
+                      >
+                        Ler artigo
+                        <span className="sr-only">: {post.title}</span>
+                        <ArrowIcon size={16} />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          {filteredPosts.length === 0 ? (
+            <div className="rounded-3xl border-[1.5px] border-dashed bg-white px-6 py-16 text-center" style={{ borderColor: "#c6ddd6" }}>
+              <p className="text-xl font-extrabold text-deep">Nenhum artigo encontrado para sua busca.</p>
+            </div>
+          ) : null}
+
+          {filteredPosts.length > 0 && totalPages > 1 ? (
+            <nav aria-label="Paginação" className="mt-12 flex flex-wrap items-center justify-center gap-4">
+              {currentPage > 1 ? (
+                <button type="button" onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} className="k-btn k-btn-g">
+                  Página anterior
+                </button>
+              ) : null}
+
+              <span className="text-[15px] font-bold text-muted">
+                Página {currentPage} de {totalPages}
+              </span>
+
+              {currentPage < totalPages ? (
+                <button type="button" onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))} className="k-btn k-btn-g">
+                  Próxima página
+                  <ArrowIcon size={18} />
+                </button>
+              ) : null}
+            </nav>
+          ) : null}
         </div>
       </section>
 
-      <section className="px-6 pb-24 pt-6">
-        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {paginatedPosts.map((post) => (
-            <article
-              key={post.id}
-              className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+      <section style={{ padding: "72px 0 96px" }}>
+        <div className="k-wrap">
+          <Reveal>
+            <div
+              className="relative flex flex-wrap items-center justify-between gap-x-10 gap-y-6 overflow-hidden rounded-[32px] text-white"
+              style={{ background: "linear-gradient(135deg,#16363a 0%,#2a6168 100%)", padding: "clamp(32px,5vw,56px)" }}
             >
               <Image
-                src={post.image}
-                alt={post.title}
-                width={1200}
-                height={630}
-                className="h-48 w-full object-cover"
+                src="/brand/kynesia-simbolo.svg"
+                alt=""
+                aria-hidden="true"
+                width={1010}
+                height={821}
+                className="pointer-events-none absolute"
+                style={{ right: -60, top: -60, width: 320, height: "auto", opacity: 0.08 }}
               />
-
-              <div className="p-6">
-                <p className="inline-flex rounded-full bg-teal-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-teal-700">
-                  {post.category}
+              <div className="relative min-w-0" style={{ flex: "1 1 420px" }}>
+                <h2 className="text-[clamp(26px,3vw,36px)] font-extrabold leading-[1.15] tracking-[-0.02em]">
+                  Quer saber mais sobre os planos?
+                </h2>
+                <p className="mt-3 text-[17px] leading-[1.6]" style={{ color: "#d6ebe5" }}>
+                  Fale com a gente pelo WhatsApp e tire suas dúvidas.
                 </p>
-                <h2 className="mt-4 text-xl font-semibold leading-snug text-slate-900">{post.title}</h2>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600">{post.excerpt}</p>
-
-                <div className="mt-5 flex items-center justify-between text-xs text-slate-500">
-                  <span>{post.date}</span>
-                  <span>{post.readTime} de leitura</span>
-                </div>
-
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="mt-6 inline-flex rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-800 transition group-hover:border-teal-500 group-hover:text-teal-700"
+              </div>
+              <div className="relative flex flex-wrap gap-3">
+                <a
+                  className="k-btn k-btn-l k-on-dark"
+                  href="https://wa.me/5512996304111?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20Kynesia"
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  Ler artigo
+                  Chamar no WhatsApp
+                </a>
+                <Link
+                  href="/planos"
+                  className="k-btn k-on-dark"
+                  style={{ background: "transparent", color: "#fff", border: "1.5px solid rgba(255,255,255,.5)" }}
+                >
+                  Ver planos
                 </Link>
               </div>
-            </article>
-          ))}
+            </div>
+          </Reveal>
         </div>
-
-        {filteredPosts.length === 0 ? (
-          <div className="mx-auto mt-10 max-w-6xl rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500">
-            Nenhum artigo encontrado para sua busca.
-          </div>
-        ) : null}
-
-        {filteredPosts.length > 0 && totalPages > 1 ? (
-          <div className="mx-auto mt-10 flex max-w-6xl items-center justify-center gap-3">
-            {currentPage > 1 ? (
-              <button
-                type="button"
-                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                className="inline-flex rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700"
-              >
-                Página anterior
-              </button>
-            ) : null}
-
-            <span className="text-sm text-slate-500">
-              Página {currentPage} de {totalPages}
-            </span>
-
-            {currentPage < totalPages ? (
-              <button
-                type="button"
-                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-                className="inline-flex rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700"
-              >
-                Próxima página
-              </button>
-            ) : null}
-          </div>
-        ) : null}
       </section>
 
-      <footer className="border-t border-gray-200 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-4 text-center text-sm text-gray-600">
-          <p>© {new Date().getFullYear()} Kynesia. Todos os direitos reservados.</p>
-          <div className="flex gap-5">
-            <a href="#" className="hover:text-gray-900">Termos</a>
-            <a href="#" className="hover:text-gray-900">Privacidade</a>
-            <Link href="/#contato" className="hover:text-gray-900">Contato</Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
