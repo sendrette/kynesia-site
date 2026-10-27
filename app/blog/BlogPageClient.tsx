@@ -21,6 +21,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "85",
+    slug: "como-usar-o-kynesia-guia-completo-fisioterapeutas",
+    title: "Como Usar o Kynesia: Guia Completo para Fisioterapeutas",
+    excerpt:
+      "Aprenda a organizar sua clínica, utilizar a inteligência artificial baseada em evidências, documentar evoluções e acompanhar seus pacientes em uma única plataforma.",
+    category: "Gestão Clínica",
+    image: "/blog/como-usar-o-kynesia-guia-completo-fisioterapeutas.png",
+    readTime: "18 min",
+    date: "27 Out 2026",
+  },
+  {
     id: "84",
     slug: "dor-na-coluna-mitos-crencas-o-que-fazer",
     title: "Dor na Coluna: Mitos, Crenças e o Que Você Pode Fazer",
