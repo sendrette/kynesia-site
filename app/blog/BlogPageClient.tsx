@@ -21,6 +21,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "86",
+    slug: "teste-de-slump-avaliacao-dor-lombar",
+    title: "Teste de Slump: Como Realizar, Interpretar e Aplicar na Avaliação da Dor Lombar",
+    excerpt:
+      "Aprenda a executar o teste neurodinâmico, interpretar a reprodução dos sintomas, realizar a diferenciação estrutural e compreender a precisão diagnóstica na dor radicular lombar.",
+    category: "Avaliação",
+    image: "/blog/teste-de-slump-avaliacao-dor-lombar.jpg",
+    readTime: "16 min",
+    date: "09 Nov 2026",
+  },
+  {
     id: "85",
     slug: "como-usar-o-kynesia-guia-completo-fisioterapeutas",
     title: "Como Usar o Kynesia: Guia Completo para Fisioterapeutas",
