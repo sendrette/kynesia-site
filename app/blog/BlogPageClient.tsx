@@ -21,6 +21,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "87",
+    slug: "guia-completo-funcionalidades-kynesia-app-fisioterapia",
+    title: "Funcionalidades do Kynesia: Guia Completo do App de Gestão para Fisioterapia",
+    excerpt:
+      "Aprenda a utilizar todas as ferramentas e funcionalidades do Kynesia: tutorial tela por tela de agenda inteligente, anamnese guiada, suporte de IA, área do paciente e financeiro.",
+    category: "Gestão Clínica",
+    image: "/blog/guia-funcionalidades-kynesia.jpg",
+    readTime: "19 min",
+    date: "14 Nov 2026",
+  },
+  {
     id: "86",
     slug: "teste-de-slump-avaliacao-dor-lombar",
     title: "Teste de Slump: Como Realizar, Interpretar e Aplicar na Avaliação da Dor Lombar",
