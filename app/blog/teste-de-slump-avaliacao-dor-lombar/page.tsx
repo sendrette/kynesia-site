@@ -139,7 +139,7 @@ export default function TesteDeSlumpPage() {
 
         {/* Featured Snippet: Resposta Rápida */}
         <div className="mb-8 rounded-2xl border-2 border-teal-500 bg-white p-6">
-          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-600">Resposta Rápida</h2>
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-teal-600"></h2>
           <p className="text-gray-900 font-medium leading-relaxed">
             O <strong>Teste de Slump</strong> é a manobra neurodinâmica mais sensível para avaliar a mecanossensibilidade anormal do trato neural lombossacral e das raízes nervosas espinhais. Executado com o paciente sentado em flexão progressiva de tronco, cervical, joelho e tornozelo, o teste só é considerado <strong>positivo</strong> quando reproduz os sintomas concordantes do paciente e esses sintomas são comprovadamente modulados à distância pela diferenciação estrutural (por exemplo, estendendo a coluna cervical).
           </p>
