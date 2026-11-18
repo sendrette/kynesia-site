@@ -21,6 +21,17 @@ type BlogPost = {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "88",
+    slug: "tratamento-dor-lombar-nao-especifica-evidencias",
+    title: "Dor Lombar Não Específica: Como Tratar Segundo as Evidências?",
+    excerpt:
+      "O que a ciência atual mostra sobre exercícios terapêuticos, educação em dor, terapia manual e estratégias para recuperar a função e reduzir a incapacidade.",
+    category: "Dor",
+    image: "/blog/tratamento-dor-lombar-nao-especifica-evidencias.jpg",
+    readTime: "17 min",
+    date: "18 Nov 2026",
+  },
+  {
     id: "87",
     slug: "guia-completo-funcionalidades-kynesia-app-fisioterapia",
     title: "Funcionalidades do Kynesia: Guia Completo do App de Gestão para Fisioterapia",
